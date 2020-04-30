@@ -49,4 +49,11 @@ public class SpiderItemJobServiceImpl implements SpiderItemJobService {
         List<SpiderItemJob> spiderItemJobs = spiderItemJobMapper.selectByExample(example);
         return TransSpiderItemJob.transformToListVO(spiderItemJobs);
     }
+
+    @Override
+    public SpiderItemJob selectByJobId(String jobId) {
+        Example example = new Example(SpiderItemJob.class);
+        example.createCriteria().andEqualTo("jobId", jobId);
+        return spiderItemJobMapper.selectOneByExample(example);
+    }
 }

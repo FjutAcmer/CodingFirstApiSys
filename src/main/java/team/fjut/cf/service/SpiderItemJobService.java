@@ -16,4 +16,6 @@ public interface SpiderItemJobService {
     int updateById(Integer id, SpiderItemJob spiderItemJob);
 
     List<SpiderJobListVO> selectBySpiderName(String spiderName);
+
+    SpiderItemJob selectByJobId(String jobId);
 }

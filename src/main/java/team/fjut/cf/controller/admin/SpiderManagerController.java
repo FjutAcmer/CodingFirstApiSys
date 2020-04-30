@@ -77,10 +77,16 @@ public class SpiderManagerController {
         return new ResultJson(ResultCode.REQUIRED_SUCCESS, "", spiderLog);
     }
 
+    @PostMapping("/job/info")
+    public ResultJson getJobInfo(@RequestParam String jobId) {
+        SpiderItemJob spiderItemJob = spiderItemJobService.selectByJobId(jobId);
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, spiderItemJob);
+    }
+
     @GetMapping("/job/list")
     public ResultJson getJobList(@RequestParam String spiderName) {
-        List<SpiderJobListVO> spiderJobListVOS = spiderItemJobService.selectBySpiderName(spiderName);
-        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, spiderJobListVOS);
+        List<SpiderJobListVO> spiderJobListVos = spiderItemJobService.selectBySpiderName(spiderName);
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, spiderJobListVos);
     }
 
 }
