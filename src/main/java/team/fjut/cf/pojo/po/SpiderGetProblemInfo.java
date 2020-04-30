@@ -18,6 +18,7 @@ public class SpiderGetProblemInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "JDBC")
     Integer id;
     String spiderName;
+    String spiderJob;
     Date insertTime;
     String fromWebsite;
     String problemUrl;
@@ -30,4 +31,5 @@ public class SpiderGetProblemInfo {
     String problemOutput;
     String problemSampleInput;
     String problemSampleOutput;
+
 }
