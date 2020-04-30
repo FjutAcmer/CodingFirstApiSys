@@ -7,6 +7,7 @@ import lombok.Data;
  */
 @Data
 public class StartSpiderVO {
+    String username;
     String spiderName;
     String range;
 }

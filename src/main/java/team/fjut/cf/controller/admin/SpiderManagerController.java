@@ -7,12 +7,15 @@ import team.fjut.cf.component.spider.SpiderHttpClient;
 import team.fjut.cf.component.spider.SpiderParamsTool;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.SpiderItemInfo;
+import team.fjut.cf.pojo.po.SpiderItemJob;
 import team.fjut.cf.pojo.vo.ResultJson;
 import team.fjut.cf.pojo.vo.request.QuerySpiderLogVO;
 import team.fjut.cf.pojo.vo.request.StartSpiderVO;
 import team.fjut.cf.service.SpiderItemInfoService;
+import team.fjut.cf.service.SpiderItemJobService;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +31,9 @@ public class SpiderManagerController {
 
     @Resource
     SpiderItemInfoService spiderItemInfoService;
+
+    @Resource
+    SpiderItemJobService spiderItemJobService;
 
     @PostMapping("/status")
     public ResultJson getStatus() {
@@ -46,12 +52,26 @@ public class SpiderManagerController {
     public ResultJson startSpider(@RequestBody StartSpiderVO startSpiderVO) {
         String problems = SpiderParamsTool.parseRange2Problems(startSpiderVO.getRange());
         JSONObject jsonObject = spiderHttpClient.startSpider(startSpiderVO.getSpiderName(), "jobId", problems);
-        return new ResultJson(ResultCode.REQUIRED_SUCCESS, "", jsonObject);
+        SpiderItemJob spiderItemJob = new SpiderItemJob();
+        spiderItemJob.setActualStartTime(new Date());
+        spiderItemJob.setCreateUser(startSpiderVO.getUsername());
+        spiderItemJob.setForceCancel(0);
+        spiderItemJob.setCurrentStatus(0);
+        spiderItemJob.setSpiderName(startSpiderVO.getSpiderName());
+        spiderItemJob.setJobId(jsonObject.getString("jobid"));
+        spiderItemJob.setProblemRange(startSpiderVO.getRange());
+        spiderItemJobService.insert(spiderItemJob);
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, jsonObject, spiderItemJob);
     }
 
     @PostMapping("/log")
     public ResultJson getJobLog(@RequestBody QuerySpiderLogVO querySpiderLogVO) {
         String spiderLog = spiderHttpClient.getSpiderLog(querySpiderLogVO.getSpiderName(), querySpiderLogVO.getJobId());
+        SpiderItemJob spiderItemJob = new SpiderItemJob();
+        spiderItemJob.setResult(spiderLog);
+        spiderItemJobService.updateByJobId(querySpiderLogVO.getJobId(), spiderItemJob);
         return new ResultJson(ResultCode.REQUIRED_SUCCESS, "", spiderLog);
     }
+
+
 }

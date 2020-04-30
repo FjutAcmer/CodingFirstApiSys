@@ -111,6 +111,7 @@ public class SpiderHttpClient {
         try {
             logInfo = restTemplate.getForObject(currentUrl, String.class);
         } catch (HttpClientErrorException.NotFound e) {
+            log.error(null, e);
             return "日志暂未生成";
         }
         return logInfo;
