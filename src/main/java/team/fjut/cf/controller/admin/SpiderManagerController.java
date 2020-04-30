@@ -51,16 +51,19 @@ public class SpiderManagerController {
     @PostMapping("/start")
     public ResultJson startSpider(@RequestBody StartSpiderVO startSpiderVO) {
         String problems = SpiderParamsTool.parseRange2Problems(startSpiderVO.getRange());
-        JSONObject jsonObject = spiderHttpClient.startSpider(startSpiderVO.getSpiderName(), "jobId", problems);
         SpiderItemJob spiderItemJob = new SpiderItemJob();
         spiderItemJob.setActualStartTime(new Date());
         spiderItemJob.setCreateUser(startSpiderVO.getUsername());
         spiderItemJob.setForceCancel(0);
         spiderItemJob.setCurrentStatus(0);
         spiderItemJob.setSpiderName(startSpiderVO.getSpiderName());
-        spiderItemJob.setJobId(jsonObject.getString("jobid"));
         spiderItemJob.setProblemRange(startSpiderVO.getRange());
         spiderItemJobService.insert(spiderItemJob);
+        JSONObject jsonObject = spiderHttpClient.startSpider(startSpiderVO.getSpiderName(),
+                spiderItemJob.getId().toString(),
+                problems);
+        spiderItemJob.setJobId(jsonObject.getString("jobid"));
+        spiderItemJobService.updateById(spiderItemJob.getId(), spiderItemJob);
         return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, jsonObject, spiderItemJob);
     }
 

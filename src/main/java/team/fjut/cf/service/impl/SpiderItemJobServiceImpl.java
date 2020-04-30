@@ -31,4 +31,11 @@ public class SpiderItemJobServiceImpl implements SpiderItemJobService {
         example.createCriteria().andEqualTo("jobId", jobId);
         spiderItemJobMapper.updateByExampleSelective(spiderItemJob, example);
     }
+
+    @Override
+    public int updateById(Integer id, SpiderItemJob spiderItemJob) {
+        Example example = new Example(SpiderItemJob.class);
+        example.createCriteria().andEqualTo("id", id);
+        return spiderItemJobMapper.updateByExampleSelective(spiderItemJob, example);
+    }
 }
