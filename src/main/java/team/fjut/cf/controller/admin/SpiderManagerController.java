@@ -11,6 +11,7 @@ import team.fjut.cf.pojo.po.SpiderItemJob;
 import team.fjut.cf.pojo.vo.ResultJson;
 import team.fjut.cf.pojo.vo.request.QuerySpiderLogVO;
 import team.fjut.cf.pojo.vo.request.StartSpiderVO;
+import team.fjut.cf.pojo.vo.response.SpiderJobListVO;
 import team.fjut.cf.service.SpiderItemInfoService;
 import team.fjut.cf.service.SpiderItemJobService;
 
@@ -38,14 +39,14 @@ public class SpiderManagerController {
     @PostMapping("/status")
     public ResultJson getStatus() {
         JSONObject daemonStatus = spiderHttpClient.getDaemonStatus();
-        return new ResultJson(ResultCode.REQUIRED_SUCCESS, "", daemonStatus);
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, daemonStatus);
     }
 
     @PostMapping("/items")
     public ResultJson getItems(@RequestParam Integer pageNum,
                                @RequestParam Integer pageSize) {
         List<SpiderItemInfo> pages = spiderItemInfoService.pages(pageNum, pageSize);
-        return new ResultJson(ResultCode.REQUIRED_SUCCESS, "", pages);
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, pages);
     }
 
     @PostMapping("/start")
@@ -67,7 +68,7 @@ public class SpiderManagerController {
         return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, jsonObject, spiderItemJob);
     }
 
-    @PostMapping("/log")
+    @PostMapping("/log/realtime")
     public ResultJson getJobLog(@RequestBody QuerySpiderLogVO querySpiderLogVO) {
         String spiderLog = spiderHttpClient.getSpiderLog(querySpiderLogVO.getSpiderName(), querySpiderLogVO.getJobId());
         SpiderItemJob spiderItemJob = new SpiderItemJob();
@@ -76,5 +77,10 @@ public class SpiderManagerController {
         return new ResultJson(ResultCode.REQUIRED_SUCCESS, "", spiderLog);
     }
 
+    @GetMapping("/job/list")
+    public ResultJson getJobList(@RequestParam String spiderName) {
+        List<SpiderJobListVO> spiderJobListVOS = spiderItemJobService.selectBySpiderName(spiderName);
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, spiderJobListVOS);
+    }
 
 }

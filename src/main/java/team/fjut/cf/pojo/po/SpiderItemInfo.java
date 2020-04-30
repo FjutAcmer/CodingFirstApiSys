@@ -21,4 +21,6 @@ public class SpiderItemInfo {
     String targetWebsiteLogoUrl;
     String targetWebsiteName;
     Integer spiderType;
+    String antiMeasures;
+    Integer deployStatus;
 }
