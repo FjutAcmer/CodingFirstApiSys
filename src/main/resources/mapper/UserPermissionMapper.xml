@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.fjut.cf.mapper.UserPermissionMapper">
+
+    <insert id="insertAllPermissions">
+        INSERT INTO t_user_permission(username, permission_id, granter)
+        VALUES
+        <foreach collection="permissions" item="item" index="index" separator=",">
+            (#{param1},#{item.id},#{param2})
+        </foreach>
+    </insert>
+
+    <insert id="deletePermissions">
+        DELETE FROM t_user_permission
+        WHERE username = #{param1}
+        AND permission_id in
+        <foreach collection="param2" item="item" index="index" open="(" separator="," close=")">
+            #{item.permissionId}
+        </foreach>
+    </insert>
+
+    <insert id="insertPermissions">
+        INSERT INTO t_user_permission(username, permission_id, granter)
+        VALUES
+        <foreach collection="permissionIds" item="item" index="index" separator=",">
+            (#{username},#{item},#{granter})
+        </foreach>
+    </insert>
+
+</mapper>

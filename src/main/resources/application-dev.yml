@@ -8,7 +8,7 @@ spring:
     # 连接数据库的账号
     username: root
     #  连接数据库的密码
-    password: wyx
+    password: mysql
   # 邮件配置
   mail:
     host: smtp.qq.com
