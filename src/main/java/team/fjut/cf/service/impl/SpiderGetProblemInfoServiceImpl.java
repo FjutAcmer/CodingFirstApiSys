@@ -36,4 +36,9 @@ public class SpiderGetProblemInfoServiceImpl implements SpiderGetProblemInfoServ
         Example example = new Example(SpiderGetProblemInfo.class);
         return spiderGetProblemInfoMapper.selectCountByExample(example);
     }
+
+    @Override
+    public SpiderGetProblemInfo selectById(int id) {
+        return spiderGetProblemInfoMapper.selectByPrimaryKey(id);
+    }
 }

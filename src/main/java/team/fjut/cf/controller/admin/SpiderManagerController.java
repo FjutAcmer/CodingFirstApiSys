@@ -3,6 +3,7 @@ package team.fjut.cf.controller.admin;
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.HttpClientErrorException;
 import team.fjut.cf.component.spider.SpiderHttpClient;
 import team.fjut.cf.component.spider.SpiderParamsTool;
 import team.fjut.cf.pojo.enums.ResultCode;
@@ -70,7 +71,12 @@ public class SpiderManagerController {
 
     @PostMapping("/log/realtime")
     public ResultJson getJobLog(@RequestBody QuerySpiderLogVO querySpiderLogVO) {
-        String spiderLog = spiderHttpClient.getSpiderLog(querySpiderLogVO.getSpiderName(), querySpiderLogVO.getJobId());
+        String spiderLog;
+        try {
+            spiderLog = spiderHttpClient.getSpiderLog(querySpiderLogVO.getSpiderName(), querySpiderLogVO.getJobId());
+        } catch (HttpClientErrorException.NotFound e) {
+            return new ResultJson(ResultCode.REQUIRED_SUCCESS, "", "【暂未找到日志！】");
+        }
         SpiderItemJob spiderItemJob = new SpiderItemJob();
         spiderItemJob.setResult(spiderLog);
         spiderItemJobService.updateByJobId(querySpiderLogVO.getJobId(), spiderItemJob);
