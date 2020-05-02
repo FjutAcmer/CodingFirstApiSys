@@ -1,5 +1,6 @@
 package team.fjut.cf.service;
 
+import team.fjut.cf.component.textsim.pojo.ProblemInfoToSim;
 import team.fjut.cf.pojo.po.SpiderGetProblemInfo;
 import team.fjut.cf.pojo.vo.response.SpiderProblemListVO;
 
@@ -15,4 +16,6 @@ public interface SpiderGetProblemInfoService {
     int count();
 
     SpiderGetProblemInfo selectById(int id);
+
+    ProblemInfoToSim selectToSimById(int id);
 }

@@ -19,7 +19,7 @@ import java.io.InputStreamReader;
  */
 @Component
 @Slf4j
-public class TextSimExecuteClient {
+public class TextSimClient {
     @Value("${cf.config.local.simFilePath}")
     String simFilePath;
 

@@ -19,4 +19,9 @@ public class SpiderLocalizedRecordServiceImpl implements SpiderLocalizedRecordSe
     public int insert(SpiderLocalizedRecord spiderLocalizedRecord) {
         return spiderLocalizedRecordMapper.insertSelective(spiderLocalizedRecord);
     }
+
+    @Override
+    public int update(SpiderLocalizedRecord spiderLocalizedRecord) {
+        return spiderLocalizedRecordMapper.updateByPrimaryKey(spiderLocalizedRecord);
+    }
 }

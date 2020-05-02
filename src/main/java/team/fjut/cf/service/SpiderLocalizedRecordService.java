@@ -7,4 +7,6 @@ import team.fjut.cf.pojo.po.SpiderLocalizedRecord;
  */
 public interface SpiderLocalizedRecordService {
     int insert(SpiderLocalizedRecord spiderLocalizedRecord);
+
+    int update(SpiderLocalizedRecord spiderLocalizedRecord);
 }

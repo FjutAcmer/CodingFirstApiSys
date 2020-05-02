@@ -1,9 +1,12 @@
 package team.fjut.cf.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import team.fjut.cf.component.textsim.pojo.ProblemInfoToSim;
 import team.fjut.cf.mapper.ProblemInfoMapper;
+import team.fjut.cf.mapper.ProblemViewMapper;
 import team.fjut.cf.pojo.po.ProblemInfo;
+import team.fjut.cf.pojo.po.ProblemView;
 import team.fjut.cf.service.ProblemInfoService;
 import tk.mybatis.mapper.entity.Example;
 
@@ -17,6 +20,24 @@ import java.util.List;
 public class ProblemInfoServiceImpl implements ProblemInfoService {
     @Resource
     ProblemInfoMapper problemInfoMapper;
+
+    @Resource
+    ProblemViewMapper problemViewMapper;
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public ProblemInfoToSim selectInfoToSimById(Integer id) {
+        ProblemInfo problemInfo = problemInfoMapper.selectByPrimaryKey(id);
+        Example example = new Example(ProblemView.class);
+        example.createCriteria().andEqualTo("problemId", problemInfo.getProblemId());
+        ProblemView problemView = problemViewMapper.selectOneByExample(example);
+        ProblemInfoToSim problemInfoToSim = new ProblemInfoToSim();
+        problemInfoToSim.setTitle(problemInfo.getTitle());
+        problemInfoToSim.setDescription(problemView.getDescription());
+        problemInfoToSim.setInput(problemView.getInput());
+        problemInfoToSim.setOutput(problemView.getOutput());
+        return problemInfoToSim;
+    }
 
     @Override
     public ProblemInfo selectProblemInfo(Integer problemId) {
