@@ -3,6 +3,7 @@ package team.fjut.cf.service.impl;
 import com.github.pagehelper.PageHelper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import team.fjut.cf.component.textsim.pojo.ProblemInfoToSim;
 import team.fjut.cf.mapper.SpiderGetProblemInfoMapper;
 import team.fjut.cf.pojo.po.SpiderGetProblemInfo;
 import team.fjut.cf.pojo.transform.TransSpiderGetProblemInfo;
@@ -35,5 +36,22 @@ public class SpiderGetProblemInfoServiceImpl implements SpiderGetProblemInfoServ
     public int count() {
         Example example = new Example(SpiderGetProblemInfo.class);
         return spiderGetProblemInfoMapper.selectCountByExample(example);
+    }
+
+    @Override
+    public SpiderGetProblemInfo selectById(int id) {
+        return spiderGetProblemInfoMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public ProblemInfoToSim selectToSimById(int id) {
+        SpiderGetProblemInfo spiderGetProblemInfo = spiderGetProblemInfoMapper.selectByPrimaryKey(id);
+        ProblemInfoToSim problemInfoToSim = new ProblemInfoToSim();
+        problemInfoToSim.setTitle(spiderGetProblemInfo.getProblemTitle());
+        problemInfoToSim.setInput(spiderGetProblemInfo.getProblemInput());
+        problemInfoToSim.setOutput(spiderGetProblemInfo.getProblemOutput());
+        problemInfoToSim.setDescription(spiderGetProblemInfo.getProblemDescription());
+        return problemInfoToSim;
+
     }
 }

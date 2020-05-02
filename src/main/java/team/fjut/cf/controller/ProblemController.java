@@ -40,9 +40,6 @@ public class ProblemController {
     ProblemSampleService problemSampleService;
 
     @Resource
-    ProblemTagService problemTagService;
-
-    @Resource
     UserProblemSolvedService userProblemSolvedService;
 
     @Resource

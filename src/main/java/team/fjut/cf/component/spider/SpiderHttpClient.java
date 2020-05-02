@@ -7,7 +7,6 @@ import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
-import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
@@ -107,14 +106,7 @@ public class SpiderHttpClient {
 
     public String getSpiderLog(String spiderName, String jobId) {
         String currentUrl = String.format(logUrl, PROJECT_NAME, spiderName, jobId);
-        String logInfo = "";
-        try {
-            logInfo = restTemplate.getForObject(currentUrl, String.class);
-        } catch (HttpClientErrorException.NotFound e) {
-            log.error(null, e);
-            return "【暂未找到日志！】";
-        }
-        return logInfo;
+        return restTemplate.getForObject(currentUrl, String.class);
     }
 
 }
