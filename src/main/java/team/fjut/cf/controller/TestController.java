@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team.fjut.cf.component.judge.vjudge.VirtualJudgeHttpClient;
 import team.fjut.cf.component.spider.SpiderHttpClient;
+import team.fjut.cf.component.textsim.TextSimExecuteClient;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.vo.ResultJson;
 import team.fjut.cf.utils.JsonFileTool;
@@ -29,20 +30,16 @@ public class TestController {
     @Resource
     SpiderHttpClient spiderHttpClient;
 
+    @Resource
+    TextSimExecuteClient textSimExecuteClient;
+
     @GetMapping("/test")
     public ResultJson testMethod() {
-        JSONObject daemonStatus = spiderHttpClient.getDaemonStatus();
-        JSONObject listProjects = spiderHttpClient.getListProjects();
-        JSONObject listSpiders = spiderHttpClient.getListSpiders();
-        JSONObject listJobs = spiderHttpClient.getListJobs();
-        // JSONObject jsonObject = spiderHttpClient.startSpider("SpecHDU", "3000,3001,3004");
-        return new ResultJson(ResultCode.REQUIRED_SUCCESS, "",
-                daemonStatus,
-                listProjects,
-                listSpiders,
-                listJobs
-                // jsonObject
-        );
+        JSONObject jsonObject = textSimExecuteClient.executeTextSim(
+                "D://testfile/test1.txt",
+                "D://testfile/sample.txt",
+                "D://testfile/result-test1.json");
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, jsonObject);
     }
 
 

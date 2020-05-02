@@ -30,6 +30,9 @@ public class InitApplicationRunner implements CommandLineRunner {
     @Value("${cf.config.file.avatarPath}")
     String avatarPath;
 
+    @Value("${cf.config.local.simFilePath}")
+    String simFilePath;
+
     @Override
     public void run(String... args) {
         initFilePath();
@@ -40,11 +43,12 @@ public class InitApplicationRunner implements CommandLineRunner {
      */
     public void initFilePath() {
         boolean isAllCreated = true;
-        File[] files = new File[4];
+        File[] files = new File[5];
         files[0] = new File(globalPath);
         files[1] = new File(tempPath);
         files[2] = new File(picPath);
         files[3] = new File(avatarPath);
+        files[4] = new File(simFilePath);
         for (File file : files) {
             // 文件夹不存在，则创建
             if (!file.exists() && !file.isDirectory()) {
