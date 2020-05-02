@@ -18,7 +18,7 @@ public interface ProblemInfoService {
      * @param problemId
      * @return
      */
-    ProblemInfoToSim selectInfoToSimById(Integer id);
+    ProblemInfoToSim selectInfoToSimById(int problemId);
 
     /**
      * 根据题目ID查询题目基本信息

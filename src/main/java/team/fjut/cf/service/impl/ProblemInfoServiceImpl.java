@@ -26,11 +26,14 @@ public class ProblemInfoServiceImpl implements ProblemInfoService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public ProblemInfoToSim selectInfoToSimById(Integer id) {
-        ProblemInfo problemInfo = problemInfoMapper.selectByPrimaryKey(id);
-        Example example = new Example(ProblemView.class);
-        example.createCriteria().andEqualTo("problemId", problemInfo.getProblemId());
-        ProblemView problemView = problemViewMapper.selectOneByExample(example);
+    public ProblemInfoToSim selectInfoToSimById(int problemId) {
+        Example example1 = new Example(ProblemInfo.class);
+        example1.createCriteria().andEqualTo("problemId", problemId);
+        ProblemInfo problemInfo = problemInfoMapper.selectOneByExample(example1);
+
+        Example example2 = new Example(ProblemView.class);
+        example2.createCriteria().andEqualTo("problemId", problemInfo.getProblemId());
+        ProblemView problemView = problemViewMapper.selectOneByExample(example2);
         ProblemInfoToSim problemInfoToSim = new ProblemInfoToSim();
         problemInfoToSim.setTitle(problemInfo.getTitle());
         problemInfoToSim.setDescription(problemView.getDescription());
