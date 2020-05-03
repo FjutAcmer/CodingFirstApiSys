@@ -4,8 +4,10 @@ import org.springframework.stereotype.Service;
 import team.fjut.cf.mapper.SpiderLocalizedRecordMapper;
 import team.fjut.cf.pojo.po.SpiderLocalizedRecord;
 import team.fjut.cf.service.SpiderLocalizedRecordService;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * @author axiang [2020/5/2]
@@ -23,5 +25,12 @@ public class SpiderLocalizedRecordServiceImpl implements SpiderLocalizedRecordSe
     @Override
     public int update(SpiderLocalizedRecord spiderLocalizedRecord) {
         return spiderLocalizedRecordMapper.updateByPrimaryKey(spiderLocalizedRecord);
+    }
+
+    @Override
+    public List<SpiderLocalizedRecord> selectByGetProblemId(Integer spiderGetProblemId) {
+        Example example = new Example(SpiderLocalizedRecord.class);
+        example.createCriteria().andEqualTo("spiderGetProblemId", spiderGetProblemId);
+        return spiderLocalizedRecordMapper.selectByExample(example);
     }
 }
