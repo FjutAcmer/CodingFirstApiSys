@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.Resource;
 
 /**
- * 爬虫通讯类
+ * 爬虫服务器通信类
  *
  * @author axiang [2020/4/28]
  */
