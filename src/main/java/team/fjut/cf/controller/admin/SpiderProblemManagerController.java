@@ -9,6 +9,7 @@ import team.fjut.cf.pojo.po.SpiderGetProblemInfo;
 import team.fjut.cf.pojo.po.SpiderLocalizedRecord;
 import team.fjut.cf.pojo.transform.TransSpiderLocalizedRecord;
 import team.fjut.cf.pojo.vo.ResultJson;
+import team.fjut.cf.pojo.vo.request.LocalizedProblemVO;
 import team.fjut.cf.pojo.vo.response.SpiderProblemListVO;
 import team.fjut.cf.service.ProblemInfoService;
 import team.fjut.cf.service.SpiderGetProblemInfoService;
@@ -19,6 +20,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
+ * 爬取题目相关的Controller类
+ *
  * @author axiang [2020/4/30]
  */
 @RestController
@@ -81,5 +84,20 @@ public class SpiderProblemManagerController {
         spiderLocalizedRecord.setSimRecord(jsonObject.toJSONString());
         spiderLocalizedRecordService.update(spiderLocalizedRecord);
         return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, TransSpiderLocalizedRecord.transformToVo(spiderLocalizedRecord));
+    }
+
+    /**
+     * @return
+     */
+    @PostMapping("/sim/report")
+    public ResultJson SimProblem(@RequestParam Integer id) {
+        List<SpiderLocalizedRecord> spiderLocalizedRecords = spiderLocalizedRecordService.selectByGetProblemId(id);
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, TransSpiderLocalizedRecord.transformToVo(spiderLocalizedRecords));
+    }
+
+    @PostMapping("/localized")
+    public ResultJson localizedProblem(@RequestBody LocalizedProblemVO localizedProblem) {
+        boolean b = spiderGetProblemInfoService.localizedProblem(localizedProblem);
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, b);
     }
 }

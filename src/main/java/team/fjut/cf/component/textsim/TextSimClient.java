@@ -34,6 +34,8 @@ public class TextSimClient {
     private static final String pythonExecPath = "D://Anaconda3/envs/web/python.exe";
 
     /**
+     * 执行两个题目文本相似度检测
+     *
      * @param simReportId
      * @param problemInfo1
      * @param problemInfo2
@@ -48,6 +50,14 @@ public class TextSimClient {
         return executeTextSim(testFilePath, sampleFilePath, resultFilePath);
     }
 
+    /**
+     * 实际操作
+     *
+     * @param testFilePath
+     * @param sampleFilePath
+     * @param resultFilePath
+     * @return
+     */
     private JSONObject executeTextSim(String testFilePath, String sampleFilePath, String resultFilePath) {
         StringBuilder result = new StringBuilder();
         try {

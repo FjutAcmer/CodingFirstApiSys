@@ -55,11 +55,11 @@ public class ApiLogAspect {
         MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
         Method method = signature.getMethod();
         //获取参数类型
-        StringBuffer params = new StringBuffer();
+        StringBuilder params = new StringBuilder();
         Parameter[] parameters = method.getParameters();
         if (parameters != null && parameters.length > 0) {
             for (Parameter parameter : parameters) {
-                params.append("[" + parameter.getType().getName() + "]" + parameter.getName() + " ");
+                params.append("[").append(parameter.getType().getName()).append("]").append(parameter.getName()).append(" ");
             }
         }
         //返回对象
@@ -69,6 +69,7 @@ public class ApiLogAspect {
             String s = "\n===================== 进入请求 =====================\n" +
                     String.format("== 【业务发生时间】:%s\n", DateUtils.formatDate(serviceHappenDate, "yyyy-MM-dd hh:mm:ss")) +
                     String.format("== 【请求URL】:%s\n", request.getRequestURL().toString()) +
+                    String.format("== 【请求方法】:%s\n", request.getMethod()) +
                     String.format("== 【请求IP】:%s\n", IpUtils.getClientIpAddress(request)) +
                     String.format("== 【请求类】:%s\n", target) +
                     String.format("== 【调用方法】:%s\n", method.getName()) +

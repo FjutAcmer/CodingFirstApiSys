@@ -4,9 +4,17 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
+ * HTML标签工具类
+ *
  * @author axiang [2020/5/2]
  */
 public class HtmlTagUtils {
+    /**
+     * 删除HTML标签
+     *
+     * @param htmlStr
+     * @return
+     */
     public static String delHTMLTag(String htmlStr) {
         String regEx_script = "<script[^>]*?>[\\s\\S]*?<\\/script>"; //定义script的正则表达式
         String regEx_style = "<style[^>]*?>[\\s\\S]*?<\\/style>"; //定义style的正则表达式
