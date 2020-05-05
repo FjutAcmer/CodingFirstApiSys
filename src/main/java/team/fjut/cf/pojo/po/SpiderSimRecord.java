@@ -11,8 +11,8 @@ import javax.persistence.Table;
  * @author axiang [2020/5/2]
  */
 @Data
-@Table(name = "t_spider_localized_record")
-public class SpiderLocalizedRecord {
+@Table(name = "t_spider_sim_record")
+public class SpiderSimRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "JDBC")
     Integer id;
