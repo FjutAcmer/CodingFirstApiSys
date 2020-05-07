@@ -2,6 +2,7 @@ package team.fjut.cf.service;
 
 import team.fjut.cf.pojo.po.ContestInfoPO;
 import team.fjut.cf.pojo.vo.ContestListVO;
+import team.fjut.cf.pojo.vo.request.NewContestVO;
 
 import java.util.List;
 
@@ -50,11 +51,20 @@ public interface ContestInfoService {
     ContestInfoPO selectByContestId(Integer contestId);
 
     /**
+     * 查询所有比赛
+     * @author zhongml [2020/5/7]
+     *
+     * @return
+     */
+    List<ContestInfoPO> selectAll();
+
+    /**
      * 管理员新增比赛
      * @author zhongml [2020/4/23]
      *
-     * @param contestInfoPO
+     * @param newContestVO
+     * @param contestId
      * @return
      */
-    Integer createContest(ContestInfoPO contestInfoPO);
+    Integer createContest(NewContestVO newContestVO, Integer contestId);
 }

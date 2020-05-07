@@ -5,10 +5,13 @@ import team.fjut.cf.mapper.ContestInfoMapper;
 import team.fjut.cf.pojo.enums.ContestKind;
 import team.fjut.cf.pojo.enums.ContestPermission;
 import team.fjut.cf.pojo.po.ContestInfoPO;
+import team.fjut.cf.pojo.po.ContestProblemPO;
 import team.fjut.cf.pojo.vo.ContestListVO;
+import team.fjut.cf.pojo.vo.request.NewContestVO;
 import team.fjut.cf.service.ContestInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -40,6 +43,7 @@ public class ContestInfoServiceImpl implements ContestInfoService {
             contestList.setKind(ContestKind.getNameByCode(contestInfo.getContestKind()));
             contestList.setBeginTime(contestInfo.getBeginTime());
             contestList.setEndTime(contestInfo.getEndTime());
+            contestList.setCreateUser(contestInfo.getCreateUser());
             contestList.setPermission(ContestPermission.getNameByCode(contestInfo.getPermissionType()));
             Date currentTime = new Date();
             if (contestInfo.getEndTime().compareTo(currentTime) < 0) {
@@ -67,9 +71,35 @@ public class ContestInfoServiceImpl implements ContestInfoService {
         return contestInfoMapper.selectByContestId(contestId);
     }
 
+    @Override
+    public List<ContestInfoPO> selectAll() {
+        Example example = new Example(ContestInfoPO.class);
+        example.orderBy("contestId").desc();
+        return  contestInfoMapper.selectByExample(example);
+    }
+
     // add by zhongml [2020/4/23]
     @Override
-    public Integer createContest(ContestInfoPO contestInfoPO) {
+    public Integer createContest(NewContestVO newContestVO, Integer contestId) {
+        ContestInfoPO contestInfoPO = new ContestInfoPO();
+        contestInfoPO.setTitle(newContestVO.getTitle());
+        contestInfoPO.setContestKind(newContestVO.getContestKind());
+        contestInfoPO.setBeginTime(newContestVO.getBeginTime());
+        contestInfoPO.setEndTime(newContestVO.getEndTime());
+        contestInfoPO.setRegisterBeginTime(newContestVO.getRegisterBeginTime());
+        contestInfoPO.setRegisterEndTime(newContestVO.getRegisterEndTime());
+        contestInfoPO.setPermissionType(newContestVO.getPermissionType());
+        contestInfoPO.setDescription(newContestVO.getDescription());
+        contestInfoPO.setPassword(newContestVO.getPassword());
+        contestInfoPO.setComputerRating(newContestVO.getComputerRating());
+        contestInfoPO.setRankType(newContestVO.getRankType());
+        contestInfoPO.setProblemPutTag(newContestVO.getProblemPutTag());
+        contestInfoPO.setStatusReadOut(newContestVO.getStatusReadOut());
+        contestInfoPO.setShowRegisterList(newContestVO.getShowRegisterList());
+        contestInfoPO.setShowBorderList(newContestVO.getShowBorderList());
+        contestInfoPO.setShowOtherStatus(newContestVO.getShowOtherStatus());
+        contestInfoPO.setCreateUser(newContestVO.getCreateUser());
+        contestInfoPO.setContestId(contestId);
         return contestInfoMapper.insertSelective(contestInfoPO);
     }
 

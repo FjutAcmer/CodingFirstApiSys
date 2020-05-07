@@ -1,16 +1,20 @@
 package team.fjut.cf.pojo.vo;
 
+import lombok.Data;
+
 import java.util.Date;
 
 /**
  * @author axiang [2019/11/18]
  */
+@Data
 public class ContestListVO {
     private Integer id;
     private String kind;
     private String title;
     private Date beginTime;
     private Date endTime;
+    private String createUser;
     private String permission;
     private String status;
 

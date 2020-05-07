@@ -7,7 +7,9 @@ import team.fjut.cf.pojo.po.ContestInfoPO;
 import team.fjut.cf.pojo.po.ContestRegisterUserPO;
 import team.fjut.cf.pojo.vo.ContestRegisterUserVO;
 import team.fjut.cf.pojo.vo.ResultJson;
+import team.fjut.cf.pojo.vo.request.NewContestVO;
 import team.fjut.cf.service.ContestInfoService;
+import team.fjut.cf.service.ContestProblemService;
 import team.fjut.cf.service.ContestRegisterService;
 
 import javax.annotation.Resource;
@@ -27,6 +29,9 @@ public class ContestManagerController {
 
     @Resource
     ContestInfoService contestInfoService;
+
+    @Resource
+    ContestProblemService contestProblemService;
 
     @GetMapping("/review/list")
     public ResultJson getContestLimit(@RequestParam("page") Integer page,
@@ -65,11 +70,14 @@ public class ContestManagerController {
         return resultJson;
     }
 
-    @PostMapping("/review/create")
-    public ResultJson createContest(@RequestParam("data") ContestInfoPO contestInfoPO) {
+    @RequestMapping("/create")
+    public ResultJson createContest(@RequestBody NewContestVO newContestVO) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
-        int result  = contestInfoService.createContest(contestInfoPO);
-        if (result != 1) {
+        List<ContestInfoPO> contestInfoPOS = contestInfoService.selectAll();
+        Integer contestId = contestInfoPOS.get(0).getContestId() + 1;
+        int result1  = contestInfoService.createContest(newContestVO, contestId);
+        int result2 = contestProblemService.insertContestProblem(newContestVO.getProblems(), contestId);
+        if (result1 == 0 || result2 == 0) {
             resultJson.setStatus(ResultCode.BUSINESS_FAIL);
         }
         return resultJson;
