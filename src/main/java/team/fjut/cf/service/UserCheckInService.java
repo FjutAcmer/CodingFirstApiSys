@@ -43,5 +43,12 @@ public interface UserCheckInService {
      */
     List<UserCheckIn> pagesByUsername(String username, Integer pageNum, Integer pageSize);
 
+    /**
+     * 分页查询用户的签到记录
+     *
+     * @param username
+     * @return
+     */
+    Integer countByUsername(String username);
 
 }

@@ -1,5 +1,6 @@
 package team.fjut.cf.controller.admin;
 
+import org.apache.catalina.User;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import team.fjut.cf.component.token.TokenModel;
@@ -36,6 +37,12 @@ public class UserManagerController {
     @Resource
     UserCustomInfoService userCustomInfoService;
 
+    @Resource
+    UserMessageService userMessageService;
+
+    @Resource
+    UserCheckInService userCheckInService;
+
     @GetMapping("/list")
     public ResultJson getUserList(@RequestParam("page") Integer pageNum,
                                   @RequestParam("limit") Integer pageSize,
@@ -52,6 +59,27 @@ public class UserManagerController {
         Integer total = userBaseInfoService.countByCondition(username);
         resultJson.addInfo(userInfoAdminVOS);
         resultJson.addInfo(total);
+        return resultJson;
+    }
+
+    @PutMapping("/updateACB")
+    public ResultJson resetePsw(@RequestParam("ACB") Integer ACB,
+                                @RequestParam("toUsername") String toUsername,
+                                @RequestParam("fromUsername") String fromUsername,
+                                @RequestParam("title") String title,
+                                @RequestParam("text") String text) {
+        ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
+        UserMessage userMessage = new UserMessage();
+        userMessage.setStatus(0);
+        userMessage.setFromUsername(fromUsername);
+        userMessage.setToUsername(toUsername);
+        userMessage.setTitle(title);
+        userMessage.setText(text);
+        int result1 = userBaseInfoService.updateACB(toUsername, ACB);
+        int result2  = userMessageService.insertMessage(userMessage);
+        if (result1 == 0 || result2 == 0) {
+            resultJson.setStatus(ResultCode.BUSINESS_FAIL, "奖励失败，请重试");
+        }
         return resultJson;
     }
 
@@ -102,7 +130,17 @@ public class UserManagerController {
         return resultJson;
     }
 
-
+    @GetMapping("/checkInRecords")
+    public ResultJson getCheckInRecords(@RequestParam("page") Integer pageNum,
+                                   @RequestParam("limit") Integer pageSize,
+                                   @RequestParam("username") String username) {
+        ResultJson resultJson = new ResultJson();
+        List<UserCheckIn> checkIns = userCheckInService.pagesByUsername( username, pageNum, pageSize);
+        Integer total = userCheckInService.countByUsername(username);
+        resultJson.addInfo(checkIns);
+        resultJson.addInfo(total);
+        return resultJson;
+    }
 
 }
 

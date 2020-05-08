@@ -71,4 +71,10 @@
             AND ubi.username like #{username}
         </if>
     </select>
+
+    <update id="updateACB">
+        UPDATE t_user_base_info
+        SET acb = acb + #{ACB}
+        WHERE username = #{username}
+    </update>
 </mapper>
