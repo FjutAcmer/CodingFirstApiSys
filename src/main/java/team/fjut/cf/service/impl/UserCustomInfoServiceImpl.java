@@ -12,18 +12,20 @@ import team.fjut.cf.pojo.vo.UserCustomInfoVO;
 import team.fjut.cf.service.UserCustomInfoService;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
+
 /**
  * @author axiang [2020/3/23]
  */
 @Service
 public class UserCustomInfoServiceImpl implements UserCustomInfoService {
-    @Autowired
+    @Resource
     UserCustomInfoMapper userCustomInfoMapper;
 
-    @Autowired
+    @Resource
     UserTitleMapper userTitleMapper;
 
-    @Autowired
+    @Resource
     UserSealMapper userSealMapper;
 
     @Override

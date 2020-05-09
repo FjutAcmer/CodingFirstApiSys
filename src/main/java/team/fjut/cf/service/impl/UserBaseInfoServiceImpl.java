@@ -229,4 +229,9 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
         return userBaseInfoMapper.selectCountByCondition(username);
     }
 
+    @Override
+    public int updateACB(String username, Integer ACB) {
+        return userBaseInfoMapper.updateACB(username, ACB);
+    }
+
 }

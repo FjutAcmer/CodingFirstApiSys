@@ -114,13 +114,13 @@ public class PermissionManagerController {
         if (permissionIds.size() != 0) {
             int updateResult = userPermissionService.grantPermissions(vo.getUsername(), vo.getGranter(), permissionIds);
             if (updateResult == 0) {
-                resultJson.setStatus(ResultCode.BUSINESS_FAIL, "更新授权失败！");
+                resultJson.setStatus(ResultCode.BUSINESS_FAIL, "更新权限失败！");
             }
         }
         if (deletePermissions.size() != 0) {
             int deleteResult = userPermissionService.revokePermissions(vo.getUsername(), deletePermissions);
             if (deleteResult == 0) {
-                resultJson.setStatus(ResultCode.BUSINESS_FAIL, "移除授权失败！");
+                resultJson.setStatus(ResultCode.BUSINESS_FAIL, "移除权限失败！");
             }
         }
         return resultJson;

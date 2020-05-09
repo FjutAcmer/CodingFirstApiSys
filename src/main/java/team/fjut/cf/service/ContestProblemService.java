@@ -15,4 +15,13 @@ public interface ContestProblemService {
      * @return
      */
     List<ContestProblemPO> selectByContestId(Integer contestId);
+
+    /**
+     * 添加比赛题目
+     *
+     * @param problems
+     * @param contestId
+     * @return
+     */
+    Integer insertContestProblem(List<Integer> problems, Integer contestId);
 }

@@ -59,4 +59,14 @@ public interface UserBaseInfoMapper extends Mapper<UserBaseInfo> {
      * @return
      */
     int selectCountByCondition(@Param("username") String username);
+
+    /**
+     * @author zhongml [2020/5/8]
+     * 更新ACB
+     *
+     * @param username
+     * @param ACB
+     * @return
+     */
+    int updateACB(@Param("username") String username, @Param("ACB") Integer ACB);
 }

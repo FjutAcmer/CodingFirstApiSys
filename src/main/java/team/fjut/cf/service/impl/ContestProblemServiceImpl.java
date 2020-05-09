@@ -6,6 +6,7 @@ import team.fjut.cf.service.ContestProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -13,11 +14,16 @@ import java.util.List;
  */
 @Service
 public class ContestProblemServiceImpl implements ContestProblemService {
-    @Autowired
+    @Resource
     ContestProblemMapper contestProblemMapper;
 
     @Override
     public List<ContestProblemPO> selectByContestId(Integer contestId) {
         return contestProblemMapper.selectByContestId(contestId);
+    }
+
+    @Override
+    public Integer insertContestProblem(List<Integer> problems, Integer contestId) {
+        return contestProblemMapper.insertProblems(problems, contestId);
     }
 }

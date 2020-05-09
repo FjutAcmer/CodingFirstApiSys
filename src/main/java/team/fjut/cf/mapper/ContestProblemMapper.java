@@ -16,4 +16,13 @@ public interface ContestProblemMapper {
      * @return
      */
     List<ContestProblemPO> selectByContestId(@Param("contestId") Integer contestId);
+
+    /**
+     * 添加比赛题目
+     *
+     * @param problems
+     * @param contestId
+     * @return
+     */
+    Integer insertProblems(@Param("problems") List<Integer> problems, @Param("contestId") Integer contestId);
 }

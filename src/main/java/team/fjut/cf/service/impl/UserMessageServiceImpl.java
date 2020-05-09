@@ -113,4 +113,9 @@ public class UserMessageServiceImpl implements UserMessageService {
         }
         return userMessageMapper.selectCountByExample(example);
     }
+
+    @Override
+    public int insertMessage(UserMessage userMessage) {
+        return userMessageMapper.insertSelective(userMessage);
+    }
 }

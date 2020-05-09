@@ -92,4 +92,14 @@ public interface UserBaseInfoService {
      * @return
      */
     int countByCondition(String username);
+
+    /**
+     * @author zhongml [2020/5/8]
+     * 更新ACB
+     *
+     * @param username
+     * @param ACB
+     * @return
+     */
+    int updateACB(String username, Integer ACB);
 }

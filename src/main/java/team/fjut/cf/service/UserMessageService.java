@@ -81,4 +81,13 @@ public interface UserMessageService {
     int countByConditions(String toUsername,
                           String fromUsername, Integer status, String title);
 
+    /**
+     *
+     * 新增通知
+     *
+     * @param userMessage
+     * @return
+     */
+    int insertMessage(UserMessage userMessage);
+
 }

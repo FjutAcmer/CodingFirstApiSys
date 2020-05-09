@@ -6,4 +6,12 @@
         WHERE contest_id = #{contestId}
         ORDER BY problem_order ASC
     </select>
+
+    <insert id="insertProblems">
+        INSERT INTO t_contest_problem(contest_id, problem_id, problem_order)
+        VALUES
+        <foreach collection="param1" item="item" index="index" separator=",">
+            (#{param2},#{item},#{index})
+        </foreach>
+    </insert>
 </mapper>
