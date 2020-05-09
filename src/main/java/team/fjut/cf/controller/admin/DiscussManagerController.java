@@ -65,7 +65,7 @@ public class DiscussManagerController {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         int result = discussPostService.deletePost(id);
         if (result != 1) {
-            resultJson.setStatus(ResultCode.BUSINESS_FAIL);
+            resultJson.setStatus(ResultCode.BUSINESS_FAIL, "删除失败");
         }
         return resultJson;
     }
@@ -73,9 +73,9 @@ public class DiscussManagerController {
     @DeleteMapping("/reply/delete")
     public ResultJson deleteReply(@RequestParam("id") Integer id) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
-        int result = discussPostService.deletePost(id);
+        int result = discussPostService.deleteReplyPost(id);
         if (result != 1) {
-            resultJson.setStatus(ResultCode.BUSINESS_FAIL);
+            resultJson.setStatus(ResultCode.BUSINESS_FAIL, "删除失败");
         }
         return resultJson;
     }

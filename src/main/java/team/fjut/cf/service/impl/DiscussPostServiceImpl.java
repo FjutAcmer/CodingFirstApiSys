@@ -82,8 +82,8 @@ public class DiscussPostServiceImpl implements DiscussPostService {
             vo.setTime(item.getTime());
             vo.setPriority(item.getPriority());
             example = new Example(DiscussReplyPostPO.class);
-            example.createCriteria().andEqualTo("id", item.getId());
-            Integer replyNum = discussReplyPostMapper.selectCountByExample(example);
+            example.createCriteria().andEqualTo("discussId", item.getId());
+            Integer replyNum = discussReplyPostMapper.selectCountByExample(example) - 1;
             vo.setReplyNum(replyNum);
             results.add(vo);
         }
@@ -110,6 +110,13 @@ public class DiscussPostServiceImpl implements DiscussPostService {
         Example example = new Example(DiscussPostPO.class);
         example.createCriteria().andEqualTo("id", id);
         return discussPostMapper.deleteByExample(example);
+    }
+
+    @Override
+    public int deleteReplyPost(Integer id) {
+        Example example = new Example(DiscussReplyPostPO.class);
+        example.createCriteria().andEqualTo("id", id);
+        return discussReplyPostMapper.deleteByExample(example);
     }
 
     @Override

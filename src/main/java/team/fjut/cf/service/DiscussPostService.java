@@ -63,6 +63,15 @@ public interface DiscussPostService {
 
     /**
      * @author zhongml [2020/4/27]
+     * 根据ID删除回复
+     *
+     * @param id
+     * @return
+     */
+    int deleteReplyPost(Integer id);
+
+    /**
+     * @author zhongml [2020/4/27]
      * 根据ID获取所有回复
      *
      * @param pageNum
