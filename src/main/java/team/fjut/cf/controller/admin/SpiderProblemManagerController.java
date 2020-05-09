@@ -6,14 +6,14 @@ import team.fjut.cf.component.textsim.TextSimClient;
 import team.fjut.cf.component.textsim.pojo.ProblemInfoToSim;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.SpiderGetProblemInfo;
-import team.fjut.cf.pojo.po.SpiderLocalizedRecord;
+import team.fjut.cf.pojo.po.SpiderSimRecord;
 import team.fjut.cf.pojo.transform.TransSpiderLocalizedRecord;
 import team.fjut.cf.pojo.vo.ResultJson;
 import team.fjut.cf.pojo.vo.request.LocalizedProblemVO;
 import team.fjut.cf.pojo.vo.response.SpiderProblemListVO;
 import team.fjut.cf.service.ProblemInfoService;
 import team.fjut.cf.service.SpiderGetProblemInfoService;
-import team.fjut.cf.service.SpiderLocalizedRecordService;
+import team.fjut.cf.service.SpiderSimRecordService;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -35,7 +35,7 @@ public class SpiderProblemManagerController {
     ProblemInfoService problemInfoService;
 
     @Resource
-    SpiderLocalizedRecordService spiderLocalizedRecordService;
+    SpiderSimRecordService spiderSimRecordService;
 
     @Resource
     TextSimClient textSimClient;
@@ -63,36 +63,36 @@ public class SpiderProblemManagerController {
      * @throws IOException
      */
     @PostMapping("/sim")
-    public ResultJson SimProblem(@RequestParam Integer localProblemId,
-                                 @RequestParam Boolean isLocalAll,
-                                 @RequestParam Integer spiderGetProblemId,
-                                 @RequestParam(required = false) String username) throws IOException {
+    public ResultJson simTwoProblem(@RequestParam Integer localProblemId,
+                                    @RequestParam Boolean isLocalAll,
+                                    @RequestParam Integer spiderGetProblemId,
+                                    @RequestParam(required = false) String username) throws IOException {
         if (isLocalAll) {
             return new ResultJson(ResultCode.RESOURCE_NOT_EXIST, "暂不允许批量查询！");
         }
-        SpiderLocalizedRecord spiderLocalizedRecord = new SpiderLocalizedRecord();
-        spiderLocalizedRecord.setLocalProblemId(localProblemId);
-        spiderLocalizedRecord.setSpiderGetProblemId(spiderGetProblemId);
-        spiderLocalizedRecord.setCreateUser(username);
+        SpiderSimRecord spiderSimRecord = new SpiderSimRecord();
+        spiderSimRecord.setLocalProblemId(localProblemId);
+        spiderSimRecord.setSpiderGetProblemId(spiderGetProblemId);
+        spiderSimRecord.setCreateUser(username);
         // 先插入查重记录
-        spiderLocalizedRecordService.insert(spiderLocalizedRecord);
+        spiderSimRecordService.insert(spiderSimRecord);
         // 找到对应的题目进行题目格式化
         ProblemInfoToSim problemInfoToSim1 = problemInfoService.selectInfoToSimById(localProblemId);
         ProblemInfoToSim problemInfoToSim2 = spiderGetProblemInfoService.selectToSimById(spiderGetProblemId);
         // 开始本地化
-        JSONObject jsonObject = textSimClient.SimTwoProblem(spiderLocalizedRecord.getId().toString(), problemInfoToSim1, problemInfoToSim2);
-        spiderLocalizedRecord.setSimRecord(jsonObject.toJSONString());
-        spiderLocalizedRecordService.update(spiderLocalizedRecord);
-        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, TransSpiderLocalizedRecord.transformToVo(spiderLocalizedRecord));
+        JSONObject jsonObject = textSimClient.SimTwoProblem(spiderSimRecord.getId().toString(), problemInfoToSim1, problemInfoToSim2);
+        spiderSimRecord.setSimRecord(jsonObject.toJSONString());
+        spiderSimRecordService.update(spiderSimRecord);
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, TransSpiderLocalizedRecord.transformToVo(spiderSimRecord));
     }
 
     /**
      * @return
      */
     @PostMapping("/sim/report")
-    public ResultJson SimProblem(@RequestParam Integer id) {
-        List<SpiderLocalizedRecord> spiderLocalizedRecords = spiderLocalizedRecordService.selectByGetProblemId(id);
-        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, TransSpiderLocalizedRecord.transformToVo(spiderLocalizedRecords));
+    public ResultJson getSimProblemReport(@RequestParam Integer id) {
+        List<SpiderSimRecord> spiderSimRecords = spiderSimRecordService.selectByGetProblemId(id);
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, TransSpiderLocalizedRecord.transformToVo(spiderSimRecords));
     }
 
     @PostMapping("/localized")
