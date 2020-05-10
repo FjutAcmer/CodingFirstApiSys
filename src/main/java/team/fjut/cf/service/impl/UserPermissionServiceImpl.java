@@ -53,6 +53,7 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         return true;
     }
 
+
     // add by zhongml [2020/4/29]
     @Override
     public List<UserPermission> selectUserPermission(String username) {
@@ -84,7 +85,6 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         else {
             example.orderBy("grantTime").asc();
         }
-
         List<UserPermission> userPermissions = userPermissionMapper.selectByExample(example);
         for (UserPermission userPermission : userPermissions) {
             UserPermissionVO vo = new UserPermissionVO();

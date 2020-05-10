@@ -1,24 +1,17 @@
 package team.fjut.cf.controller.admin;
 
-import org.apache.catalina.User;
+
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import team.fjut.cf.component.token.TokenModel;
-import team.fjut.cf.component.token.jwt.JwtTokenManager;
-import team.fjut.cf.config.interceptor.annotation.CaptchaRequired;
-import team.fjut.cf.config.interceptor.annotation.LoginRequired;
-import team.fjut.cf.config.interceptor.annotation.PrivateRequired;
 import team.fjut.cf.pojo.enums.ResultCode;
-import team.fjut.cf.pojo.po.*;
-import team.fjut.cf.pojo.vo.*;
+import team.fjut.cf.pojo.po.UserCheckIn;
+import team.fjut.cf.pojo.po.UserMessage;
+import team.fjut.cf.pojo.po.UserTitle;
+import team.fjut.cf.pojo.vo.ResultJson;
+import team.fjut.cf.pojo.vo.UserInfoAdminVO;
 import team.fjut.cf.service.*;
-import team.fjut.cf.utils.IpUtils;
-import team.fjut.cf.utils.JsonFileTool;
-import team.fjut.cf.utils.UUIDUtils;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 import java.util.List;
 
 /**
