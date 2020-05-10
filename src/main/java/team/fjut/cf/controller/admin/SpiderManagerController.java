@@ -69,6 +69,12 @@ public class SpiderManagerController {
         return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, jsonObject, spiderItemJob);
     }
 
+    @PostMapping("/range/check")
+    public ResultJson rangeCheck(@RequestBody String range) {
+        String problems = SpiderParamsTool.parseRange2Problems(range);
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, problems);
+    }
+
     @PostMapping("/log/realtime")
     public ResultJson getJobLog(@RequestBody QuerySpiderLogVO querySpiderLogVO) {
         String spiderLog;
