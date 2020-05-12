@@ -12,7 +12,6 @@ import java.util.List;
  */
 public interface SpiderGetProblemInfoService {
 
-
     boolean localizedProblem(LocalizedProblemVO LocalizedProblem);
 
     List<SpiderProblemListVO> pages(int pageNum, int pageSize);

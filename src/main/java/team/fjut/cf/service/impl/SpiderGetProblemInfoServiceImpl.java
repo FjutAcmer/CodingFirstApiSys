@@ -5,14 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.fjut.cf.component.textsim.pojo.ProblemInfoToSim;
-import team.fjut.cf.mapper.ProblemInfoMapper;
-import team.fjut.cf.mapper.ProblemSampleMapper;
-import team.fjut.cf.mapper.ProblemViewMapper;
-import team.fjut.cf.mapper.SpiderGetProblemInfoMapper;
-import team.fjut.cf.pojo.po.ProblemInfo;
-import team.fjut.cf.pojo.po.ProblemSample;
-import team.fjut.cf.pojo.po.ProblemView;
-import team.fjut.cf.pojo.po.SpiderGetProblemInfo;
+import team.fjut.cf.mapper.*;
+import team.fjut.cf.pojo.po.*;
 import team.fjut.cf.pojo.transform.TransSpiderGetProblemInfo;
 import team.fjut.cf.pojo.vo.request.LocalizedProblemVO;
 import team.fjut.cf.pojo.vo.response.SpiderProblemListVO;
@@ -39,6 +33,9 @@ public class SpiderGetProblemInfoServiceImpl implements SpiderGetProblemInfoServ
 
     @Resource
     ProblemViewMapper problemViewMapper;
+
+    @Resource
+    SpiderLocalizedRecordMapper spiderLocalizedRecordMapper;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -77,7 +74,13 @@ public class SpiderGetProblemInfoServiceImpl implements SpiderGetProblemInfoServ
         problemView.setInput(localizedProblemVO.getProblemInput());
         problemView.setOutput(localizedProblemVO.getProblemOutput());
         int i2 = problemViewMapper.insertSelective(problemView);
-        return i == 1 && i1 == 1 && i2 == 1;
+
+        SpiderLocalizedRecord spiderLocalizedRecord = new SpiderLocalizedRecord();
+        spiderLocalizedRecord.setLocalProblemId(localNewProblemId);
+        spiderLocalizedRecord.setSpiderGetProblemId(Integer.parseInt(localizedProblemVO.getProblemId()));
+        spiderLocalizedRecord.setCreateUser("SYSTEM");
+        int i3 = spiderLocalizedRecordMapper.insertSelective(spiderLocalizedRecord);
+        return i == 1 && i1 == 1 && i2 == 1 && i3 == 1;
     }
 
     @Override

@@ -17,8 +17,7 @@ import team.fjut.cf.service.SpiderItemInfoService;
 import team.fjut.cf.service.SpiderItemJobService;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author axiang [2020/4/28]
@@ -48,6 +47,25 @@ public class SpiderManagerController {
                                @RequestParam Integer pageSize) {
         List<SpiderItemInfo> pages = spiderItemInfoService.pages(pageNum, pageSize);
         return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, pages);
+    }
+
+    @PostMapping("/sites")
+    public ResultJson getSites(@RequestParam Integer pageNum,
+                               @RequestParam Integer pageSize) {
+        List<SpiderItemInfo> pages = spiderItemInfoService.pages(pageNum, pageSize);
+        Map<String, List<SpiderItemInfo>> map = new HashMap<>();
+        for (SpiderItemInfo page : pages) {
+            if (map.get(page.getTargetWebsiteName()) == null) {
+                List<SpiderItemInfo> temp = new ArrayList<>();
+                temp.add(page);
+                map.put(page.getTargetWebsiteName(), temp);
+            } else {
+                List<SpiderItemInfo> spiderItemInfos = map.get(page.getTargetWebsiteName());
+                spiderItemInfos.add(page);
+                map.put(page.getTargetWebsiteName(), spiderItemInfos);
+            }
+        }
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, map);
     }
 
     @PostMapping("/start")
