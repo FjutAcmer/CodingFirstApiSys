@@ -1,6 +1,7 @@
 package team.fjut.cf.service;
 
 import team.fjut.cf.pojo.vo.StatusAdminVO;
+import team.fjut.cf.pojo.vo.response.AcAndSubmitVO;
 import team.fjut.cf.pojo.vo.response.StatusListVO;
 
 import java.util.List;
@@ -64,4 +65,11 @@ public interface ViewJudgeStatusService {
      */
     int countByPage(Integer contestId, String username, Integer problemId, Integer result, Integer language);
 
+    /**
+     * @author zhongml [2020/5/14]
+     *
+     * 统计ac数与提交数
+     * @return
+     */
+    AcAndSubmitVO selectAcAndSubmit(List<String> pastDaysList);
 }

@@ -67,4 +67,12 @@ public interface ContestInfoService {
      * @return
      */
     Integer createContest(NewContestVO newContestVO, Integer contestId);
+
+    /**
+     * 统计正在进行的比赛
+     * @author zhongml [2020/5/12]
+     *
+     * @return
+     */
+    Integer countContestInProgress();
 }

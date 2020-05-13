@@ -6,6 +6,7 @@ import team.fjut.cf.mapper.MallOrderMapper;
 import team.fjut.cf.pojo.enums.MallOrderStatus;
 import team.fjut.cf.pojo.po.MallOrderPO;
 import team.fjut.cf.pojo.vo.MallOrderVO;
+import team.fjut.cf.pojo.vo.response.OrderNewAndCancelVO;
 import team.fjut.cf.service.MallOrderService;
 import tk.mybatis.mapper.entity.Example;
 
@@ -85,5 +86,19 @@ public class MallOrderServiceImpl implements MallOrderService {
         Example example = new Example(MallOrderPO.class);
         example.createCriteria().andEqualTo("id", mallGoodsPO.getId());
         return mallOrderMapper.updateByExampleSelective(mallGoodsPO, example);
+    }
+
+    @Override
+    public OrderNewAndCancelVO countNewAndCancel(List<String> pastDaysList) {
+        OrderNewAndCancelVO orderNewAndCancelVO = new OrderNewAndCancelVO();
+        Integer[] newOrder = new Integer[7];
+        Integer[] newCancel = new Integer[7];
+        for (int i = 0; i < 7; i ++) {
+            newOrder[i] = mallOrderMapper.countNewByDate(pastDaysList.get(i));
+            newCancel[i] = mallOrderMapper.countCancelByDate(pastDaysList.get(i));
+        }
+        orderNewAndCancelVO.setNewOrder(newOrder);
+        orderNewAndCancelVO.setNewCancel(newCancel);
+        return orderNewAndCancelVO;
     }
 }
