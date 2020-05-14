@@ -1,7 +1,5 @@
 package team.fjut.cf.pojo.enums;
 
-import javax.persistence.Table;
-
 /**
  * @author axiang [2020/4/16]
  */
@@ -16,10 +14,11 @@ public enum PermissionType {
     USER_TITLE_MANAGER(14, "用户称号管理"),
     USER_VERIFY(15, "认证审核"),
     PERMISSION_MANAGER(21, "权限管理"),
-    SGRAPY_GET_PROBLEM(31, "爬取题目"),
-    SGRAPY_SIM_PROBLEM(32, "题目查重"),
-    SGRAPY_MANAGER_QUERY(41, "查看爬虫状态"),
-    SGRAPY_MANAGER_SET(42, "爬虫任务设置"),
+    SPIDER_GET_PROBLEM(31, "爬取题目"),
+    SPIDER_SIM_PROBLEM(32, "题目查重"),
+    SPIDER_MANAGER_QUERY(41, "查看爬虫状态"),
+    SPIDER_MANAGER_SET(42, "爬虫任务设置"),
+    SPIDER_SETTING(43, "爬虫服务器设置"),
     LOCAL_PROBLEM_MANAGER(51, "本地题库管理"),
     VJ_PROBLEM_MANAGER(52, "VJ题库管理"),
     PROBLEM_TAG_MANAGER(53, "标签管理"),
@@ -32,8 +31,6 @@ public enum PermissionType {
     RANK_MANAGER(101, "排名管理"),
     SYSTEM_ADD_MESSAGE(111, "新增通知"),
     SYSTEM_LOG_QUERY(112, "查看Log");
-
-
 
     private int id;
     private String name;

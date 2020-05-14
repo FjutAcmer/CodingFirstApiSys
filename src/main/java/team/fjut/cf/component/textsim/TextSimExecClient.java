@@ -19,9 +19,9 @@ import java.io.InputStreamReader;
  */
 @Component
 @Slf4j
-public class TextSimClient {
+public class TextSimExecClient {
     @Value("${cf.config.local.simFilePath}")
-    String simFilePath;
+    private String simFilePath;
 
     /**
      * 相似度匹配程序名
@@ -29,9 +29,10 @@ public class TextSimClient {
     private static final String simFileName = "CNTextSim.py";
 
     /**
-     * TODO: python执行程序路径需要在部署时进行切换
+     * python执行文件路径
      */
-    private static final String pythonExecPath = "D://Anaconda3/envs/web/python.exe";
+    @Value("${cf.config.local.pythonPath}")
+    private String pythonExecPath;
 
     /**
      * 执行两个题目文本相似度检测

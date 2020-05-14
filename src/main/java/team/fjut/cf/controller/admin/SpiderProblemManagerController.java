@@ -2,7 +2,7 @@ package team.fjut.cf.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.bind.annotation.*;
-import team.fjut.cf.component.textsim.TextSimClient;
+import team.fjut.cf.component.textsim.TextSimExecClient;
 import team.fjut.cf.component.textsim.pojo.ProblemInfoToSim;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.SpiderGetProblemInfo;
@@ -38,7 +38,7 @@ public class SpiderProblemManagerController {
     SpiderSimRecordService spiderSimRecordService;
 
     @Resource
-    TextSimClient textSimClient;
+    TextSimExecClient textSimExecClient;
 
     @GetMapping("/list")
     public ResultJson getSpiderProblemList(@RequestParam int page,
@@ -80,7 +80,7 @@ public class SpiderProblemManagerController {
         ProblemInfoToSim problemInfoToSim1 = problemInfoService.selectInfoToSimById(localProblemId);
         ProblemInfoToSim problemInfoToSim2 = spiderGetProblemInfoService.selectToSimById(spiderGetProblemId);
         // 开始本地化
-        JSONObject jsonObject = textSimClient.SimTwoProblem(spiderSimRecord.getId().toString(), problemInfoToSim1, problemInfoToSim2);
+        JSONObject jsonObject = textSimExecClient.SimTwoProblem(spiderSimRecord.getId().toString(), problemInfoToSim1, problemInfoToSim2);
         spiderSimRecord.setSimRecord(jsonObject.toJSONString());
         spiderSimRecordService.update(spiderSimRecord);
         return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, TransSpiderLocalizedRecord.transformToVo(spiderSimRecord));
