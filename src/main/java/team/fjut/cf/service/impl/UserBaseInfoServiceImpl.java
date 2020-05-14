@@ -234,4 +234,15 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
         return userBaseInfoMapper.updateACB(username, ACB);
     }
 
+    // add by zhongml [2020/5/12]
+    @Override
+    public Integer[] getNewRegister(List<String> pastDaysList) {
+        Integer[] userActive = new Integer[7];
+        // 获取过去7天对应数据
+        for (int i = 0; i < 7; i ++) {
+            userActive[i] = userBaseInfoMapper.selectCountByDate(pastDaysList.get(i));
+        }
+        return userActive;
+    }
+
 }

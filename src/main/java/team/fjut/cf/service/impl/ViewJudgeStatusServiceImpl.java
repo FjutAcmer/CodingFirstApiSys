@@ -9,6 +9,7 @@ import team.fjut.cf.pojo.enums.SubmitResult;
 import team.fjut.cf.pojo.po.JudgeStatus;
 import team.fjut.cf.pojo.po.ViewJudgeStatus;
 import team.fjut.cf.pojo.vo.StatusAdminVO;
+import team.fjut.cf.pojo.vo.response.AcAndSubmitVO;
 import team.fjut.cf.pojo.vo.response.StatusListVO;
 import team.fjut.cf.service.ViewJudgeStatusService;
 import tk.mybatis.mapper.entity.Example;
@@ -171,5 +172,25 @@ public class ViewJudgeStatusServiceImpl implements ViewJudgeStatusService {
             criteria.andEqualTo("language", language);
         }
         return judgeStatusMapper.selectCountByExample(example);
+    }
+
+    @Override
+    public AcAndSubmitVO selectAcAndSubmit(List<String> pastDaysList) {
+        AcAndSubmitVO acAndSubmitVO = new AcAndSubmitVO();
+        Integer[] totalAc = new Integer[7];
+        Integer[] totalSubmit = new Integer[7];
+        Integer[] contestAc = new Integer[7];
+        Integer[] contestSubmit = new Integer[7];
+        for (int i = 0; i < 7; i ++) {
+            totalAc[i] = judgeStatusMapper.countAcByDate(pastDaysList.get(i));
+            totalSubmit[i] = judgeStatusMapper.countSubmitByDate(pastDaysList.get(i));
+            contestAc[i] = judgeStatusMapper.countContestAcByDate(pastDaysList.get(i));
+            contestSubmit[i] = judgeStatusMapper.countContestSubmitByDate(pastDaysList.get(i));
+        }
+        acAndSubmitVO.setTotalAc(totalAc);
+        acAndSubmitVO.setTotalSubmit(totalSubmit);
+        acAndSubmitVO.setContestAc(contestAc);
+        acAndSubmitVO.setContestSubmit(contestSubmit);
+        return acAndSubmitVO;
     }
 }

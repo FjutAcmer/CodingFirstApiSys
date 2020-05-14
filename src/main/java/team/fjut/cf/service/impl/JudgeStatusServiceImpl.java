@@ -12,13 +12,15 @@ import team.fjut.cf.pojo.enums.CodeLanguage;
 import team.fjut.cf.pojo.enums.SubmitResult;
 import team.fjut.cf.pojo.po.*;
 import team.fjut.cf.pojo.vo.JudgeStatusVO;
-import team.fjut.cf.pojo.vo.StatusAdminVO;
 import team.fjut.cf.pojo.vo.StatusCountVO;
+import team.fjut.cf.pojo.vo.response.LanguageUsedNumVO;
 import team.fjut.cf.service.JudgeStatusService;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -28,22 +30,22 @@ import java.util.Objects;
  */
 @Service
 public class JudgeStatusServiceImpl implements JudgeStatusService {
-    @Autowired
+    @Resource
     UserCustomInfoMapper userCustomInfoMapper;
 
-    @Autowired
+    @Resource
     ProblemInfoMapper problemInfoMapper;
 
-    @Autowired
+    @Resource
     JudgeStatusMapper judgeStatusMapper;
 
-    @Autowired
+    @Resource
     JudgeResultMapper judgeResultMapper;
 
-    @Autowired
+    @Resource
     UserProblemSolvedMapper userProblemSolvedMapper;
 
-    @Autowired
+    @Resource
     LocalJudgeHttpClient localJudgeHttpClient;
 
     @Override
@@ -344,6 +346,15 @@ public class JudgeStatusServiceImpl implements JudgeStatusService {
         Example example = new Example(JudgeStatus.class);
         example.createCriteria().andEqualTo("id", id);
         return judgeStatusMapper.selectOneByExample(example);
+    }
+
+    @Override
+    public List<LanguageUsedNumVO> countLanguageUsed() {
+        List<LanguageUsedNumVO> languageUsedNumVOS = judgeStatusMapper.selectCountByLanguage();
+        for (LanguageUsedNumVO vo : languageUsedNumVOS) {
+            vo.setLanguageName(CodeLanguage.getNameByCode(vo.getLanguage()));
+        }
+        return languageUsedNumVOS;
     }
 
 }

@@ -2,8 +2,8 @@ package team.fjut.cf.service;
 
 import team.fjut.cf.pojo.po.JudgeStatus;
 import team.fjut.cf.pojo.vo.JudgeStatusVO;
-import team.fjut.cf.pojo.vo.StatusAdminVO;
 import team.fjut.cf.pojo.vo.StatusCountVO;
+import team.fjut.cf.pojo.vo.response.LanguageUsedNumVO;
 
 import java.util.List;
 
@@ -98,5 +98,13 @@ public interface JudgeStatusService {
      * @return
      */
     JudgeStatus selectJudgeById(Integer id);
+
+    /**
+     * @author zhongml [2020/5/13]
+     * 查询各语言使用次数
+     *
+     * @return
+     */
+    List<LanguageUsedNumVO> countLanguageUsed();
 
 }

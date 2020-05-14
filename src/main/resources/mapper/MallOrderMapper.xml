@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="team.fjut.cf.mapper.MallOrderMapper">
+
+    <select id="countNewByDate" resultType="java.lang.Integer">
+        SELECT count(*) FROM t_mall_order
+        WHERE substring(order_time,1,10) = #{time}
+        AND order_status = 0
+        AND order_cancel = 0
+    </select>
+
+    <select id="countCancelByDate" resultType="java.lang.Integer">
+        SELECT count(*) FROM t_mall_order
+        WHERE substring(order_time,1,10) = #{time}
+        AND order_cancel = 1
+    </select>
+
+</mapper>

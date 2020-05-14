@@ -17,5 +17,36 @@
         WHERE username = #{username};
     </select>
 
+    <select id="countAcByDate" resultType="java.lang.Integer">
+        SELECT count(*) FROM t_judge_status
+        WHERE substring(submit_time,1,10) = #{time}
+        AND score = 100 or result = 1
+    </select>
+
+    <select id="countSubmitByDate" resultType="java.lang.Integer">
+        SELECT count(*) FROM t_judge_status
+        WHERE substring(submit_time,1,10) = #{time}
+        AND score = 100 or result = 1
+    </select>
+
+    <select id="countContestAcByDate" resultType="java.lang.Integer">
+        SELECT count(*) FROM t_judge_status
+        WHERE substring(submit_time,1,10) = #{time}
+        AND contest_id != -1
+        AND score = 100 or result = 1
+    </select>
+
+    <select id="countContestSubmitByDate" resultType="java.lang.Integer">
+        SELECT count(*) FROM t_judge_status
+        WHERE substring(submit_time,1,10) = #{time}
+        AND contest_id != -1
+        AND score = 100 or result = 1
+    </select>
+
+    <select id="selectCountByLanguage" resultType="team.fjut.cf.pojo.vo.response.LanguageUsedNumVO">
+        SELECT language, '未知' as language_name, count(language)
+        FROM t_judge_status
+        GROUP BY language
+    </select>
 
 </mapper>

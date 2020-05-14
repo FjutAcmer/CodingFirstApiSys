@@ -4,14 +4,17 @@ package team.fjut.cf.controller.admin;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import team.fjut.cf.pojo.enums.ResultCode;
-import team.fjut.cf.pojo.po.UserCheckIn;
-import team.fjut.cf.pojo.po.UserMessage;
-import team.fjut.cf.pojo.po.UserTitle;
-import team.fjut.cf.pojo.vo.ResultJson;
-import team.fjut.cf.pojo.vo.UserInfoAdminVO;
+import team.fjut.cf.pojo.po.*;
+import team.fjut.cf.pojo.vo.*;
+import team.fjut.cf.pojo.vo.response.UserActiveVO;
 import team.fjut.cf.service.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,7 +31,7 @@ public class UserManagerController {
     UserTitleService userTitleService;
 
     @Resource
-    UserCustomInfoService userCustomInfoService;
+    UserActiveService userActiveService;
 
     @Resource
     UserMessageService userMessageService;
@@ -132,6 +135,29 @@ public class UserManagerController {
         Integer total = userCheckInService.countByUsername(username);
         resultJson.addInfo(checkIns);
         resultJson.addInfo(total);
+        return resultJson;
+    }
+
+    @GetMapping("/active")
+    public ResultJson getUserActive() {
+        ResultJson resultJson = new ResultJson();
+        // 获取过去7天的日期并加入列表中
+        List<String> pastDaysList = new ArrayList<>();
+        for (int i = 0; i < 7; i ++) {
+            // 依次获取7天内的日期
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - i);
+            Date today = calendar.getTime();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String result = format.format(today);
+            pastDaysList.add(result);
+        }
+        UserActiveVO userActiveVO = new UserActiveVO();
+        Integer[] userActive = userActiveService.getUserActive(pastDaysList);
+        Integer[] newRegister = userBaseInfoService.getNewRegister(pastDaysList);
+        userActiveVO.setActive(userActive);
+        userActiveVO.setNewRegister(newRegister);
+        resultJson.addInfo(userActiveVO);
         return resultJson;
     }
 
