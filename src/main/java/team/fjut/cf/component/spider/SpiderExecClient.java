@@ -19,7 +19,7 @@ public class SpiderExecClient {
     @Value("${cf.config.local.spiderProjectPath}")
     private String spiderProjectPath;
 
-    private static final String reDeployFileName = "ReDeploy.py";
+    private static final String reDeployFileName = "redeploy.py";
 
     /**
      * python执行文件路径
