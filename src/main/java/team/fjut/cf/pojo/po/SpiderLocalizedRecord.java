@@ -8,13 +8,16 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * @author axiang [2019/10/18]
+ * @author axiang [2020/5/2]
  */
 @Data
-@Table(name = "t_permission_type")
-public class PermissionTypePO {
+@Table(name = "t_spider_localized_record")
+public class SpiderLocalizedRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "JDBC")
     Integer id;
-    String permissionName;
+    Integer spiderGetProblemId;
+    Integer localProblemId;
+    String createUser;
+    String operateRecord;
 }
