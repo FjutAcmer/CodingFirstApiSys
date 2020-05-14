@@ -73,17 +73,18 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         List<UserPermissionVO> results = new ArrayList<>();
         PageHelper.startPage(pageNum, pageSize);
         Example example = new Example(UserPermission.class);
-        if (Objects.nonNull(username)) {
-            example.createCriteria().andLike("username", username);
-        }
-        // 查询拥有基本管理员权限的用户
-        example.createCriteria().andEqualTo("permissionId", 0);
-        if(sort != null && sort.equals("descending")) {
-            example.orderBy("grantTime").desc();
-        }
-        else {
+        if(sort != null && sort.equals("ascending")) {
             example.orderBy("grantTime").asc();
         }
+        else {
+            example.orderBy("grantTime").desc();
+        }
+        Example.Criteria criteria = example.createCriteria();
+        if (Objects.nonNull(username)) {
+            criteria.andLike("username", username);
+        }
+        // 查询拥有基本管理员权限的用户
+        criteria.andEqualTo("permissionId", 0);
 
         List<UserPermission> userPermissions = userPermissionMapper.selectByExample(example);
         for (UserPermission userPermission : userPermissions) {

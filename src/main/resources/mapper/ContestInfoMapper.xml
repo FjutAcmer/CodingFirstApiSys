@@ -24,6 +24,12 @@
 
     </select>
 
+    <select id="selectCountInProgress" resultType="java.lang.Integer">
+        SELECT count(*) FROM t_contest_info
+        WHERE NOW() > begin_time
+        AND end_time > NOW()
+    </select>
+
     <select id="selectCountByConditions" resultType="java.lang.Integer">
         SELECT COUNT(*)
         FROM t_contest_info

@@ -103,5 +103,10 @@ public class ContestInfoServiceImpl implements ContestInfoService {
         return contestInfoMapper.insertSelective(contestInfoPO);
     }
 
+    @Override
+    public Integer countContestInProgress() {
+        return contestInfoMapper.selectCountInProgress();
+    }
+
 
 }

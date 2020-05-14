@@ -2,6 +2,7 @@ package team.fjut.cf.service;
 
 import team.fjut.cf.pojo.po.MallOrderPO;
 import team.fjut.cf.pojo.vo.MallOrderVO;
+import team.fjut.cf.pojo.vo.response.OrderNewAndCancelVO;
 
 import java.util.List;
 
@@ -42,4 +43,11 @@ public interface MallOrderService {
      */
     int updateOrder(MallOrderPO mallGoodsPO);
 
+    /**
+     * @author zhongml [2020/5/14]
+     *
+     * 统计新订单与取消订单
+     * @return
+     */
+    OrderNewAndCancelVO countNewAndCancel(List<String> pastDaysList);
 }

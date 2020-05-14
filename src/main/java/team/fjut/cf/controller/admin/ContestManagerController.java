@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.ContestInfoPO;
 import team.fjut.cf.pojo.po.ContestRegisterUserPO;
+import team.fjut.cf.pojo.vo.ContestListVO;
 import team.fjut.cf.pojo.vo.ContestRegisterUserVO;
 import team.fjut.cf.pojo.vo.ResultJson;
 import team.fjut.cf.pojo.vo.request.NewContestVO;
@@ -49,6 +50,14 @@ public class ContestManagerController {
         List<ContestRegisterUserVO> contestRegisterUserVOS = contestRegisterService.pagesByConditions(page, limit, sort, contestKind, reviewStatus, username);
         Integer count = contestRegisterService.selectCountByConditions(contestKind, reviewStatus, username);
         resultJson.addInfo(contestRegisterUserVOS);
+        resultJson.addInfo(count);
+        return resultJson;
+    }
+
+    @GetMapping("/countInProgress")
+    public ResultJson getContestInProgress() {
+        ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
+        Integer count = contestInfoService.countContestInProgress();
         resultJson.addInfo(count);
         return resultJson;
     }

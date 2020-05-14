@@ -6,13 +6,14 @@ import team.fjut.cf.pojo.po.MallGoods;
 import team.fjut.cf.pojo.po.MallOrderPO;
 import team.fjut.cf.pojo.vo.MallOrderVO;
 import team.fjut.cf.pojo.vo.ResultJson;
+import team.fjut.cf.pojo.vo.response.OrderNewAndCancelVO;
 import team.fjut.cf.service.MallGoodsService;
 import team.fjut.cf.service.MallOrderService;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
 /**
  * @author zhongml [2020/4/21]
  */
@@ -210,6 +211,25 @@ public class MallManagerController {
         if (result != 1) {
             resultJson.setStatus(ResultCode.BUSINESS_FAIL);
         }
+        return resultJson;
+    }
+
+    @GetMapping("/order/newAndCancel")
+    public ResultJson getNewAndCancel() {
+        ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
+        // 获取过去7天的日期并加入列表中
+        List<String> pastDaysList = new ArrayList<>();
+        for (int i = 0; i < 7; i ++) {
+            // 依次获取7天内的日期
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - i);
+            Date today = calendar.getTime();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String result = format.format(today);
+            pastDaysList.add(result);
+        }
+        OrderNewAndCancelVO orderNewAndCancelVO = mallOrderService.countNewAndCancel(pastDaysList);
+        resultJson.addInfo(orderNewAndCancelVO);
         return resultJson;
     }
 }

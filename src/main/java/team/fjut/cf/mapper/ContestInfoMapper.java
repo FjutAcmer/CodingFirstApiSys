@@ -45,4 +45,11 @@ public interface ContestInfoMapper extends Mapper<ContestInfoPO> {
      * @return
      */
     ContestInfoPO selectByContestId(@Param("contestId") Integer contestId);
+
+    /**
+     * 查询正在进行的比赛总数
+     *
+     * @return
+     */
+    Integer selectCountInProgress();
 }

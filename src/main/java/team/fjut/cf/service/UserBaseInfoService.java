@@ -102,4 +102,12 @@ public interface UserBaseInfoService {
      * @return
      */
     int updateACB(String username, Integer ACB);
+
+    /**
+     * 统计新注册用户
+     * @param pastDaysList
+     *
+     * @return
+     */
+    Integer[] getNewRegister(List<String> pastDaysList);
 }

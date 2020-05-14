@@ -63,6 +63,11 @@
         </if>
     </select>
 
+    <select id="selectCountByDate" resultType="java.lang.Integer">
+        SELECT count(*) FROM t_user_base_info
+        WHERE substring(register_time,1,10) = #{time}
+    </select>
+
     <select id="selectCountByCondition" resultType="java.lang.Integer">
         SELECT count(*)
         FROM t_user_base_info ubi, t_user_custom_info uci

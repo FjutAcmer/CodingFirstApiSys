@@ -18,6 +18,16 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for t_border_honor_rank
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_active`;
+CREATE TABLE `t_user_active`  (
+                                 `id` int(11) NOT NULL AUTO_INCREMENT,
+                                 `username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+                                 `login_time` datetime(0) NULL DEFAULT CURRENT_TIMESTAMP(0) COMMENT '登录时间',
+                                 PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
+-- ----------------------------
 -- Table structure for t_acb_record
 -- ----------------------------
 DROP TABLE IF EXISTS `t_acb_record`;

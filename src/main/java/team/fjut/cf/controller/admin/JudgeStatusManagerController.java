@@ -6,10 +6,16 @@ import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.JudgeStatus;
 import team.fjut.cf.pojo.vo.ResultJson;
 import team.fjut.cf.pojo.vo.StatusAdminVO;
+import team.fjut.cf.pojo.vo.response.AcAndSubmitVO;
+import team.fjut.cf.pojo.vo.response.LanguageUsedNumVO;
 import team.fjut.cf.service.JudgeStatusService;
 import team.fjut.cf.service.ViewJudgeStatusService;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,6 +51,33 @@ public class JudgeStatusManagerController {
         int count = viewJudgeStatusService.countByPage(contestId, username, problemId, result, language);
         resultJson.addInfo(statusAdminVOS);
         resultJson.addInfo(count);
+        return resultJson;
+    }
+
+    @GetMapping("/acAndSubmit")
+    public ResultJson getAcAndSubmit() {
+        ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
+        // 获取过去7天的日期并加入列表中
+        List<String> pastDaysList = new ArrayList<>();
+        for (int i = 0; i < 7; i ++) {
+            // 依次获取7天内的日期
+            Calendar calendar = Calendar.getInstance();
+            calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - i);
+            Date today = calendar.getTime();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String result = format.format(today);
+            pastDaysList.add(result);
+        }
+        AcAndSubmitVO acAndSubmitVO = viewJudgeStatusService.selectAcAndSubmit(pastDaysList);
+        resultJson.addInfo(acAndSubmitVO);
+        return resultJson;
+    }
+
+    @GetMapping("/languageCount")
+    public ResultJson getStatusList() {
+        ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
+        List<LanguageUsedNumVO> languageUsedNumVOS = judgeStatusService.countLanguageUsed();
+        resultJson.addInfo(languageUsedNumVOS);
         return resultJson;
     }
 

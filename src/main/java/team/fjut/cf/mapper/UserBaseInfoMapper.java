@@ -69,4 +69,12 @@ public interface UserBaseInfoMapper extends Mapper<UserBaseInfo> {
      * @return
      */
     int updateACB(@Param("username") String username, @Param("ACB") Integer ACB);
+
+    /**
+     * 查询某天新用户量
+     *
+     * @param time
+     * @return
+     */
+    int selectCountByDate(@Param("time") String time);
 }
