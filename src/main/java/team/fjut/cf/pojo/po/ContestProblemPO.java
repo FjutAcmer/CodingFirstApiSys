@@ -1,8 +1,11 @@
 package team.fjut.cf.pojo.po;
 
+import javax.persistence.Table;
+
 /**
  * @author axiang [2019/10/18]
  */
+@Table(name = "t_contest_problem")
 public class ContestProblemPO {
     private Integer id;
     private Integer contestId;

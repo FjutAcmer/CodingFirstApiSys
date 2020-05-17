@@ -2,6 +2,7 @@ package team.fjut.cf.mapper;
 
 import team.fjut.cf.pojo.po.ContestInfoPO;
 import org.apache.ibatis.annotations.Param;
+import team.fjut.cf.pojo.vo.response.ContestTypeVO;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -52,4 +53,13 @@ public interface ContestInfoMapper extends Mapper<ContestInfoPO> {
      * @return
      */
     Integer selectCountInProgress();
+
+    /**
+     * 统计比赛类型数
+     * @author zhongml [2020/5/14]
+     *
+     * @return
+     */
+    List<ContestTypeVO> selectContestTypeCount();
+
 }

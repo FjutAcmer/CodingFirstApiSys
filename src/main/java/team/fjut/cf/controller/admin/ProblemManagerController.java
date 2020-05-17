@@ -6,6 +6,7 @@ import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.*;
 import team.fjut.cf.pojo.vo.ProblemListAdminVO;
 import team.fjut.cf.pojo.vo.ResultJson;
+import team.fjut.cf.pojo.vo.response.SubmitProblemTypeVO;
 import team.fjut.cf.service.*;
 import javax.annotation.Resource;
 import java.util.List;
@@ -17,7 +18,6 @@ import java.util.List;
 @RequestMapping("/admin/problems")
 @CrossOrigin
 public class ProblemManagerController {
-
     @Resource
     ViewProblemInfoService viewProblemInfoService;
 
@@ -93,6 +93,19 @@ public class ProblemManagerController {
         resultJson.addInfo(problemSample);
         resultJson.addInfo(totalTag);
         resultJson.addInfo(totalStar);
+        return resultJson;
+    }
+
+    /**
+     * @return
+     */
+    @GetMapping("/problemTypeCount")
+    public ResultJson getProblemTypeCount() {
+        ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
+        List<SubmitProblemTypeVO> submitProblemTypeVOS = problemInfoService.selectSubmitProblemType();
+        List<ProblemTypeCountPO> problemTypeCountPOS = problemInfoService.countProblemType();
+        resultJson.addInfo(submitProblemTypeVOS);
+        resultJson.addInfo(problemTypeCountPOS);
         return resultJson;
     }
 

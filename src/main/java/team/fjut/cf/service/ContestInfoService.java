@@ -1,8 +1,9 @@
 package team.fjut.cf.service;
 
 import team.fjut.cf.pojo.po.ContestInfoPO;
+import team.fjut.cf.pojo.vo.ContestInfoVO;
 import team.fjut.cf.pojo.vo.ContestListVO;
-import team.fjut.cf.pojo.vo.request.NewContestVO;
+import team.fjut.cf.pojo.vo.response.ContestTypeVO;
 
 import java.util.List;
 
@@ -62,11 +63,20 @@ public interface ContestInfoService {
      * 管理员新增比赛
      * @author zhongml [2020/4/23]
      *
-     * @param newContestVO
-     * @param contestId
+     * @param contestInfoVO
      * @return
      */
-    Integer createContest(NewContestVO newContestVO, Integer contestId);
+    Integer createContest(ContestInfoVO contestInfoVO);
+
+    /**
+     * 管理员修改比赛信息
+     * @author zhongml [2020/5/14]
+     *
+     * @param newContestVO
+     * @return
+     */
+    Integer updateContest(ContestInfoVO newContestVO);
+
 
     /**
      * 统计正在进行的比赛
@@ -75,4 +85,12 @@ public interface ContestInfoService {
      * @return
      */
     Integer countContestInProgress();
+
+    /**
+     * 统计比赛类型数
+     * @author zhongml [2020/5/14]
+     *
+     * @return
+     */
+    List<ContestTypeVO> getContestTypeCount();
 }

@@ -38,4 +38,12 @@
         GROUP BY problem_type
         ORDER BY problem_type;
     </select>
+
+    <select id="selectSubmitProblemType" resultType="team.fjut.cf.pojo.vo.response.SubmitProblemTypeVO">
+        SELECT tpd.problem_id, tpd.problem_type problem_type_id, '' problem_type_name, COUNT(tpd.problem_type) count
+        FROM t_problem_difficult tpd LEFT JOIN t_judge_status tjs
+		ON tpd.problem_id = tjs.problem_id
+        GROUP BY tpd.problem_type
+        ORDER BY tpd.problem_type
+    </select>
 </mapper>

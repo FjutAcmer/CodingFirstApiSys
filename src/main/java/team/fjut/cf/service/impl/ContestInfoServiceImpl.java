@@ -5,11 +5,10 @@ import team.fjut.cf.mapper.ContestInfoMapper;
 import team.fjut.cf.pojo.enums.ContestKind;
 import team.fjut.cf.pojo.enums.ContestPermission;
 import team.fjut.cf.pojo.po.ContestInfoPO;
-import team.fjut.cf.pojo.po.ContestProblemPO;
+import team.fjut.cf.pojo.vo.ContestInfoVO;
 import team.fjut.cf.pojo.vo.ContestListVO;
-import team.fjut.cf.pojo.vo.request.NewContestVO;
+import team.fjut.cf.pojo.vo.response.ContestTypeVO;
 import team.fjut.cf.service.ContestInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -80,7 +79,31 @@ public class ContestInfoServiceImpl implements ContestInfoService {
 
     // add by zhongml [2020/4/23]
     @Override
-    public Integer createContest(NewContestVO newContestVO, Integer contestId) {
+    public Integer createContest(ContestInfoVO newContestVO) {
+        ContestInfoPO contestInfoPO = new ContestInfoPO();
+        contestInfoPO.setTitle(newContestVO.getTitle());
+        contestInfoPO.setContestId(newContestVO.getId());
+        contestInfoPO.setContestKind(newContestVO.getContestKind());
+        contestInfoPO.setBeginTime(newContestVO.getBeginTime());
+        contestInfoPO.setEndTime(newContestVO.getEndTime());
+        contestInfoPO.setRegisterBeginTime(newContestVO.getRegisterBeginTime());
+        contestInfoPO.setRegisterEndTime(newContestVO.getRegisterEndTime());
+        contestInfoPO.setPermissionType(newContestVO.getPermissionType());
+        contestInfoPO.setDescription(newContestVO.getDescription());
+        contestInfoPO.setPassword(newContestVO.getPassword());
+        contestInfoPO.setComputerRating(newContestVO.getComputerRating());
+        contestInfoPO.setRankType(newContestVO.getRankType());
+        contestInfoPO.setProblemPutTag(newContestVO.getProblemPutTag());
+        contestInfoPO.setStatusReadOut(newContestVO.getStatusReadOut());
+        contestInfoPO.setShowRegisterList(newContestVO.getShowRegisterList());
+        contestInfoPO.setShowBorderList(newContestVO.getShowBorderList());
+        contestInfoPO.setShowOtherStatus(newContestVO.getShowOtherStatus());
+        contestInfoPO.setCreateUser(newContestVO.getCreateUser());
+        return contestInfoMapper.insertSelective(contestInfoPO);
+    }
+
+    @Override
+    public Integer updateContest(ContestInfoVO newContestVO) {
         ContestInfoPO contestInfoPO = new ContestInfoPO();
         contestInfoPO.setTitle(newContestVO.getTitle());
         contestInfoPO.setContestKind(newContestVO.getContestKind());
@@ -98,14 +121,24 @@ public class ContestInfoServiceImpl implements ContestInfoService {
         contestInfoPO.setShowRegisterList(newContestVO.getShowRegisterList());
         contestInfoPO.setShowBorderList(newContestVO.getShowBorderList());
         contestInfoPO.setShowOtherStatus(newContestVO.getShowOtherStatus());
-        contestInfoPO.setCreateUser(newContestVO.getCreateUser());
-        contestInfoPO.setContestId(contestId);
-        return contestInfoMapper.insertSelective(contestInfoPO);
+        Example example = new Example(ContestInfoPO.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("contestId", newContestVO.getId());
+        return contestInfoMapper.updateByExampleSelective(contestInfoPO, example);
     }
 
     @Override
     public Integer countContestInProgress() {
         return contestInfoMapper.selectCountInProgress();
+    }
+
+    @Override
+    public List<ContestTypeVO> getContestTypeCount() {
+        List<ContestTypeVO> contestTypeVOS = contestInfoMapper.selectContestTypeCount();
+        for (ContestTypeVO vo : contestTypeVOS) {
+            vo.setContestTypeName(ContestKind.getNameByCode(vo.getContestType()));
+        }
+        return contestTypeVOS;
     }
 
 
