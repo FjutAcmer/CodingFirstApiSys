@@ -2,7 +2,6 @@ package team.fjut.cf.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,7 +19,6 @@ import tk.mybatis.mapper.entity.Example;
 import javax.annotation.Resource;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -301,7 +299,6 @@ public class JudgeStatusServiceImpl implements JudgeStatusService {
 
     @Override
     public List<StatusCountVO> selectCountByDay(int days) {
-        List<StatusCountVO> statusCountVOS = judgeStatusMapper.selectCountByDay(days);
         return judgeStatusMapper.selectCountByDay(days);
     }
 
