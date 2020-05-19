@@ -1,13 +1,12 @@
 package team.fjut.cf.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import team.fjut.cf.mapper.ProblemDifficultMapper;
+import org.springframework.transaction.annotation.Transactional;
+import team.fjut.cf.component.textsim.pojo.ProblemInfoToSim;
 import team.fjut.cf.mapper.ProblemInfoMapper;
-import team.fjut.cf.pojo.enums.ProblemType;
+import team.fjut.cf.mapper.ProblemViewMapper;
 import team.fjut.cf.pojo.po.ProblemInfo;
-import team.fjut.cf.pojo.po.ProblemTypeCountPO;
-import team.fjut.cf.pojo.vo.response.SubmitProblemTypeVO;
+import team.fjut.cf.pojo.po.ProblemView;
 import team.fjut.cf.service.ProblemInfoService;
 import tk.mybatis.mapper.entity.Example;
 
@@ -24,7 +23,25 @@ public class ProblemInfoServiceImpl implements ProblemInfoService {
     ProblemInfoMapper problemInfoMapper;
 
     @Resource
-    ProblemDifficultMapper problemDifficultMapper;
+    ProblemViewMapper problemViewMapper;
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public ProblemInfoToSim selectInfoToSimById(int problemId) {
+        Example example1 = new Example(ProblemInfo.class);
+        example1.createCriteria().andEqualTo("problemId", problemId);
+        ProblemInfo problemInfo = problemInfoMapper.selectOneByExample(example1);
+
+        Example example2 = new Example(ProblemView.class);
+        example2.createCriteria().andEqualTo("problemId", problemInfo.getProblemId());
+        ProblemView problemView = problemViewMapper.selectOneByExample(example2);
+        ProblemInfoToSim problemInfoToSim = new ProblemInfoToSim();
+        problemInfoToSim.setTitle(problemInfo.getTitle());
+        problemInfoToSim.setDescription(problemView.getDescription());
+        problemInfoToSim.setInput(problemView.getInput());
+        problemInfoToSim.setOutput(problemView.getOutput());
+        return problemInfoToSim;
+    }
 
     @Override
     public ProblemInfo selectProblemInfo(Integer problemId) {

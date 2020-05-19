@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import javax.annotation.Resource;
 
 /**
- * 爬虫通讯类
+ * 爬虫服务器通信类
  *
  * @author axiang [2020/4/28]
  */
@@ -21,6 +21,8 @@ import javax.annotation.Resource;
 public class SpiderHttpClient {
     @Resource
     RestTemplate restTemplate;
+
+    private static final String PROJECT_NAME = "CodingFirstSpider";
 
     @Value("${cf.config.spider.daemonStatusUrl}")
     private String daemonStatusUrl;
@@ -71,7 +73,7 @@ public class SpiderHttpClient {
      * @return
      */
     public JSONObject getListSpiders() {
-        String currentUrl = String.format(listSpidersUrl, "CodingFirstSpider");
+        String currentUrl = String.format(listSpidersUrl, PROJECT_NAME);
         return restTemplate.getForObject(currentUrl, JSONObject.class);
     }
 
@@ -81,7 +83,7 @@ public class SpiderHttpClient {
      * @return
      */
     public JSONObject getListJobs() {
-        String currentUrl = String.format(listJobsUrl, "CodingFirstSpider");
+        String currentUrl = String.format(listJobsUrl, PROJECT_NAME);
         return restTemplate.getForObject(currentUrl, JSONObject.class);
     }
 
@@ -93,7 +95,7 @@ public class SpiderHttpClient {
      */
     public JSONObject startSpider(String spiderName, String job, String problems) {
         MultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
-        map.add("project", "CodingFirstSpider");
+        map.add("project", PROJECT_NAME);
         map.add("spider", spiderName);
         map.add("job", job);
         map.add("problems", problems);
@@ -103,8 +105,7 @@ public class SpiderHttpClient {
     }
 
     public String getSpiderLog(String spiderName, String jobId) {
-        String currentUrl = String.format(logUrl, "CodingFirstSpider", spiderName, jobId);
-        log.info(currentUrl);
+        String currentUrl = String.format(logUrl, PROJECT_NAME, spiderName, jobId);
         return restTemplate.getForObject(currentUrl, String.class);
     }
 

@@ -1,7 +1,7 @@
 package team.fjut.cf.mapper;
 
-import team.fjut.cf.pojo.po.ProblemInfo;
 import org.apache.ibatis.annotations.Param;
+import team.fjut.cf.pojo.po.ProblemInfo;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -11,8 +11,11 @@ import java.util.List;
  */
 public interface ProblemInfoMapper extends Mapper<ProblemInfo> {
 
+    int getMaxProblemId();
+
     /**
      * 查询用户未解决的题目列表
+     *
      * @param username
      * @return
      */

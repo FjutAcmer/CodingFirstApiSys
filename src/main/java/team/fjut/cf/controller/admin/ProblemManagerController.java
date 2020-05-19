@@ -3,11 +3,14 @@ package team.fjut.cf.controller.admin;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import team.fjut.cf.pojo.enums.ResultCode;
-import team.fjut.cf.pojo.po.*;
+import team.fjut.cf.pojo.po.ProblemInfo;
+import team.fjut.cf.pojo.po.ProblemSample;
+import team.fjut.cf.pojo.po.ProblemView;
 import team.fjut.cf.pojo.vo.ProblemListAdminVO;
 import team.fjut.cf.pojo.vo.ResultJson;
 import team.fjut.cf.pojo.vo.response.SubmitProblemTypeVO;
 import team.fjut.cf.service.*;
+
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -95,6 +98,7 @@ public class ProblemManagerController {
         resultJson.addInfo(totalStar);
         return resultJson;
     }
+
 
     /**
      * @return

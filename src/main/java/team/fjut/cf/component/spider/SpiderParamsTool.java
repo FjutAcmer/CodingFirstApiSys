@@ -4,10 +4,19 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.StringUtils;
 
 /**
+ * 爬虫参数工具类
+ *
  * @author axiang [2020/4/29]
  */
 @Slf4j
 public class SpiderParamsTool {
+    /**
+     * 解析题目范围字符串
+     * 将形如 “1000，[1001-1003]”的字符串解析为 “1000,1001,1002,1003”
+     *
+     * @param range
+     * @return
+     */
     public static String parseRange2Problems(String range) {
         if (StringUtils.isEmpty(range)) {
             return null;

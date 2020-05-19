@@ -8,7 +8,7 @@ spring:
     # 连接数据库的账号
     username: root
     #  连接数据库的密码
-    password: mysql
+    password: wyx
   # 邮件配置
   mail:
     host: smtp.qq.com
@@ -56,6 +56,9 @@ cf:
       avatarPath: D://testfile/avatar/
     local:
       localJudgePath: http://192.168.122.129:8100
+      simFilePath: D://testfile/python/
+      spiderProjectPath: D://A-阿翔/项目工程/毕设-网上编程题爬取系统/CodingFirstSpider/
+      pythonPath: D://Anaconda3/envs/web/python.exe
     spider:
       daemonStatusUrl: http://127.0.0.1:6800/daemonstatus.json
       listProjectsUrl: http://127.0.0.1:6800/listprojects.json

@@ -2,14 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="team.fjut.cf.mapper.ProblemInfoMapper">
 
+
+    <select id="getMaxProblemId" resultType="java.lang.Integer">
+        SELECT problem_id
+        FROM t_problem_info
+        ORDER BY problem_id DESC
+        LIMIT 1;
+    </select>
+
     <select id="selectUnSolvedProblemsByUsername" resultType="team.fjut.cf.pojo.po.ProblemInfo">
-        SELECT * FROM t_problem_info tpi
-        WHERE  problem_id NOT IN
-        (
-            SELECT problem_id
-            FROM t_user_problem_solved tps
-            WHERE solved_count > 0
-            AND tps.username = #{username}
-        );
+        SELECT *
+        FROM t_problem_info tpi
+        WHERE problem_id NOT IN
+              (
+                  SELECT problem_id
+                  FROM t_user_problem_solved tps
+                  WHERE solved_count > 0
+                    AND tps.username = #{username}
+              );
     </select>
 </mapper>

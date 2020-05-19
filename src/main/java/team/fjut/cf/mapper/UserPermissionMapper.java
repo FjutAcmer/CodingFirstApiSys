@@ -1,9 +1,8 @@
 package team.fjut.cf.mapper;
 
-import org.apache.catalina.User;
+import org.apache.ibatis.annotations.Param;
 import team.fjut.cf.pojo.po.PermissionTypePO;
 import team.fjut.cf.pojo.po.UserPermission;
-import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
