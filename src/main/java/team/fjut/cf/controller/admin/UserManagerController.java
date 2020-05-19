@@ -39,6 +39,9 @@ public class UserManagerController {
     @Resource
     UserCheckInService userCheckInService;
 
+    @Resource
+    UserAuthService userAuthService;
+
     @GetMapping("/list")
     public ResultJson getUserList(@RequestParam("page") Integer pageNum,
                                   @RequestParam("limit") Integer pageSize,
@@ -82,6 +85,7 @@ public class UserManagerController {
     @GetMapping("/title/list")
     public ResultJson getUserTitle(@RequestParam("page") Integer pageNum,
                                   @RequestParam("limit") Integer pageSize,
+                                  @RequestParam(name = "sort", required = false) String sort,
                                   @RequestParam(name = "name", required = false) String name) {
         ResultJson resultJson = new ResultJson();
         if (!StringUtils.isEmpty(name)) {
@@ -91,7 +95,7 @@ public class UserManagerController {
             // 拼接查询字符串如果为空字符或者null则 置为null
             name = null;
         }
-        List<UserTitle> userTitles = userTitleService.pageByCondition(pageNum, pageSize, name);
+        List<UserTitle> userTitles = userTitleService.pageByCondition(pageNum, pageSize, sort, name);
         Integer total = userTitleService.countByCondition(name);
         resultJson.addInfo(userTitles);
         resultJson.addInfo(total);
@@ -106,9 +110,9 @@ public class UserManagerController {
         return resultJson;
     }
 
-    @RequestMapping("/title/add")
+    @RequestMapping("/title/create")
     public ResultJson createTitle(@RequestBody UserTitle userTitle) {
-        ResultJson resultJson = new ResultJson();
+        ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         int result = userTitleService.createTitle(userTitle);
         if (result != 1) {
             resultJson.setStatus(ResultCode.BUSINESS_FAIL);
@@ -138,12 +142,23 @@ public class UserManagerController {
         return resultJson;
     }
 
+    @PutMapping("/resetPsw")
+    public ResultJson resetPsw(@RequestParam("username") String username) {
+        ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
+        // 重置默认密码
+        int result  = userAuthService.updatePsw(username, "123456");
+        if (result == 0) {
+            resultJson.setStatus(ResultCode.BUSINESS_FAIL, "重置失败，请重试");
+        }
+        return resultJson;
+    }
+
     @GetMapping("/active")
     public ResultJson getUserActive() {
         ResultJson resultJson = new ResultJson();
         // 获取过去7天的日期并加入列表中
         List<String> pastDaysList = new ArrayList<>();
-        for (int i = 0; i < 7; i ++) {
+        for (int i = 6; i >= 0; i --) {
             // 依次获取7天内的日期
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - i);

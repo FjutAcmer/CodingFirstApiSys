@@ -22,7 +22,7 @@ public interface ContestRegisterService {
      * @param username
      * @return
      */
-    List<ContestRegisterUserVO> pagesByConditions(Integer page, Integer limit, String sort, Integer contestKind, Integer reviewStatus, String username);
+    List<ContestRegisterUserVO> pagesByConditions(Integer page, Integer limit, String sort, Integer contestKind, Integer reviewStatus, String username, Integer contestId);
 
     /**
      * 根据条件查询用户报名列表数量

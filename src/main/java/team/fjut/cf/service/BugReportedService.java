@@ -1,6 +1,7 @@
 package team.fjut.cf.service;
 
 import team.fjut.cf.pojo.po.BugReport;
+import team.fjut.cf.pojo.vo.response.BugReportVO;
 
 import java.util.List;
 
@@ -25,7 +26,7 @@ public interface BugReportedService {
      * @param sort
      * @return
      */
-    List<BugReport> pageByCondition(Integer pageNum, Integer pageSize, String sort);
+    List<BugReportVO> pageByCondition(Integer pageNum, Integer pageSize, String sort, Integer isFixed);
 
     /**
      * 查看bug反馈记录
@@ -34,4 +35,13 @@ public interface BugReportedService {
      * @return
      */
     int countByCondition();
+
+    /**
+     * 设置bug为已修复
+     * @author zhongml [2020/5/14]
+     *
+     * @param id
+     * @return
+     */
+    int setIdFixed(Integer id);
 }

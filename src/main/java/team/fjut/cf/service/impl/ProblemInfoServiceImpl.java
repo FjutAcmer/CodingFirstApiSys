@@ -11,6 +11,7 @@ import team.fjut.cf.service.ProblemInfoService;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,6 +62,20 @@ public class ProblemInfoServiceImpl implements ProblemInfoService {
     @Override
     public List<ProblemInfo> selectAll() {
         return problemInfoMapper.selectAll();
+    }
+
+    @Override
+    public List<ProblemTypeCountPO> countProblemType() {
+        return problemDifficultMapper.selectCountType();
+    }
+
+    @Override
+    public List<SubmitProblemTypeVO> selectSubmitProblemType() {
+        List<SubmitProblemTypeVO> submitProblemTypeVOS = problemDifficultMapper.selectSubmitProblemType();
+        for (SubmitProblemTypeVO vo : submitProblemTypeVOS) {
+            vo.setProblemTypeName(ProblemType.getNameByID(vo.getProblemTypeId()));
+        }
+        return submitProblemTypeVOS;
     }
 
 

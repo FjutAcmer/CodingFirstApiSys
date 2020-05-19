@@ -31,9 +31,15 @@ public class UserTitleServiceImpl implements UserTitleService {
     }
 
     @Override
-    public List<UserTitle> pageByCondition(Integer pageNum, Integer pageSize, String name) {
+    public List<UserTitle> pageByCondition(Integer pageNum, Integer pageSize, String sort, String name) {
         PageHelper.startPage(pageNum, pageSize);
         Example example = new Example(UserTitle.class);
+        if(sort != null && sort.equals("descending")) {
+            example.orderBy("id").desc();
+        }
+        else {
+            example.orderBy("id").asc();
+        }
         Example.Criteria criteria = example.createCriteria();
         if (Objects.nonNull(name)) {
             criteria.andLike("name", name);

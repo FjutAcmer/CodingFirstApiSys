@@ -1,6 +1,5 @@
-package team.fjut.cf.pojo.vo.request;
+package team.fjut.cf.pojo.vo;
 
-import io.swagger.models.auth.In;
 import lombok.Data;
 
 import java.util.Date;
@@ -10,7 +9,8 @@ import java.util.List;
  * @author zhongml [2020/5/7]
  */
 @Data
-public class NewContestVO {
+public class ContestInfoVO {
+    private Integer id;
     private String title;
     private Integer contestKind;
     private Date beginTime;

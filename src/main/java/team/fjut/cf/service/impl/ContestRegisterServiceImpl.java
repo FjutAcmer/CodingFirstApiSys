@@ -32,7 +32,7 @@ public class ContestRegisterServiceImpl implements ContestRegisterService {
     ContestInfoService contestInfoService;
 
     @Override
-    public List<ContestRegisterUserVO> pagesByConditions(Integer pageNum, Integer pageSize, String sort, Integer contestKind, Integer reviewStatus, String username) {
+    public List<ContestRegisterUserVO> pagesByConditions(Integer pageNum, Integer pageSize, String sort, Integer contestKind, Integer reviewStatus, String username, Integer contestId) {
         PageHelper.startPage(pageNum, pageSize);
         Example example = new Example(ContestRegisterUserPO.class);
         List<ContestRegisterUserVO> result = new ArrayList<>();
@@ -46,6 +46,9 @@ public class ContestRegisterServiceImpl implements ContestRegisterService {
 
         if (Objects.nonNull(contestKind)) {
             criteria.andEqualTo("contestKind", contestKind);
+        }
+        if (Objects.nonNull(contestKind)) {
+            criteria.andEqualTo("contestId", contestId);
         }
         if (Objects.nonNull(reviewStatus)) {
             criteria.andEqualTo("reviewStatus", reviewStatus);

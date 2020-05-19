@@ -5,6 +5,8 @@ import team.fjut.cf.pojo.po.UserAuth;
 import team.fjut.cf.service.UserAuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import team.fjut.cf.utils.Sha1Utils;
+import team.fjut.cf.utils.UUIDUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.Date;
@@ -38,5 +40,20 @@ public class UserAuthServiceImpl implements UserAuthService {
         Example example = new Example(UserAuth.class);
         example.createCriteria().andEqualTo("username", username);
         return userAuthMapper.selectOneByExample(example).getUnlockTime();
+    }
+
+    @Override
+    public int updatePsw(String username, String newPsw) {
+        UserAuth userAuth = new UserAuth();
+        String salt = UUIDUtils.getUUID32();
+        // 加盐密码
+        String newPassword = salt + newPsw;
+        // 对加盐密码使用SHA1加密
+        String encryptedPwd = Sha1Utils.encode(newPassword);
+        userAuth.setSalt(salt);
+        userAuth.setPassword(encryptedPwd);
+        Example example = new Example(UserAuth.class);
+        example.createCriteria().andEqualTo("username", username);
+        return userAuthMapper.updateByExampleSelective(userAuth, example);
     }
 }

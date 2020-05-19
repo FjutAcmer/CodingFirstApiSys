@@ -32,4 +32,13 @@ public interface UserAuthService {
      * @return
      */
     Date selectUnlockTime(String username);
+
+    /**
+     * 重置用户密码
+     * @author zhongml [2020/5/14]
+     * @param username
+     * @param newPsw
+     * @return
+     */
+    int updatePsw(String username, String newPsw);
 }
