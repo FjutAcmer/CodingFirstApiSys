@@ -11,10 +11,13 @@ import team.fjut.cf.pojo.transform.TransSpiderGetProblemInfo;
 import team.fjut.cf.pojo.vo.request.LocalizedProblemVO;
 import team.fjut.cf.pojo.vo.response.SpiderProblemListVO;
 import team.fjut.cf.service.SpiderGetProblemInfoService;
+import team.fjut.cf.service.SpiderLocalizedRecordService;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author axiang [2020/4/30]
@@ -36,6 +39,9 @@ public class SpiderGetProblemInfoServiceImpl implements SpiderGetProblemInfoServ
 
     @Resource
     SpiderLocalizedRecordMapper spiderLocalizedRecordMapper;
+
+    @Resource
+    SpiderLocalizedRecordService spiderLocalizedRecordService;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -79,17 +85,32 @@ public class SpiderGetProblemInfoServiceImpl implements SpiderGetProblemInfoServ
         spiderLocalizedRecord.setLocalProblemId(localNewProblemId);
         spiderLocalizedRecord.setSpiderGetProblemId(Integer.parseInt(localizedProblemVO.getProblemId()));
         spiderLocalizedRecord.setCreateUser("SYSTEM");
-        int i3 = spiderLocalizedRecordMapper.insertSelective(spiderLocalizedRecord);
+        int i3 = spiderLocalizedRecordService.insert(spiderLocalizedRecord);
         return i == 1 && i1 == 1 && i2 == 1 && i3 == 1;
     }
 
     @Override
-    public List<SpiderProblemListVO> pages(int pageNum, int pageSize) {
+    public List<SpiderProblemListVO> pages(int pageNum, int pageSize, String spiderJob) {
         PageHelper.startPage(pageNum, pageSize);
         Example example = new Example(SpiderGetProblemInfo.class);
         example.orderBy("id").desc();
+        Example.Criteria criteria = example.createCriteria();
+        if (Objects.nonNull(spiderJob)) {
+            criteria.andEqualTo("spiderJob", spiderJob);
+        }
         List<SpiderGetProblemInfo> spiderGetProblemInfos = spiderGetProblemInfoMapper.selectByExample(example);
-        return TransSpiderGetProblemInfo.transformToListVO(spiderGetProblemInfos);
+        List<SpiderProblemListVO> results = new ArrayList<>();
+        for (SpiderGetProblemInfo item : spiderGetProblemInfos) {
+            SpiderProblemListVO temp = TransSpiderGetProblemInfo.transformToListVO(item);
+            List<SpiderLocalizedRecord> records = spiderLocalizedRecordService.selectByGetProblemId(item.getId());
+            if (Objects.isNull(records)) {
+                temp.setIsLocalized(null);
+            } else {
+                temp.setIsLocalized(records.size());
+            }
+            results.add(temp);
+        }
+        return results;
     }
 
     @Override

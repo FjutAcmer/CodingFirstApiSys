@@ -1,6 +1,7 @@
 package team.fjut.cf.controller.admin;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import team.fjut.cf.component.textsim.TextSimExecClient;
 import team.fjut.cf.component.textsim.pojo.ProblemInfoToSim;
@@ -42,8 +43,12 @@ public class SpiderProblemManagerController {
 
     @GetMapping("/list")
     public ResultJson getSpiderProblemList(@RequestParam int page,
-                                           @RequestParam int limit) {
-        List<SpiderProblemListVO> pages = spiderGetProblemInfoService.pages(page, limit);
+                                           @RequestParam int limit,
+                                           @RequestParam(required = false) String spiderJob) {
+        if (StringUtils.isEmpty(spiderJob)) {
+            spiderJob = null;
+        }
+        List<SpiderProblemListVO> pages = spiderGetProblemInfoService.pages(page, limit, spiderJob);
         int count = spiderGetProblemInfoService.count();
         return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, pages, count);
     }
