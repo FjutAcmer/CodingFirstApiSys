@@ -49,7 +49,7 @@ public interface UserBaseInfoMapper extends Mapper<UserBaseInfo> {
      * @param username
      * @return
      */
-    List<UserInfoAdminVO> selectByCondition(@Param("username") String username);
+    List<UserInfoAdminVO> selectByCondition(@Param("username") String username, @Param("sort") String sort, @Param("sortItem") String sortItem);
 
     /**
      * @author zhongml [2020/4/28]

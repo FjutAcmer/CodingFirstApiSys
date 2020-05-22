@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.ProblemInfo;
 import team.fjut.cf.pojo.po.ProblemSample;
+import team.fjut.cf.pojo.po.ProblemTypeCountPO;
 import team.fjut.cf.pojo.po.ProblemView;
 import team.fjut.cf.pojo.vo.ProblemListAdminVO;
 import team.fjut.cf.pojo.vo.ResultJson;

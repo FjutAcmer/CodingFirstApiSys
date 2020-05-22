@@ -10,6 +10,7 @@ import team.fjut.cf.pojo.po.ContestInfoPO;
 import team.fjut.cf.pojo.po.ContestProblemPO;
 import team.fjut.cf.pojo.vo.ContestListVO;
 import team.fjut.cf.pojo.vo.ResultJson;
+import team.fjut.cf.pojo.vo.response.ContestProblemVO;
 import team.fjut.cf.service.ContestInfoService;
 import team.fjut.cf.service.ContestProblemService;
 import team.fjut.cf.service.JudgeStatusService;
@@ -71,7 +72,7 @@ public class ContestController {
     @GetMapping("/problem/list")
     public ResultJson getContestProblemList(@RequestParam("contestId") Integer contestId) {
         ResultJson resultJson = new ResultJson();
-        List<ContestProblemPO> contestProblemPOS = contestProblemService.selectByContestId(contestId);
+        List<ContestProblemVO> contestProblemPOS = contestProblemService.selectByContestId(contestId);
         resultJson.addInfo(contestProblemPOS);
         return resultJson;
     }

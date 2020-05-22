@@ -107,9 +107,9 @@ public class ViewJudgeStatusServiceImpl implements ViewJudgeStatusService {
 
         Example example = new Example(JudgeStatus.class);
         if (sort != null && sort.equals("ascending")) {
-            example.orderBy("id").desc();
+            example.orderBy("submitTime").asc();
         } else {
-            example.orderBy("id").desc();
+            example.orderBy("submitTime").desc();
         }
         Example.Criteria criteria = example.createCriteria();
         if (Objects.nonNull(username)) {

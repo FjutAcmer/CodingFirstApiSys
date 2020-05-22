@@ -218,9 +218,9 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
 
     // add by zhongml [2020/4/28]
     @Override
-    public List<UserInfoAdminVO> pageByCondition(Integer pageNum, Integer pageSize, String username) {
+    public List<UserInfoAdminVO> pageByCondition(Integer pageNum, Integer pageSize, String sort, String sortItem, String username) {
         PageHelper.startPage(pageNum, pageSize);
-        return userBaseInfoMapper.selectByCondition(username);
+        return userBaseInfoMapper.selectByCondition(username, sort, sortItem);
     }
 
     // add by zhongml [2020/4/28]

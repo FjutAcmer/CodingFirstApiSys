@@ -114,7 +114,6 @@ public class BorderHonorRankServiceImpl implements BorderHonorRankService {
     @Override
     public int insertHonor(BorderHonorRankVO vo) {
         BorderHonorRankPO borderHonorRankPO = new BorderHonorRankPO();
-        borderHonorRankPO.setId(vo.getId());
         borderHonorRankPO.setAwardLevel(AwardLevel.getCodeByName(vo.getAwardLevel()));
         borderHonorRankPO.setContestLevel(ContestLevel.getCodeByName(vo.getContestLevel()));
         borderHonorRankPO.setRealNameOne(vo.getRealNameOne());
@@ -128,6 +127,27 @@ public class BorderHonorRankServiceImpl implements BorderHonorRankService {
         borderHonorRankPO.setRewardDate(vo.getRewardDate());
 
         return borderHonorRankMapper.insertSelective(borderHonorRankPO);
+    }
+
+    @Override
+    public BorderHonorRankVO selectById(Integer id) {
+        Example example = new Example(BorderHonorRankPO.class);
+        example.createCriteria().andEqualTo("id", id);
+        BorderHonorRankPO po = borderHonorRankMapper.selectOneByExample(example);
+        BorderHonorRankVO borderHonorRankVO = new BorderHonorRankVO();
+        borderHonorRankVO.setContestLevel(ContestLevel.getNameByCode(po.getContestLevel()));
+        borderHonorRankVO.setAwardLevel(AwardLevel.getNameByCode(po.getAwardLevel()));
+        borderHonorRankVO.setDescription(po.getDescription());
+        borderHonorRankVO.setId(po.getId());
+        borderHonorRankVO.setRealNameOne(po.getRealNameOne());
+        borderHonorRankVO.setRealNameTwo(po.getRealNameTwo());
+        borderHonorRankVO.setRealNameThree(po.getRealNameThree());
+        borderHonorRankVO.setUsernameOne(po.getUsernameOne());
+        borderHonorRankVO.setUsernameTwo(po.getUsernameTwo());
+        borderHonorRankVO.setUsernameThree(po.getUsernameThree());
+        borderHonorRankVO.setRewardDate(po.getRewardDate());
+        borderHonorRankVO.setRegisterTime(po.getRegisterTime());
+        return borderHonorRankVO;
     }
 
     @Override

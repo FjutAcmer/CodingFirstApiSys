@@ -29,8 +29,8 @@ public class UploadController {
     @Value("${cf.config.file.avatarPath}")
     private String avatarPath;
 
-    @PostMapping("/avatar")
-    public ResultJson uploadAvatar(@RequestParam("avatar") final MultipartFile file)
+    @RequestMapping("/avatar")
+    public ResultJson uploadAvatar(@RequestBody final MultipartFile file)
             throws IOException {
         if (file.getSize() == 0) {
             return new ResultJson(ResultCode.BAD_REQUEST, "文件为空！");

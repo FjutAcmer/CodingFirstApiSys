@@ -2,6 +2,7 @@ package team.fjut.cf.mapper;
 
 import team.fjut.cf.pojo.po.ContestProblemPO;
 import org.apache.ibatis.annotations.Param;
+import team.fjut.cf.pojo.vo.response.ContestProblemVO;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public interface ContestProblemMapper extends Mapper<ContestProblemPO> {
      * @param contestId
      * @return
      */
-    List<ContestProblemPO> selectByContestId(@Param("contestId") Integer contestId);
+    List<ContestProblemVO> selectByContestId(@Param("contestId") Integer contestId);
 
     /**
      * 添加比赛题目

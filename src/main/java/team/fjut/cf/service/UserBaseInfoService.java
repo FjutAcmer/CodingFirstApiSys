@@ -82,7 +82,7 @@ public interface UserBaseInfoService {
      * @param username
      * @return
      */
-    List<UserInfoAdminVO> pageByCondition(Integer pageNum, Integer pageSize, String username);
+    List<UserInfoAdminVO> pageByCondition(Integer pageNum, Integer pageSize, String sort, String sortItem, String username);
 
     /**
      * @author zhongml [2020/4/28]

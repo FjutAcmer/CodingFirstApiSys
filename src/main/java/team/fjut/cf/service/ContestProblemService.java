@@ -1,6 +1,7 @@
 package team.fjut.cf.service;
 
 import team.fjut.cf.pojo.po.ContestProblemPO;
+import team.fjut.cf.pojo.vo.response.ContestProblemVO;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public interface ContestProblemService {
      * @param contestId
      * @return
      */
-    List<ContestProblemPO> selectByContestId(Integer contestId);
+    List<ContestProblemVO> selectByContestId(Integer contestId);
 
     /**
      * 添加比赛题目
