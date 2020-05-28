@@ -22,12 +22,6 @@
                graduation_year
         FROM t_user_base_info
         WHERE username = #{username}
-        <if test="sortItem == 'rating' and sort == 'descending'">
-            ORDER BY rating DESC
-        </if>
-        <if test="sort == 'acb' and sort == 'descending'">
-            ORDER BY acb DESC
-        </if>
     </select>
 
     <select id="allAcbTop" resultType="team.fjut.cf.pojo.po.UserBaseInfo">
@@ -66,6 +60,18 @@
         WHERE ubi.username = uci.username
         <if test = "username != null">
             AND ubi.username like #{username}
+        </if>
+        <if test="sortItem == 'rating' and sort == 'descending'">
+            ORDER BY rating DESC
+        </if>
+        <if test="sortItem == 'acb' and sort == 'descending'">
+            ORDER BY acb DESC
+        </if>
+        <if test="sortItem == 'rating' and sort == 'ascending'">
+            ORDER BY rating ASC
+        </if>
+        <if test="sortItem == 'acb' and sort == 'ascending'">
+            ORDER BY acb ASC
         </if>
     </select>
 
