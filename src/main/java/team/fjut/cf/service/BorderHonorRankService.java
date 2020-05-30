@@ -53,6 +53,15 @@ public interface BorderHonorRankService {
     int insertHonor(BorderHonorRankVO borderHonorRankVO);
 
     /**
+     * @author zhongml [2020/4/26]
+     * 根据ID查询记录
+     *
+     * @param id
+     * @return
+     */
+    BorderHonorRankVO selectById(Integer id);
+
+    /**
      * 查询榜单记录数
      * @return
      */

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="team.fjut.cf.mapper.ContestProblemMapper">
-    <select id="selectByContestId" resultType="team.fjut.cf.pojo.po.ContestProblemPO">
-        SELECT * FROM t_contest_problem
+    <select id="selectByContestId" resultType="team.fjut.cf.pojo.vo.response.ContestProblemVO">
+        SELECT tcp.problem_id, tcp.problem_order, tpi.title, tcp.contest_id
+        FROM t_contest_problem tcp, t_problem_info tpi
         WHERE contest_id = #{contestId}
+        AND tcp.problem_id = tpi.problem_id
         ORDER BY problem_order ASC
     </select>
 

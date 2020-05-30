@@ -2,12 +2,14 @@ package team.fjut.cf.service.impl;
 
 import team.fjut.cf.mapper.ContestProblemMapper;
 import team.fjut.cf.pojo.po.ContestProblemPO;
+import team.fjut.cf.pojo.vo.response.ContestProblemVO;
 import team.fjut.cf.service.ContestProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,7 +21,7 @@ public class ContestProblemServiceImpl implements ContestProblemService {
     ContestProblemMapper contestProblemMapper;
 
     @Override
-    public List<ContestProblemPO> selectByContestId(Integer contestId) {
+    public List<ContestProblemVO> selectByContestId(Integer contestId) {
         return contestProblemMapper.selectByContestId(contestId);
     }
 

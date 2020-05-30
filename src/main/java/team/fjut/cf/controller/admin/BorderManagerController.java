@@ -23,6 +23,19 @@ public class BorderManagerController {
      * @param id
      * @return
      */
+    @GetMapping("/info")
+    public ResultJson getHonor(@RequestParam("id") Integer id) {
+        ResultJson resultJson = new ResultJson();
+        BorderHonorRankVO borderHonorRankVO = borderHonorRankService.selectById(id);
+        resultJson.addInfo(borderHonorRankVO);
+        return resultJson;
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
     @DeleteMapping("/delete")
     public ResultJson deleteHonor(@RequestParam("id") Integer id) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);

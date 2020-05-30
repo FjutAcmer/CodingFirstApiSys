@@ -45,6 +45,8 @@ public class UserManagerController {
     @GetMapping("/list")
     public ResultJson getUserList(@RequestParam("page") Integer pageNum,
                                   @RequestParam("limit") Integer pageSize,
+                                  @RequestParam(name = "sort", required = false) String sort,
+                                  @RequestParam(name = "sortItem", required = false) String sortItem,
                                   @RequestParam(name = "username", required = false) String username) {
         ResultJson resultJson = new ResultJson();
         if (!StringUtils.isEmpty(username)) {
@@ -54,7 +56,7 @@ public class UserManagerController {
             // 拼接查询字符串如果为空字符或者null则 置为null
             username = null;
         }
-        List<UserInfoAdminVO> userInfoAdminVOS = userBaseInfoService.pageByCondition(pageNum, pageSize, username);
+        List<UserInfoAdminVO> userInfoAdminVOS = userBaseInfoService.pageByCondition(pageNum, pageSize, sort, sortItem, username);
         Integer total = userBaseInfoService.countByCondition(username);
         resultJson.addInfo(userInfoAdminVOS);
         resultJson.addInfo(total);

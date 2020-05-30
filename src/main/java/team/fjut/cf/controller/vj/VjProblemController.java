@@ -87,7 +87,7 @@ public class VjProblemController {
     @PostMapping("/info")
     public ResultJson getProblemInfo(@RequestParam("OJId") String oJId,
                                      @RequestParam("probNum") String probNum,
-                                     @RequestParam("username") String username) {
+                                     @RequestParam(value = "username", required = false) String username) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         ProblemHtmlParams params = new ProblemHtmlParams();
         params.setOJId(oJId);

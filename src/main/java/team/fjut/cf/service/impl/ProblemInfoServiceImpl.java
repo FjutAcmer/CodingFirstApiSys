@@ -31,6 +31,9 @@ public class ProblemInfoServiceImpl implements ProblemInfoService {
     @Resource
     ProblemViewMapper problemViewMapper;
 
+    @Resource
+    ProblemDifficultMapper problemDifficultMapper;
+
     @Transactional(rollbackFor = Exception.class)
     @Override
     public ProblemInfoToSim selectInfoToSimById(int problemId) {

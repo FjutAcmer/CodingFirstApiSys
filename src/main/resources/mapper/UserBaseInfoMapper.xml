@@ -61,6 +61,18 @@
         <if test = "username != null">
             AND ubi.username like #{username}
         </if>
+        <if test="sortItem == 'rating' and sort == 'descending'">
+            ORDER BY rating DESC
+        </if>
+        <if test="sortItem == 'acb' and sort == 'descending'">
+            ORDER BY acb DESC
+        </if>
+        <if test="sortItem == 'rating' and sort == 'ascending'">
+            ORDER BY rating ASC
+        </if>
+        <if test="sortItem == 'acb' and sort == 'ascending'">
+            ORDER BY acb ASC
+        </if>
     </select>
 
     <select id="selectCountByDate" resultType="java.lang.Integer">

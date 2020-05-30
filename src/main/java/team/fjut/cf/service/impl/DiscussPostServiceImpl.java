@@ -50,7 +50,7 @@ public class DiscussPostServiceImpl implements DiscussPostService {
     @Override
     public Integer countReplyById(Integer id) {
         Example example = new Example(DiscussReplyPostPO.class);
-        example.createCriteria().andEqualTo("id", id);
+        example.createCriteria().andEqualTo("discussId", id);
         return discussReplyPostMapper.selectCountByExample(example);
     }
 

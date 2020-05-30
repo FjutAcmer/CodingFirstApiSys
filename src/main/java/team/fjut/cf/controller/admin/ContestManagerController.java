@@ -9,6 +9,7 @@ import team.fjut.cf.pojo.vo.ContestInfoVO;
 import team.fjut.cf.pojo.po.ContestRegisterUserPO;
 import team.fjut.cf.pojo.vo.ContestRegisterUserVO;
 import team.fjut.cf.pojo.vo.ResultJson;
+import team.fjut.cf.pojo.vo.response.ContestProblemVO;
 import team.fjut.cf.pojo.vo.response.ContestTypeVO;
 import team.fjut.cf.service.ContestInfoService;
 import team.fjut.cf.service.ContestProblemService;
@@ -95,9 +96,9 @@ public class ContestManagerController {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         ContestInfoVO vo = new ContestInfoVO();
         ContestInfoPO po = contestInfoService.selectByContestId(contestId);
-        List<ContestProblemPO> problems = contestProblemService.selectByContestId(contestId);
+        List<ContestProblemVO> problems = contestProblemService.selectByContestId(contestId);
         List<Integer> problemIds = new ArrayList<>();
-        for (ContestProblemPO item: problems) {
+        for (ContestProblemVO item: problems) {
             problemIds.add(item.getProblemId());
         }
         vo.setTitle(po.getTitle());
@@ -120,14 +121,6 @@ public class ContestManagerController {
         vo.setCreateUser(po.getCreateUser());
         vo.setProblems(problemIds);
         resultJson.addInfo(vo);
-        return resultJson;
-    }
-
-    @GetMapping("/problem/list")
-    public ResultJson getContestProblems(@RequestParam Integer contestId) {
-        ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
-        List<ContestProblemPO> problems = contestProblemService.selectByContestId(contestId);
-        resultJson.addInfo(problems);
         return resultJson;
     }
 
