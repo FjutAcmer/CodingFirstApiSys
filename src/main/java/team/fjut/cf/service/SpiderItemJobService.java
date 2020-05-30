@@ -1,6 +1,7 @@
 package team.fjut.cf.service;
 
 import team.fjut.cf.pojo.po.SpiderItemJob;
+import team.fjut.cf.pojo.vo.response.SpiderJobCountVO;
 import team.fjut.cf.pojo.vo.response.SpiderJobListVO;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface SpiderItemJobService {
     List<SpiderJobListVO> selectBySpiderName(String spiderName);
 
     SpiderItemJob selectByJobId(String jobId);
+
+    List<SpiderJobCountVO> selectByCountDays(int days);
 }

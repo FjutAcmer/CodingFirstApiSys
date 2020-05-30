@@ -14,7 +14,8 @@ public interface SpiderGetProblemInfoService {
 
     boolean localizedProblem(LocalizedProblemVO LocalizedProblem);
 
-    List<SpiderProblemListVO> pages(int pageNum, int pageSize);
+    List<SpiderProblemListVO> pages(int pageNum, int pageSize,
+                                    String spiderJob);
 
     int count();
 

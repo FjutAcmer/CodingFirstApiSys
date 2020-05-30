@@ -24,4 +24,14 @@ public interface ContestProblemService {
      * @return
      */
     Integer insertContestProblem(List<Integer> problems, Integer contestId);
+
+    /**
+     * 修改比赛题目
+     *
+     * @param problems
+     * @param contestId
+     * @return
+     */
+    Integer updateContestProblem(List<Integer> problems, Integer contestId);
+
 }

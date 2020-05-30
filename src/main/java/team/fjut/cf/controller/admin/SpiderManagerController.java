@@ -12,6 +12,7 @@ import team.fjut.cf.pojo.po.SpiderItemJob;
 import team.fjut.cf.pojo.vo.ResultJson;
 import team.fjut.cf.pojo.vo.request.QuerySpiderLogVO;
 import team.fjut.cf.pojo.vo.request.StartSpiderVO;
+import team.fjut.cf.pojo.vo.response.SpiderJobCountVO;
 import team.fjut.cf.pojo.vo.response.SpiderJobListVO;
 import team.fjut.cf.service.SpiderItemInfoService;
 import team.fjut.cf.service.SpiderItemJobService;
@@ -117,6 +118,12 @@ public class SpiderManagerController {
     public ResultJson getJobList(@RequestParam String spiderName) {
         List<SpiderJobListVO> spiderJobListVos = spiderItemJobService.selectBySpiderName(spiderName);
         return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, spiderJobListVos);
+    }
+
+    @PostMapping("/count/days")
+    public ResultJson getCountDays(@RequestParam int days) {
+        List<SpiderJobCountVO> spiderJobCountVOS = spiderItemJobService.selectByCountDays(days);
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, spiderJobCountVOS);
     }
 
 }

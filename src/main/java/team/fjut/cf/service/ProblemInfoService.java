@@ -2,6 +2,8 @@ package team.fjut.cf.service;
 
 import team.fjut.cf.component.textsim.pojo.ProblemInfoToSim;
 import team.fjut.cf.pojo.po.ProblemInfo;
+import team.fjut.cf.pojo.po.ProblemTypeCountPO;
+import team.fjut.cf.pojo.vo.response.SubmitProblemTypeVO;
 
 import java.util.List;
 
@@ -45,5 +47,21 @@ public interface ProblemInfoService {
      * @author zhongml [2020/4/17]
      */
     List<ProblemInfo> selectAll();
+
+    /**
+     * @author zhongml [2020/5/14]
+     * 统计submit最多的题目类型
+     *
+     * @return
+     */
+    List<SubmitProblemTypeVO> selectSubmitProblemType();
+
+    /**
+     * @author zhongml [2020/5/14]
+     * 统计题库的题目类型
+     *
+     * @return
+     */
+    List<ProblemTypeCountPO> countProblemType();
 
 }

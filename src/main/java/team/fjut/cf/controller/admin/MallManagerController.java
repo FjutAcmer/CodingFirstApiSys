@@ -219,7 +219,7 @@ public class MallManagerController {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         // 获取过去7天的日期并加入列表中
         List<String> pastDaysList = new ArrayList<>();
-        for (int i = 0; i < 7; i ++) {
+        for (int i = 6; i >= 0; i --) {
             // 依次获取7天内的日期
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - i);

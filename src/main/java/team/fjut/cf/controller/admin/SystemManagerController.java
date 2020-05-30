@@ -5,7 +5,9 @@ import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.BugReport;
 import team.fjut.cf.pojo.po.UserMessage;
 import team.fjut.cf.pojo.vo.ResultJson;
+import team.fjut.cf.pojo.vo.response.BugReportVO;
 import team.fjut.cf.service.BugReportedService;
+import team.fjut.cf.service.UserBaseInfoService;
 import team.fjut.cf.service.UserMessageService;
 
 import javax.annotation.Resource;
@@ -25,34 +27,53 @@ public class SystemManagerController {
     @Resource
     BugReportedService bugReportedService;
 
-    @PutMapping("message/create")
+    @Resource
+    UserBaseInfoService userBaseInfoService;
+
+    @PostMapping("/message/create")
     public ResultJson createMessage(@RequestParam("toUsername") String toUsername,
                                 @RequestParam("fromUsername") String fromUsername,
                                 @RequestParam("title") String title,
                                 @RequestParam("text") String text) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
-        UserMessage userMessage = new UserMessage();
-        userMessage.setStatus(0);
-        userMessage.setFromUsername(fromUsername);
-        userMessage.setToUsername(toUsername);
-        userMessage.setTitle(title);
-        userMessage.setText(text);
-        int result  = userMessageService.insertMessage(userMessage);
+        int result = -1;
+        if (userBaseInfoService.isUserExist(toUsername) ) {
+            UserMessage userMessage = new UserMessage();
+            userMessage.setStatus(0);
+            userMessage.setFromUsername(fromUsername);
+            userMessage.setToUsername(toUsername);
+            userMessage.setTitle(title);
+            userMessage.setText(text);
+            result  = userMessageService.insertMessage(userMessage);
+        } else {
+            resultJson.setStatus(ResultCode.BUSINESS_FAIL, "用户不存在，请检查是否输入正确的用户名");
+        }
         if (result == 0) {
             resultJson.setStatus(ResultCode.BUSINESS_FAIL);
         }
         return resultJson;
     }
 
-    @GetMapping("log/list")
+    @GetMapping("/bugReport/list")
     public ResultJson createMessage(@RequestParam("page") Integer pageNum,
                                     @RequestParam("limit") Integer pageSize,
-                                    @RequestParam("sort") String sort) {
+                                    @RequestParam(value = "sort", required = false) String sort,
+                                    @RequestParam(value = "isFixed", required = false) Integer isFixed) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
-        List<BugReport> bugReportList = bugReportedService.pageByCondition(pageNum, pageSize, sort);
+        List<BugReportVO> bugReportList = bugReportedService.pageByCondition(pageNum, pageSize, sort, isFixed);
         int total = bugReportedService.countByCondition();
         resultJson.addInfo(bugReportList);
         resultJson.addInfo(total);
+        return resultJson;
+    }
+
+    @PutMapping("/bugReport/update")
+    public ResultJson createMessage(@RequestParam("id") Integer id) {
+        ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
+        int result = bugReportedService.setIdFixed(id);
+        if (result == 0) {
+            resultJson.setStatus(ResultCode.BUSINESS_FAIL);
+        }
         return resultJson;
     }
 

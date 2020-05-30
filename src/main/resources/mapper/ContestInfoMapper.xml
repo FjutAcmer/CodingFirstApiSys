@@ -57,4 +57,12 @@
         SELECT * FROM t_contest_info
         WHERE contest_id = #{contestId};
     </select>
+
+    <select id="selectContestTypeCount" resultType="team.fjut.cf.pojo.vo.response.ContestTypeVO">
+        SELECT contest_kind contest_type, '' contest_type_name, count(contest_kind) count
+        FROM t_contest_info
+        GROUP BY contest_kind
+        ORDER BY contest_kind
+    </select>
+
 </mapper>

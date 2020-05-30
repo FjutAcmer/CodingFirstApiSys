@@ -26,11 +26,12 @@ public interface UserTitleService {
      * 条件查询称号列表
      *
      * @param pageNum
+     * @param sort 
      * @param pageSize
      * @param name
      * @return
      */
-    List<UserTitle> pageByCondition(Integer pageNum, Integer pageSize, String name);
+    List<UserTitle> pageByCondition(Integer pageNum, Integer pageSize, String sort, String name);
 
     /**
      * @author zhongml [2020/4/28]

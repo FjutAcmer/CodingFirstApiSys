@@ -17,5 +17,5 @@ public class SpiderProblemListVO {
     String problemUrl;
     String problemId;
     String problemTitle;
-    Boolean isLocalized;
+    Integer isLocalized;
 }

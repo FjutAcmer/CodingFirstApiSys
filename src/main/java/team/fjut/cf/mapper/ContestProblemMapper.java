@@ -2,13 +2,14 @@ package team.fjut.cf.mapper;
 
 import team.fjut.cf.pojo.po.ContestProblemPO;
 import org.apache.ibatis.annotations.Param;
+import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
 /**
  * @author axiang [2019/11/21]
  */
-public interface ContestProblemMapper {
+public interface ContestProblemMapper extends Mapper<ContestProblemPO> {
     /**
      * 根据比赛ID查询比赛题目
      *

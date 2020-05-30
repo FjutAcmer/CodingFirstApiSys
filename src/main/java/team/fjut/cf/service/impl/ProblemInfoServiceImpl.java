@@ -3,10 +3,14 @@ package team.fjut.cf.service.impl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.fjut.cf.component.textsim.pojo.ProblemInfoToSim;
+import team.fjut.cf.mapper.ProblemDifficultMapper;
 import team.fjut.cf.mapper.ProblemInfoMapper;
 import team.fjut.cf.mapper.ProblemViewMapper;
+import team.fjut.cf.pojo.enums.ProblemType;
 import team.fjut.cf.pojo.po.ProblemInfo;
+import team.fjut.cf.pojo.po.ProblemTypeCountPO;
 import team.fjut.cf.pojo.po.ProblemView;
+import team.fjut.cf.pojo.vo.response.SubmitProblemTypeVO;
 import team.fjut.cf.service.ProblemInfoService;
 import tk.mybatis.mapper.entity.Example;
 
@@ -20,6 +24,9 @@ import java.util.List;
 public class ProblemInfoServiceImpl implements ProblemInfoService {
     @Resource
     ProblemInfoMapper problemInfoMapper;
+
+    @Resource
+    ProblemDifficultMapper problemDifficultMapper;
 
     @Resource
     ProblemViewMapper problemViewMapper;
@@ -61,6 +68,20 @@ public class ProblemInfoServiceImpl implements ProblemInfoService {
     @Override
     public List<ProblemInfo> selectAll() {
         return problemInfoMapper.selectAll();
+    }
+
+    @Override
+    public List<ProblemTypeCountPO> countProblemType() {
+        return problemDifficultMapper.selectCountType();
+    }
+
+    @Override
+    public List<SubmitProblemTypeVO> selectSubmitProblemType() {
+        List<SubmitProblemTypeVO> submitProblemTypeVOS = problemDifficultMapper.selectSubmitProblemType();
+        for (SubmitProblemTypeVO vo : submitProblemTypeVOS) {
+            vo.setProblemTypeName(ProblemType.getNameByID(vo.getProblemTypeId()));
+        }
+        return submitProblemTypeVOS;
     }
 
 
