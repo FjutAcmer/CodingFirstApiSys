@@ -31,8 +31,6 @@ public class ProblemInfoServiceImpl implements ProblemInfoService {
     @Resource
     ProblemViewMapper problemViewMapper;
 
-    @Resource
-    ProblemDifficultMapper problemDifficultMapper;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -67,11 +65,6 @@ public class ProblemInfoServiceImpl implements ProblemInfoService {
         return problemInfoMapper.deleteByExample(example);
     }
 
-    // add by zhongml [2020/4/17]
-    @Override
-    public List<ProblemInfo> selectAll() {
-        return problemInfoMapper.selectAll();
-    }
 
     @Override
     public List<ProblemTypeCountPO> countProblemType() {

@@ -1,8 +1,9 @@
 package team.fjut.cf.controller.admin;
 
 import org.springframework.web.bind.annotation.*;
+import team.fjut.cf.config.interceptor.annotation.PermissionRequired;
+import team.fjut.cf.pojo.enums.PermissionType;
 import team.fjut.cf.pojo.enums.ResultCode;
-import team.fjut.cf.pojo.po.BugReport;
 import team.fjut.cf.pojo.po.UserMessage;
 import team.fjut.cf.pojo.vo.ResultJson;
 import team.fjut.cf.pojo.vo.response.BugReportVO;
@@ -31,6 +32,7 @@ public class SystemManagerController {
     UserBaseInfoService userBaseInfoService;
 
     @PostMapping("/message/create")
+    @PermissionRequired(permissions = {PermissionType.SYSTEM_ADD_MESSAGE})
     public ResultJson createMessage(@RequestParam("toUsername") String toUsername,
                                 @RequestParam("fromUsername") String fromUsername,
                                 @RequestParam("title") String title,
@@ -55,7 +57,8 @@ public class SystemManagerController {
     }
 
     @GetMapping("/bugReport/list")
-    public ResultJson createMessage(@RequestParam("page") Integer pageNum,
+    @PermissionRequired(permissions = {PermissionType.SYSTEM_BUG_QUERY})
+    public ResultJson bugReportList(@RequestParam("page") Integer pageNum,
                                     @RequestParam("limit") Integer pageSize,
                                     @RequestParam(value = "sort", required = false) String sort,
                                     @RequestParam(value = "isFixed", required = false) Integer isFixed) {
@@ -68,7 +71,8 @@ public class SystemManagerController {
     }
 
     @PutMapping("/bugReport/update")
-    public ResultJson createMessage(@RequestParam("id") Integer id) {
+    @PermissionRequired(permissions = {PermissionType.SYSTEM_BUG_QUERY})
+    public ResultJson updateBugReport(@RequestParam("id") Integer id) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         int result = bugReportedService.setIdFixed(id);
         if (result == 0) {

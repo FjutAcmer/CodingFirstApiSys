@@ -2,6 +2,8 @@ package team.fjut.cf.controller.admin;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import team.fjut.cf.config.interceptor.annotation.PermissionRequired;
+import team.fjut.cf.pojo.enums.PermissionType;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.JudgeStatus;
 import team.fjut.cf.pojo.vo.ResultJson;
@@ -32,6 +34,7 @@ public class JudgeStatusManagerController {
     @Resource
     ViewJudgeStatusService viewJudgeStatusService;
 
+    @PermissionRequired(permissions = {PermissionType.JUDGE_MANAGER})
     @GetMapping("/list")
     public ResultJson getStatusList(@RequestParam("page") Integer pageNum,
                                     @RequestParam("limit") Integer pageSize,
@@ -54,12 +57,13 @@ public class JudgeStatusManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {PermissionType.JUDGE_MANAGER})
     @GetMapping("/acAndSubmit")
     public ResultJson getAcAndSubmit() {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         // 获取过去7天的日期并加入列表中
         List<String> pastDaysList = new ArrayList<>();
-        for (int i = 6; i >= 0; i --) {
+        for (int i = 6; i >= 0; i--) {
             // 依次获取7天内的日期
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - i);
@@ -73,6 +77,7 @@ public class JudgeStatusManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {PermissionType.JUDGE_MANAGER})
     @GetMapping("/languageCount")
     public ResultJson getStatusList() {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
@@ -81,6 +86,7 @@ public class JudgeStatusManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {PermissionType.JUDGE_MANAGER})
     @GetMapping("/info")
     public ResultJson getStatusList(@RequestParam("id") Integer id) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);

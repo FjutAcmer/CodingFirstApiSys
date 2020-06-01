@@ -35,10 +35,11 @@ public interface UserAuthService {
 
     /**
      * 重置用户密码
-     * @author zhongml [2020/5/14]
+     *
      * @param username
      * @param newPsw
      * @return
+     * @author zhongml [2020/5/14]
      */
-    int updatePsw(String username, String newPsw);
+    int updatePassword(String username, String newPsw);
 }

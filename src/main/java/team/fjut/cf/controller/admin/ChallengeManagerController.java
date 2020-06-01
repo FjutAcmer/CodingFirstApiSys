@@ -2,10 +2,14 @@ package team.fjut.cf.controller.admin;
 
 import com.alibaba.druid.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import team.fjut.cf.config.interceptor.annotation.PermissionRequired;
 import team.fjut.cf.pojo.enums.ChallengeBlockType;
+import team.fjut.cf.pojo.enums.PermissionType;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.ChallengeBlockPO;
-import team.fjut.cf.pojo.vo.*;
+import team.fjut.cf.pojo.vo.ChallengeBlockAdminVO;
+import team.fjut.cf.pojo.vo.ChallengeBlockProblemVO;
+import team.fjut.cf.pojo.vo.ResultJson;
 import team.fjut.cf.service.ChallengeBlockProblemService;
 import team.fjut.cf.service.ChallengeBlockService;
 
@@ -33,11 +37,12 @@ public class ChallengeManagerController {
      * @param name
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.CHALLENGE_MANAGER})
     @GetMapping("/list")
     public ResultJson getChallengeLimit(@RequestParam("page") Integer page,
-                                     @RequestParam("limit") Integer limit,
-                                     @RequestParam(value = "sort", required = false) String sort,
-                                     @RequestParam(value = "name", required = false) String name) {
+                                        @RequestParam("limit") Integer limit,
+                                        @RequestParam(value = "sort", required = false) String sort,
+                                        @RequestParam(value = "name", required = false) String name) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         if (StringUtils.isEmpty(name)) {
             name = null;
@@ -54,6 +59,7 @@ public class ChallengeManagerController {
     /**
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.CHALLENGE_MANAGER})
     @GetMapping("/all")
     public ResultJson getAllChallenge() {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
@@ -67,6 +73,7 @@ public class ChallengeManagerController {
      * @param challengeBlock
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.CHALLENGE_MANAGER})
     @RequestMapping("/create")
     public ResultJson createChallenge(@RequestBody ChallengeBlockAdminVO challengeBlock) {
 
@@ -89,6 +96,7 @@ public class ChallengeManagerController {
      * @param challengeBlock
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.CHALLENGE_MANAGER})
     @RequestMapping("/update")
     public ResultJson updateChallenge(@RequestBody ChallengeBlockAdminVO challengeBlock) {
 
@@ -114,6 +122,7 @@ public class ChallengeManagerController {
      * @param blockId
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.CHALLENGE_MANAGER})
     @DeleteMapping("/delete")
     public ResultJson deleteChallenge(@RequestParam("id") Integer blockId) {
 
@@ -132,11 +141,12 @@ public class ChallengeManagerController {
      * @param blockId
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.CHALLENGE_MANAGER})
     @GetMapping("/problem/list")
     public ResultJson getChallengeProblemLimit(@RequestParam("page") Integer page,
-                                     @RequestParam("limit") Integer limit,
-                                     @RequestParam(value = "sort", required = false) String sort,
-                                     @RequestParam("blockId") Integer blockId) {
+                                               @RequestParam("limit") Integer limit,
+                                               @RequestParam(value = "sort", required = false) String sort,
+                                               @RequestParam("blockId") Integer blockId) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         List<ChallengeBlockProblemVO> challengeBlockVOS = challengeBlockProblemService.selectProblemByBlockId(page, limit, sort, blockId);
         Integer count = challengeBlockProblemService.countProblemByBlockId(blockId);

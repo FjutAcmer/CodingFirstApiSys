@@ -2,6 +2,8 @@ package team.fjut.cf.controller.admin;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import team.fjut.cf.config.interceptor.annotation.PermissionRequired;
+import team.fjut.cf.pojo.enums.PermissionType;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.ProblemInfo;
 import team.fjut.cf.pojo.po.ProblemSample;
@@ -48,6 +50,7 @@ public class ProblemManagerController {
      * @param difficultLevel
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.LOCAL_PROBLEM_MANAGER})
     @GetMapping("/list")
     public ResultJson getProblemLimit(@RequestParam("page") Integer page,
                                       @RequestParam("limit") Integer limit,
@@ -70,20 +73,10 @@ public class ProblemManagerController {
     }
 
     /**
-     * @return
-     */
-    @GetMapping("/all")
-    public ResultJson getAllProblem() {
-        ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
-        List<ProblemInfo> problemList = problemInfoService.selectAll();
-        resultJson.addInfo(problemList);
-        return resultJson;
-    }
-
-    /**
      * @param problemId
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.LOCAL_PROBLEM_MANAGER})
     @GetMapping("/info")
     public ResultJson getProblemInfo(@RequestParam("problemId") Integer problemId) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
@@ -104,6 +97,7 @@ public class ProblemManagerController {
     /**
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.LOCAL_PROBLEM_MANAGER})
     @GetMapping("/problemTypeCount")
     public ResultJson getProblemTypeCount() {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
@@ -123,13 +117,14 @@ public class ProblemManagerController {
      * @param outputCase
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.LOCAL_PROBLEM_MANAGER})
     @PutMapping("/update")
     public ResultJson updateProblem(@RequestParam("problemId") Integer problemId,
                                     @RequestParam(value = "description", required = false) String description,
                                     @RequestParam(value = "input", required = false) String input,
                                     @RequestParam(value = "output", required = false) String output,
                                     @RequestParam(value = "inputCase", required = false) String inputCase,
-                                    @RequestParam(value = "outputCase", required = false) String outputCase){
+                                    @RequestParam(value = "outputCase", required = false) String outputCase) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         ProblemView problemView = new ProblemView();
         problemView.setProblemId(problemId);
@@ -147,8 +142,9 @@ public class ProblemManagerController {
      * @param problemId
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.LOCAL_PROBLEM_MANAGER})
     @DeleteMapping("/delete")
-    public ResultJson deleteProblem(@RequestParam("problemId") Integer problemId){
+    public ResultJson deleteProblem(@RequestParam("problemId") Integer problemId) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         int result = problemInfoService.deleteProblem(problemId);
         if (result != 1) {

@@ -1,7 +1,10 @@
 package team.fjut.cf.controller;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.vo.ResultJson;
@@ -44,6 +47,26 @@ public class UploadController {
             suffix = file.getOriginalFilename().split("\\.")[len - 1];
         }
         final Path path = Paths.get(avatarPath + randFileName + "." + suffix);
+        Files.write(path, bytes);
+        resultJson.addInfo(randFileName + "." + suffix);
+        return resultJson;
+    }
+
+    @RequestMapping("/picture")
+    public ResultJson uploadPicture(@RequestBody final MultipartFile file)
+            throws IOException {
+        if (file.getSize() == 0) {
+            return new ResultJson(ResultCode.BUSINESS_FAIL, "文件为空！");
+        }
+        ResultJson resultJson = new ResultJson();
+        final byte[] bytes = file.getBytes();
+        String randFileName = UUIDUtils.getUUID32();
+        int len = Objects.requireNonNull(file.getOriginalFilename()).split("\\.").length;
+        String suffix = "";
+        if (len > 0) {
+            suffix = file.getOriginalFilename().split("\\.")[len - 1];
+        }
+        final Path path = Paths.get(picPath + randFileName + "." + suffix);
         Files.write(path, bytes);
         resultJson.addInfo(randFileName + "." + suffix);
         return resultJson;

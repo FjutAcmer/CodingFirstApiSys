@@ -1,6 +1,8 @@
 package team.fjut.cf.controller.admin;
 
 import org.springframework.web.bind.annotation.*;
+import team.fjut.cf.config.interceptor.annotation.PermissionRequired;
+import team.fjut.cf.pojo.enums.PermissionType;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.vo.ResultJson;
 import team.fjut.cf.pojo.vo.response.BorderHonorRankVO;
@@ -19,10 +21,10 @@ public class BorderManagerController {
     BorderHonorRankService borderHonorRankService;
 
     /**
-     *
      * @param id
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.RANK_MANAGER})
     @GetMapping("/info")
     public ResultJson getHonor(@RequestParam("id") Integer id) {
         ResultJson resultJson = new ResultJson();
@@ -32,10 +34,10 @@ public class BorderManagerController {
     }
 
     /**
-     *
      * @param id
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.RANK_MANAGER})
     @DeleteMapping("/delete")
     public ResultJson deleteHonor(@RequestParam("id") Integer id) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
@@ -47,10 +49,10 @@ public class BorderManagerController {
     }
 
     /**
-     *
      * @param borderHonorRankVO
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.RANK_MANAGER})
     @RequestMapping("/update")
     public ResultJson updateHonor(@RequestBody BorderHonorRankVO borderHonorRankVO) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
@@ -62,10 +64,10 @@ public class BorderManagerController {
     }
 
     /**
-     *
      * @param borderHonorRankVO
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.RANK_MANAGER})
     @RequestMapping("/create")
     public ResultJson createHonor(@RequestBody BorderHonorRankVO borderHonorRankVO) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);

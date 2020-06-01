@@ -41,8 +41,7 @@ public class UserPermissionServiceImpl implements UserPermissionService {
             list.add(PermissionType.getEnumByID(havePermission.getPermissionId()));
         }
         // 如果没有基础权限，则认定非管理员
-        if(!list.contains(PermissionType.BASE_ADMIN))
-        {
+        if (!list.contains(PermissionType.BASE_ADMIN)) {
             return false;
         }
         for (PermissionType needPermission : needPermissions) {
@@ -54,7 +53,6 @@ public class UserPermissionServiceImpl implements UserPermissionService {
     }
 
 
-    // add by zhongml [2020/4/29]
     @Override
     public List<UserPermission> selectUserPermission(String username) {
         Example example = new Example(UserPermission.class);
@@ -62,22 +60,23 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         return userPermissionMapper.selectByExample(example);
     }
 
-    // add by zhongml [2020/4/29]
+
     @Override
     public List<PermissionTypePO> selectAllPermission() {
-        return permissionTypeMapper.selectAll();
+        Example example = new Example(PermissionTypePO.class);
+        example.orderBy("id").asc();
+        return permissionTypeMapper.selectByExample(example);
     }
 
-    // add by zhongml [2020/4/29]
+
     @Override
     public List<UserPermissionVO> pageByCondition(Integer pageNum, Integer pageSize, String sort, String username) {
         List<UserPermissionVO> results = new ArrayList<>();
         PageHelper.startPage(pageNum, pageSize);
         Example example = new Example(UserPermission.class);
-        if(sort != null && sort.equals("ascending")) {
+        if (sort != null && sort.equals("ascending")) {
             example.orderBy("grantTime").asc();
-        }
-        else {
+        } else {
             example.orderBy("grantTime").desc();
         }
         Example.Criteria criteria = example.createCriteria();
@@ -104,7 +103,6 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         return results;
     }
 
-    // add by zhongml [2020/4/29]
     @Override
     public int countByCondition(String username) {
         Example example = new Example(UserPermission.class);
@@ -127,14 +125,13 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         return userPermissionMapper.deletePermissions(username, deletePermissions);
     }
 
-    // add by zhongml [2020/4/29]
     @Override
     public int grantAdmin(String username, String granter) {
         List<PermissionTypePO> permissionTypes = permissionTypeMapper.selectAll();
         return userPermissionMapper.insertAllPermissions(username, granter, permissionTypes);
     }
 
-    // add by zhongml [2020/4/29]
+
     @Override
     public boolean isUserHasThisPermission(String username, Integer permissionId) {
         Example example = new Example(UserPermission.class);
@@ -144,7 +141,7 @@ public class UserPermissionServiceImpl implements UserPermissionService {
         return hasPermission.size() != 0;
     }
 
-    // add by zhongml [2020/4/30]
+
     @Override
     public int revokeAdmin(String username) {
         Example example = new Example(UserPermission.class);

@@ -2,11 +2,12 @@ package team.fjut.cf.controller.admin;
 
 import com.alibaba.druid.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import team.fjut.cf.config.interceptor.annotation.PermissionRequired;
+import team.fjut.cf.pojo.enums.PermissionType;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.ContestInfoPO;
-import team.fjut.cf.pojo.po.ContestProblemPO;
-import team.fjut.cf.pojo.vo.ContestInfoVO;
 import team.fjut.cf.pojo.po.ContestRegisterUserPO;
+import team.fjut.cf.pojo.vo.ContestInfoVO;
 import team.fjut.cf.pojo.vo.ContestRegisterUserVO;
 import team.fjut.cf.pojo.vo.ResultJson;
 import team.fjut.cf.pojo.vo.response.ContestProblemVO;
@@ -37,14 +38,15 @@ public class ContestManagerController {
     @Resource
     ContestProblemService contestProblemService;
 
+    @PermissionRequired(permissions = {PermissionType.CONTEST_MANAGER})
     @GetMapping("/review/list")
     public ResultJson getContestLimit(@RequestParam("page") Integer page,
-                                     @RequestParam("limit") Integer limit,
-                                     @RequestParam(value = "sort", required = false) String sort,
-                                     @RequestParam(value = "contestKind", required = false) Integer contestKind,
-                                     @RequestParam(value = "reviewStatus", required = false) Integer reviewStatus,
-                                     @RequestParam(value = "username", required = false) String username,
-                                     @RequestParam(value = "contestId", required = false) Integer contestId) {
+                                      @RequestParam("limit") Integer limit,
+                                      @RequestParam(value = "sort", required = false) String sort,
+                                      @RequestParam(value = "contestKind", required = false) Integer contestKind,
+                                      @RequestParam(value = "reviewStatus", required = false) Integer reviewStatus,
+                                      @RequestParam(value = "username", required = false) String username,
+                                      @RequestParam(value = "contestId", required = false) Integer contestId) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         if (StringUtils.isEmpty(username)) {
             username = null;
@@ -58,6 +60,7 @@ public class ContestManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {PermissionType.CONTEST_MANAGER})
     @GetMapping("/countInProgress")
     public ResultJson getContestInProgress() {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
@@ -66,6 +69,7 @@ public class ContestManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {PermissionType.CONTEST_MANAGER})
     @GetMapping("/contestTypeCount")
     public ResultJson getContestTypeCount() {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
@@ -74,10 +78,11 @@ public class ContestManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {PermissionType.CONTEST_MANAGER})
     @PutMapping("/review/update")
     public ResultJson updateContest(@RequestParam("id") Integer id,
-                                     @RequestParam("reviewStatus") Integer reviewStatus,
-                                     @RequestParam("reviewInfo") String reviewInfo) {
+                                    @RequestParam("reviewStatus") Integer reviewStatus,
+                                    @RequestParam("reviewInfo") String reviewInfo) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         ContestRegisterUserPO contestRegisterUserPO = new ContestRegisterUserPO();
         contestRegisterUserPO.setId(id);
@@ -91,6 +96,7 @@ public class ContestManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {PermissionType.CONTEST_MANAGER})
     @GetMapping("/info")
     public ResultJson getContestInfo(@RequestParam("id") Integer contestId) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
@@ -124,6 +130,7 @@ public class ContestManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {PermissionType.CONTEST_MANAGER})
     @RequestMapping("/create")
     public ResultJson createContest(@RequestBody ContestInfoVO newContestVO) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
@@ -138,6 +145,7 @@ public class ContestManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {PermissionType.CONTEST_MANAGER})
     @RequestMapping("/update")
     public ResultJson updateContest(@RequestBody ContestInfoVO newContestVO) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);

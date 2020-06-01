@@ -2,6 +2,8 @@ package team.fjut.cf.controller.admin;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import team.fjut.cf.config.interceptor.annotation.PermissionRequired;
+import team.fjut.cf.pojo.enums.PermissionType;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.ProblemTagPO;
 import team.fjut.cf.pojo.vo.ResultJson;
@@ -27,11 +29,12 @@ public class ProblemTagManagerController {
      * @param name
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.PROBLEM_TAG_MANAGER})
     @GetMapping("/list")
     public ResultJson getTagLimit(@RequestParam("page") Integer page,
-                                      @RequestParam("limit") Integer limit,
-                                      @RequestParam(value = "sort", required = false) String sort,
-                                      @RequestParam(value = "name", required = false) String name) {
+                                  @RequestParam("limit") Integer limit,
+                                  @RequestParam(value = "sort", required = false) String sort,
+                                  @RequestParam(value = "name", required = false) String name) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         if (page == null) {
             page = 1;
@@ -60,11 +63,12 @@ public class ProblemTagManagerController {
      * @param priority
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.PROBLEM_TAG_MANAGER})
     @PutMapping("/update")
     public ResultJson updateTag(@RequestParam("id") Integer id,
-                                    @RequestParam("name") String name,
-                                    @RequestParam("tagType") Integer tagType,
-                                    @RequestParam("priority") Integer priority) {
+                                @RequestParam("name") String name,
+                                @RequestParam("tagType") Integer tagType,
+                                @RequestParam("priority") Integer priority) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         ProblemTagPO problemTag = new ProblemTagPO();
         problemTag.setId(id);
@@ -85,11 +89,12 @@ public class ProblemTagManagerController {
      * @param priority
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.PROBLEM_TAG_MANAGER})
     @PostMapping("/create")
     public ResultJson createTag(@RequestParam("name") String name,
-                                      @RequestParam("tagType") Integer tagType,
-                                      @RequestParam("createUser") String createUser,
-                                      @RequestParam("priority") Integer priority) {
+                                @RequestParam("tagType") Integer tagType,
+                                @RequestParam("createUser") String createUser,
+                                @RequestParam("priority") Integer priority) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         ProblemTagPO problemTag = new ProblemTagPO();
         problemTag.setName(name);
@@ -107,6 +112,7 @@ public class ProblemTagManagerController {
      * @param id
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.PROBLEM_TAG_MANAGER})
     @DeleteMapping("/delete")
     public ResultJson deleteTag(@RequestParam("id") Integer id) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);

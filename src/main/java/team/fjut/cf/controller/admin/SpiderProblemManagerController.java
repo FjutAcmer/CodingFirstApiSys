@@ -5,6 +5,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import team.fjut.cf.component.textsim.TextSimExecClient;
 import team.fjut.cf.component.textsim.pojo.ProblemInfoToSim;
+import team.fjut.cf.config.interceptor.annotation.PermissionRequired;
+import team.fjut.cf.pojo.enums.PermissionType;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.SpiderGetProblemInfo;
 import team.fjut.cf.pojo.po.SpiderSimRecord;
@@ -41,6 +43,15 @@ public class SpiderProblemManagerController {
     @Resource
     TextSimExecClient textSimExecClient;
 
+    /**
+     * 爬取暂存题库题目列表
+     *
+     * @param page
+     * @param limit
+     * @param spiderJob
+     * @return
+     */
+    @PermissionRequired(permissions = {PermissionType.SPIDER_PROBLEM_MANAGER})
     @GetMapping("/list")
     public ResultJson getSpiderProblemList(@RequestParam int page,
                                            @RequestParam int limit,
@@ -53,6 +64,7 @@ public class SpiderProblemManagerController {
         return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, pages, count);
     }
 
+    @PermissionRequired(permissions = {PermissionType.SPIDER_PROBLEM_MANAGER})
     @GetMapping("/info")
     public ResultJson getSpiderProblemInfo(@RequestParam int id) {
         SpiderGetProblemInfo spiderGetProblemInfo = spiderGetProblemInfoService.selectById(id);
@@ -60,6 +72,8 @@ public class SpiderProblemManagerController {
     }
 
     /**
+     * 题目查重
+     *
      * @param localProblemId
      * @param isLocalAll
      * @param spiderGetProblemId
@@ -67,6 +81,7 @@ public class SpiderProblemManagerController {
      * @return
      * @throws IOException
      */
+    @PermissionRequired(permissions = {PermissionType.PROBLEM_SIM})
     @PostMapping("/sim")
     public ResultJson simTwoProblem(@RequestParam Integer localProblemId,
                                     @RequestParam Boolean isLocalAll,
@@ -92,14 +107,24 @@ public class SpiderProblemManagerController {
     }
 
     /**
+     * 查重报告
+     *
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.PROBLEM_SIM})
     @PostMapping("/sim/report")
     public ResultJson getSimProblemReport(@RequestParam Integer id) {
         List<SpiderSimRecord> spiderSimRecords = spiderSimRecordService.selectByGetProblemId(id);
         return new ResultJson(ResultCode.REQUIRED_SUCCESS, null, TransSpiderLocalizedRecord.transformToVo(spiderSimRecords));
     }
 
+    /**
+     * 题目本地化
+     *
+     * @param localizedProblem
+     * @return
+     */
+    @PermissionRequired(permissions = {PermissionType.PROBLEM_LOCALIZED})
     @PostMapping("/localized")
     public ResultJson localizedProblem(@RequestBody LocalizedProblemVO localizedProblem) {
         boolean b = spiderGetProblemInfoService.localizedProblem(localizedProblem);

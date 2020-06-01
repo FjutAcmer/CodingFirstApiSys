@@ -2,9 +2,9 @@ package team.fjut.cf.controller.admin;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import team.fjut.cf.config.interceptor.annotation.PermissionRequired;
+import team.fjut.cf.pojo.enums.PermissionType;
 import team.fjut.cf.pojo.enums.ResultCode;
-import team.fjut.cf.pojo.po.DiscussPostPO;
-import team.fjut.cf.pojo.po.DiscussReplyPostPO;
 import team.fjut.cf.pojo.vo.DiscussPostVO;
 import team.fjut.cf.pojo.vo.DiscussReplyPostVO;
 import team.fjut.cf.pojo.vo.ResultJson;
@@ -23,7 +23,7 @@ public class DiscussManagerController {
     @Resource
     DiscussPostService discussPostService;
 
-
+    @PermissionRequired(permissions = {PermissionType.DISCUSS_MANAGER})
     @GetMapping("/post/list")
     public ResultJson getPostList(@RequestParam("pageNum") Integer pageNum,
                                   @RequestParam("pageSize") Integer pageSize,
@@ -48,6 +48,7 @@ public class DiscussManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {PermissionType.DISCUSS_MANAGER})
     @GetMapping("/reply/list")
     public ResultJson getPostList(@RequestParam("page") Integer pageNum,
                                   @RequestParam("limit") Integer pageSize,
@@ -60,6 +61,7 @@ public class DiscussManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {PermissionType.DISCUSS_MANAGER})
     @DeleteMapping("/post/delete")
     public ResultJson deletePost(@RequestParam("id") Integer id) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
@@ -70,6 +72,7 @@ public class DiscussManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {PermissionType.DISCUSS_MANAGER})
     @DeleteMapping("/reply/delete")
     public ResultJson deleteReply(@RequestParam("id") Integer id) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);

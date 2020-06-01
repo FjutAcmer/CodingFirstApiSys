@@ -1,23 +1,22 @@
 package team.fjut.cf.service.impl;
 
+import org.springframework.stereotype.Service;
 import team.fjut.cf.mapper.UserAuthMapper;
 import team.fjut.cf.pojo.po.UserAuth;
 import team.fjut.cf.service.UserAuthService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import team.fjut.cf.utils.Sha1Utils;
 import team.fjut.cf.utils.UUIDUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 /**
- *
  * @author axiang [2019/11/28]
  */
 @Service
 public class UserAuthServiceImpl implements UserAuthService {
-    @Autowired
+    @Resource
     UserAuthMapper userAuthMapper;
 
     @Override
@@ -43,7 +42,7 @@ public class UserAuthServiceImpl implements UserAuthService {
     }
 
     @Override
-    public int updatePsw(String username, String newPsw) {
+    public int updatePassword(String username, String newPsw) {
         UserAuth userAuth = new UserAuth();
         String salt = UUIDUtils.getUUID32();
         // 加盐密码

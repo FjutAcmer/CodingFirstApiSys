@@ -1,6 +1,8 @@
 package team.fjut.cf.controller.admin;
 
 import org.springframework.web.bind.annotation.*;
+import team.fjut.cf.config.interceptor.annotation.PermissionRequired;
+import team.fjut.cf.pojo.enums.PermissionType;
 import team.fjut.cf.pojo.enums.ResultCode;
 import team.fjut.cf.pojo.po.MallGoods;
 import team.fjut.cf.pojo.po.MallOrderPO;
@@ -35,12 +37,13 @@ public class MallManagerController {
      * @param name
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.GOODS_MANAGER})
     @GetMapping("/list")
     public ResultJson getMallGoodsList(@RequestParam("page") Integer page,
                                        @RequestParam("limit") Integer limit,
-                                       @RequestParam(value="sort", required = false) String sort,
-                                       @RequestParam(value="id", required = false) Integer id,
-                                       @RequestParam(value="name", required = false) String name) {
+                                       @RequestParam(value = "sort", required = false) String sort,
+                                       @RequestParam(value = "id", required = false) Integer id,
+                                       @RequestParam(value = "name", required = false) String name) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         List<MallGoods> mallGoods = mallGoodsService.selectByCondition(page, limit, sort, id, name);
         Integer count = mallGoodsService.countByCondition(id, name);
@@ -53,6 +56,7 @@ public class MallManagerController {
      * @param id
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.GOODS_MANAGER})
     @GetMapping("/info")
     public ResultJson getMallGoods(@RequestParam("id") Integer id) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
@@ -78,6 +82,7 @@ public class MallManagerController {
      * @param shelfUser
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.GOODS_MANAGER})
     @PostMapping("/create")
     public ResultJson createMallGoods(@RequestParam("name") String name,
                                       @RequestParam("cost") Integer cost,
@@ -122,6 +127,7 @@ public class MallManagerController {
      * @param description
      * @return
      */
+    @PermissionRequired(permissions = {PermissionType.GOODS_MANAGER})
     @PutMapping("/update")
     public ResultJson updateMallGoods(@RequestParam("id") Integer id,
                                       @RequestParam("name") String name,
@@ -152,6 +158,7 @@ public class MallManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {PermissionType.GOODS_MANAGER})
     @DeleteMapping("/delete")
     public ResultJson deleteMallGoods(@RequestParam("id") Integer id) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
@@ -173,13 +180,14 @@ public class MallManagerController {
      * @return
      */
     @GetMapping("/order/list")
+    @PermissionRequired(permissions = {PermissionType.ORDER_MANAGER})
     public ResultJson getMallOrderList(@RequestParam("page") Integer page,
                                        @RequestParam("limit") Integer limit,
-                                       @RequestParam(value="sort", required = false) String sort,
-                                       @RequestParam(value="goodsId", required = false) Integer goodsId,
-                                       @RequestParam(value="orderName", required = false) String orderUser,
-                                       @RequestParam(value="orderStatus", required = false) Integer orderStatus,
-                                       @RequestParam(value="orderCancel", required = false) Integer orderCancel) {
+                                       @RequestParam(value = "sort", required = false) String sort,
+                                       @RequestParam(value = "goodsId", required = false) Integer goodsId,
+                                       @RequestParam(value = "orderName", required = false) String orderUser,
+                                       @RequestParam(value = "orderStatus", required = false) Integer orderStatus,
+                                       @RequestParam(value = "orderCancel", required = false) Integer orderCancel) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         List<MallOrderVO> mallGoods = mallOrderService.selectByCondition(page, limit, sort, goodsId, orderUser, orderStatus, orderCancel);
         Integer count = mallOrderService.countByCondition(goodsId, orderUser, orderStatus, orderCancel);
@@ -195,9 +203,10 @@ public class MallManagerController {
      * @return
      */
     @PutMapping("/order/update")
+    @PermissionRequired(permissions = {PermissionType.ORDER_MANAGER})
     public ResultJson updateMallOrder(@RequestParam("id") Integer id,
-                                      @RequestParam(value="orderStatus", required = false) Integer orderStatus,
-                                      @RequestParam(value="orderCancel", required = false) Integer orderCancel) {
+                                      @RequestParam(value = "orderStatus", required = false) Integer orderStatus,
+                                      @RequestParam(value = "orderCancel", required = false) Integer orderCancel) {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         MallOrderPO mallOrderPO = new MallOrderPO();
         mallOrderPO.setId(id);
@@ -214,12 +223,13 @@ public class MallManagerController {
         return resultJson;
     }
 
+    @PermissionRequired(permissions = {})
     @GetMapping("/order/newAndCancel")
     public ResultJson getNewAndCancel() {
         ResultJson resultJson = new ResultJson(ResultCode.REQUIRED_SUCCESS);
         // 获取过去7天的日期并加入列表中
         List<String> pastDaysList = new ArrayList<>();
-        for (int i = 6; i >= 0; i --) {
+        for (int i = 6; i >= 0; i--) {
             // 依次获取7天内的日期
             Calendar calendar = Calendar.getInstance();
             calendar.set(Calendar.DAY_OF_YEAR, calendar.get(Calendar.DAY_OF_YEAR) - i);

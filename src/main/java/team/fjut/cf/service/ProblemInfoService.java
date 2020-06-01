@@ -40,13 +40,6 @@ public interface ProblemInfoService {
      */
     int deleteProblem(Integer problemId);
 
-    /**
-     * 查询所有题目
-     *
-     * @return
-     * @author zhongml [2020/4/17]
-     */
-    List<ProblemInfo> selectAll();
 
     /**
      * @author zhongml [2020/5/14]
