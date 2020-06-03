@@ -230,9 +230,6 @@ public class JudgeStatusServiceImpl implements JudgeStatusService {
             problemInfoMapper.updateByPrimaryKeySelective(currentProbInfo);
 
         }
-        // 用户尝试过该题目，但没有解决
-        else {
-        }
     }
 
     /**

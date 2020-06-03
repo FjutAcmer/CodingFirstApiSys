@@ -8,6 +8,7 @@ import team.fjut.cf.config.interceptor.annotation.CaptchaRequired;
 import team.fjut.cf.config.interceptor.annotation.LoginRequired;
 import team.fjut.cf.config.interceptor.annotation.PrivateRequired;
 import team.fjut.cf.pojo.enums.ResultCode;
+import team.fjut.cf.pojo.po.ChallengeUserOpenBlockPO;
 import team.fjut.cf.pojo.po.UserAuth;
 import team.fjut.cf.pojo.po.UserBaseInfo;
 import team.fjut.cf.pojo.po.UserCustomInfo;
@@ -44,6 +45,9 @@ public class UserController {
 
     @Resource
     BorderHonorRankService borderHonorRankService;
+
+    @Resource
+    ChallengeBlockService challengeBlockService;
 
     @Resource
     JwtTokenManager jwtTokenManager;
@@ -160,12 +164,12 @@ public class UserController {
         boolean ans = userBaseInfoService.registerUser(userBaseInfo, userAuth, userCustomInfo);
         if (ans) {
             resultJson.setStatus(ResultCode.REQUIRED_SUCCESS, "用户注册成功！");
-            //// 插入挑战模式解锁记录
-            //ChallengeUserOpenBlockPO challengeUserOpenBlockPO = new ChallengeUserOpenBlockPO();
-            //challengeUserOpenBlockPO.setUsername(username);
-            //challengeUserOpenBlockPO.setBlockId(1);
-            //challengeUserOpenBlockPO.setUnlockTime(new Date());
-            //challengeBlockService.unlockBlock(challengeUserOpenBlockPO);
+            // 插入挑战模式解锁记录
+            ChallengeUserOpenBlockPO challengeUserOpenBlockPO = new ChallengeUserOpenBlockPO();
+            challengeUserOpenBlockPO.setUsername(username);
+            challengeUserOpenBlockPO.setBlockId(1);
+            challengeUserOpenBlockPO.setUnlockTime(new Date());
+            challengeBlockService.unlockBlock(challengeUserOpenBlockPO);
         } else {
             resultJson.setStatus(ResultCode.BUSINESS_FAIL, "用户注册失败！");
         }

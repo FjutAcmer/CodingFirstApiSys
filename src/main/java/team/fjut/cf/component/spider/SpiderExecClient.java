@@ -11,6 +11,8 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 /**
+ * 直接操作爬虫系统的文件
+ *
  * @author axiang [2020/5/14]
  */
 @Component
@@ -29,7 +31,7 @@ public class SpiderExecClient {
 
     /**
      * FIXME: 执行失败
-     * 执行重新部署任务
+     * 执行重启服务器任务
      *
      * @return
      */
@@ -51,5 +53,14 @@ public class SpiderExecClient {
             e.printStackTrace();
         }
         return result.toString();
+    }
+
+    /**
+     * 更新配置文件
+     *
+     * @return
+     */
+    public String updateSetting() {
+        return null;
     }
 }
