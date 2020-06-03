@@ -33,24 +33,25 @@ public class UploadController {
     private String avatarPath;
 
     @RequestMapping("/avatar")
-    public ResultJson uploadAvatar(@RequestBody final MultipartFile file)
+    public ResultJson uploadAvatar(@RequestBody final MultipartFile avatar)
             throws IOException {
-        if (file.getSize() == 0) {
+        if (avatar.getSize() == 0) {
             return new ResultJson(ResultCode.BAD_REQUEST, "文件为空！");
         }
-        ResultJson resultJson = new ResultJson();
-        final byte[] bytes = file.getBytes();
-        String randFileName = UUIDUtils.getUUID32();
-        int len = Objects.requireNonNull(file.getOriginalFilename()).split("\\.").length;
+        final byte[] bytes = avatar.getBytes();
+        String randFileName = "avatar-" + UUIDUtils.getUUID32();
+        int len = Objects.requireNonNull(avatar.getOriginalFilename()).split("\\.").length;
         String suffix = "";
         if (len > 0) {
-            suffix = file.getOriginalFilename().split("\\.")[len - 1];
+            suffix = avatar.getOriginalFilename().split("\\.")[len - 1];
         }
         final Path path = Paths.get(avatarPath + randFileName + "." + suffix);
         Files.write(path, bytes);
-        resultJson.addInfo(randFileName + "." + suffix);
-        return resultJson;
+
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS, randFileName + "." + suffix, "上传成功！");
+
     }
+
 
     @RequestMapping("/picture")
     public ResultJson uploadPicture(@RequestBody final MultipartFile file)
@@ -60,7 +61,7 @@ public class UploadController {
         }
         ResultJson resultJson = new ResultJson();
         final byte[] bytes = file.getBytes();
-        String randFileName = UUIDUtils.getUUID32();
+        String randFileName = "picture-" + UUIDUtils.getUUID32();
         int len = Objects.requireNonNull(file.getOriginalFilename()).split("\\.").length;
         String suffix = "";
         if (len > 0) {

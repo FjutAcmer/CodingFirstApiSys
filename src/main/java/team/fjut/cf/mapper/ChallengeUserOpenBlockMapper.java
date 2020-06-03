@@ -1,7 +1,7 @@
 package team.fjut.cf.mapper;
 
-import team.fjut.cf.pojo.po.ChallengeUserOpenBlockPO;
 import org.apache.ibatis.annotations.Param;
+import team.fjut.cf.pojo.po.ChallengeUserOpenBlockPO;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import java.util.List;
 public interface ChallengeUserOpenBlockMapper {
     /**
      * 插入一个解锁记录
+     *
      * @param challengeUserOpenBlockPO
      * @return
      */
@@ -18,6 +19,7 @@ public interface ChallengeUserOpenBlockMapper {
 
     /**
      * 获取用户已开放的挑战模块ID
+     *
      * @param username
      * @return
      */
