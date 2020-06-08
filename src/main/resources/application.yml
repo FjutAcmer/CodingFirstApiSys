@@ -44,19 +44,6 @@ spring:
     poolPreparedStatements: false
     # 要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true
     maxOpenPreparedStatements: -1
-
-  redis:
-    database: 0
-    host: 127.0.0.1
-    port: 6379
-    timeout: 10000
-    lettuce:
-      pool:
-        max-active: 8
-        max-wait: -1
-        max-idle: 8
-        min-idle: 0
-
   mail:
     properties:
       mail:

@@ -9,6 +9,18 @@ spring:
     username: root
     #  连接数据库的密码
     password: wyx
+  redis:
+      database: 0
+      host: 127.0.0.1
+      port: 6379
+      password: axiangcoding
+      timeout: 10000
+      lettuce:
+        pool:
+          max-active: 8
+          max-wait: -1
+          max-idle: 8
+          min-idle: 0
   # 邮件配置
   mail:
     host: smtp.qq.com
