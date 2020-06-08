@@ -27,4 +27,5 @@ public class UserBaseInfo {
     Date registerTime;
     Integer rating;
     Integer acb;
+    Integer acNum;
 }

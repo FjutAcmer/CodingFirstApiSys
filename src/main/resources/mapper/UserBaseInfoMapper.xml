@@ -58,7 +58,7 @@
         SELECT ubi.id, ubi.username, gender, email, phone, motto, register_time, rating, acb, nickname, avatar_url
         FROM t_user_base_info ubi, t_user_custom_info uci
         WHERE ubi.username = uci.username
-        <if test = "username != null">
+        <if test="username != null">
             AND ubi.username like #{username}
         </if>
         <if test="sortItem == 'rating' and sort == 'descending'">
@@ -76,22 +76,31 @@
     </select>
 
     <select id="selectCountByDate" resultType="java.lang.Integer">
-        SELECT count(*) FROM t_user_base_info
-        WHERE substring(register_time,1,10) = #{time}
+        SELECT count(*)
+        FROM t_user_base_info
+        WHERE substring(register_time, 1, 10) = #{time}
     </select>
 
     <select id="selectCountByCondition" resultType="java.lang.Integer">
         SELECT count(*)
         FROM t_user_base_info ubi, t_user_custom_info uci
         WHERE ubi.username = uci.username
-        <if test = "username != null">
+        <if test="username != null">
             AND ubi.username like #{username}
         </if>
     </select>
 
+    <update id="updateACNumAddOne">
+        UPDATE t_user_base_info
+        SET ac_num = ac_num + 1
+        WHERE username = #{username};
+    </update>
+
     <update id="updateACB">
         UPDATE t_user_base_info
         SET acb = acb + #{ACB}
-        WHERE username = #{username}
+        WHERE username = #{username};
     </update>
+
+
 </mapper>

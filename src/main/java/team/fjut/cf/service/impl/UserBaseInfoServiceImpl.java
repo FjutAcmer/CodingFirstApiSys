@@ -3,14 +3,16 @@ package team.fjut.cf.service.impl;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 import team.fjut.cf.component.email.EmailTool;
 import team.fjut.cf.mapper.*;
 import team.fjut.cf.pojo.po.UserAuth;
 import team.fjut.cf.pojo.po.UserBaseInfo;
 import team.fjut.cf.pojo.po.UserCustomInfo;
 import team.fjut.cf.pojo.po.UserMessage;
-import team.fjut.cf.pojo.vo.*;
+import team.fjut.cf.pojo.vo.UserAcNumBorderVO;
+import team.fjut.cf.pojo.vo.UserAcbBorderVO;
+import team.fjut.cf.pojo.vo.UserInfoAdminVO;
+import team.fjut.cf.pojo.vo.UserRatingBorderVO;
 import team.fjut.cf.service.UserBaseInfoService;
 import team.fjut.cf.utils.JsonFileTool;
 import team.fjut.cf.utils.Sha1Utils;
@@ -92,7 +94,7 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
         UserMessage userMessage = new UserMessage();
         userMessage.setToUsername(userBaseInfo.getUsername());
         userMessage.setFromUsername("SYSTEM");
-        userMessage.setTitle("亲爱的 "+userBaseInfo.getUsername()+" ，欢迎注册一码当先！");
+        userMessage.setTitle("亲爱的 " + userBaseInfo.getUsername() + " ，欢迎注册一码当先！");
         userMessage.setText(jsonFileTool.getMsgTemplate("welcome"));
         userMessage.setTime(new Date());
         userMessageMapper.insertSelective(userMessage);
@@ -164,21 +166,27 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
     @Override
     public UserBaseInfo selectByUsername(String username) {
         Example example = new Example(UserBaseInfo.class);
-        example.createCriteria().andEqualTo("username",username);
+        example.createCriteria().andEqualTo("username", username);
         return userBaseInfoMapper.selectOneByExample(example);
     }
-
 
     @Override
     public List<UserAcbBorderVO> selectAcbBorder(int pageNum, int pageSize) {
         List<UserAcbBorderVO> userAcbBorderVOS = new ArrayList<>();
         PageHelper.startPage(pageNum, pageSize);
-        List<UserBaseInfo> userBaseInfos = userBaseInfoMapper.allAcbTop();
+        Example example = new Example(UserBaseInfo.class);
+        example.orderBy("acb").desc();
+        List<UserBaseInfo> userBaseInfos = userBaseInfoMapper.selectByExample(example);
         for (UserBaseInfo userBase : userBaseInfos) {
             UserAcbBorderVO userAcbBorderVO = new UserAcbBorderVO();
             userAcbBorderVO.setUsername(userBase.getUsername());
-            // FIXME: 昵称换表了
-            //userAcbBorderVO.setNick(userBase.getNick());
+            Example example1 = new Example(UserCustomInfo.class);
+            example1.createCriteria().andEqualTo("username", userBase.getUsername());
+            UserCustomInfo userCustomInfo = userCustomInfoMapper.selectOneByExample(example1);
+            String nickname = Objects.isNull(userCustomInfo)
+                    ? "【无名氏】"
+                    : userCustomInfo.getNickname();
+            userAcbBorderVO.setNick(nickname);
             userAcbBorderVO.setAcb(userBase.getAcb());
             userAcbBorderVOS.add(userAcbBorderVO);
         }
@@ -189,13 +197,22 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
     public List<UserAcNumBorderVO> selectAcNumBorder(int pageNum, int pageSize) {
         List<UserAcNumBorderVO> userAcNumBorderVOS = new ArrayList<>();
         PageHelper.startPage(pageNum, pageSize);
-        List<UserBaseInfo> userBaseInfos = userBaseInfoMapper.allAcNumTop();
+        Example example = new Example(UserBaseInfo.class);
+        example.orderBy("acNum").desc();
+        List<UserBaseInfo> userBaseInfos = userBaseInfoMapper.selectByExample(example);
         for (UserBaseInfo userBase : userBaseInfos) {
-            UserAcNumBorderVO userAcbBorderVO = new UserAcNumBorderVO();
-            userAcbBorderVO.setUsername(userBase.getUsername());
-            // FIXME: 昵称换表了
-            //userAcbBorderVO.setNick(userBase.getNick());
-            userAcNumBorderVOS.add(userAcbBorderVO);
+            String username = userBase.getUsername();
+            UserAcNumBorderVO userAcNumBorderVO = new UserAcNumBorderVO();
+            userAcNumBorderVO.setUsername(username);
+            userAcNumBorderVO.setAcNum(userBase.getAcNum());
+            Example example1 = new Example(UserCustomInfo.class);
+            example1.createCriteria().andEqualTo("username", username);
+            UserCustomInfo userCustomInfo = userCustomInfoMapper.selectOneByExample(example1);
+            String nickname = Objects.isNull(userCustomInfo)
+                    ? "【无名氏】"
+                    : userCustomInfo.getNickname();
+            userAcNumBorderVO.setNick(nickname);
+            userAcNumBorderVOS.add(userAcNumBorderVO);
         }
         return userAcNumBorderVOS;
     }
@@ -204,12 +221,20 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
     public List<UserRatingBorderVO> selectRatingBorder(int pageNum, int pageSize) {
         List<UserRatingBorderVO> userRatingBorderVOS = new ArrayList<>();
         PageHelper.startPage(pageNum, pageSize);
-        List<UserBaseInfo> userBaseInfos = userBaseInfoMapper.allRatingTop();
+        Example example = new Example(UserBaseInfo.class);
+        example.orderBy("rating").desc();
+        List<UserBaseInfo> userBaseInfos = userBaseInfoMapper.selectByExample(example);
         for (UserBaseInfo userBase : userBaseInfos) {
+            String username = userBase.getUsername();
             UserRatingBorderVO userRatingBorderVO = new UserRatingBorderVO();
-            userRatingBorderVO.setUsername(userBase.getUsername());
-            // FIXME: 昵称换表了
-            //userRatingBorderVO.setNick(userBase.getNick());
+            userRatingBorderVO.setUsername(username);
+            Example example1 = new Example(UserCustomInfo.class);
+            example1.createCriteria().andEqualTo("username", username);
+            UserCustomInfo userCustomInfo = userCustomInfoMapper.selectOneByExample(example1);
+            String nickname = Objects.isNull(userCustomInfo)
+                    ? "【无名氏】"
+                    : userCustomInfo.getNickname();
+            userRatingBorderVO.setNick(nickname);
             userRatingBorderVO.setRating(userBase.getRating());
             userRatingBorderVOS.add(userRatingBorderVO);
         }
@@ -239,7 +264,7 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
     public Integer[] getNewRegister(List<String> pastDaysList) {
         Integer[] userActive = new Integer[7];
         // 获取过去7天对应数据
-        for (int i = 0; i < 7; i ++) {
+        for (int i = 0; i < 7; i++) {
             userActive[i] = userBaseInfoMapper.selectCountByDate(pastDaysList.get(i));
         }
         return userActive;

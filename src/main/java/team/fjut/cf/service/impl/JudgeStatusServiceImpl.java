@@ -44,6 +44,9 @@ public class JudgeStatusServiceImpl implements JudgeStatusService {
     UserProblemSolvedMapper userProblemSolvedMapper;
 
     @Resource
+    UserBaseInfoMapper userBaseInfoMapper;
+
+    @Resource
     LocalJudgeHttpClient localJudgeHttpClient;
 
     @Override
@@ -221,6 +224,7 @@ public class JudgeStatusServiceImpl implements JudgeStatusService {
                 currentProbInfo.setTotalAcUser(currentProbInfo.getTotalAcUser() + 1);
                 userProblemSolved.setSolvedCount(1);
                 userProblemSolved.setFirstSolvedTime(new Date());
+                userBaseInfoMapper.updateACNumAddOne(username);
             }
             // 如果用户不是第一次解决了这题，前面已经解决过了
             else {
