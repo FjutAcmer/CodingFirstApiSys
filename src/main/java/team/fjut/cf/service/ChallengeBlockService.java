@@ -68,10 +68,9 @@ public interface ChallengeBlockService {
      * @param problemId
      * @return
      */
-    void updateOpenBlock(String username,Integer problemId);
+    void updateOpenBlock(String username, Integer problemId);
 
     /**
-     * @author zhongml [2020/4/24]
      * 条件查询挑战模块
      *
      * @param pageNum
@@ -79,68 +78,69 @@ public interface ChallengeBlockService {
      * @param sort
      * @param name
      * @return
+     * @author zhongml [2020/4/24]
      */
-    List<ChallengeBlockAdminVO> selectByCondition(Integer pageNum, Integer pageSize, String sort,String name);
+    List<ChallengeBlockAdminVO> selectByCondition(Integer pageNum, Integer pageSize, String sort, String name);
 
     /**
-     * @author zhongml [2020/4/24]
      * 条件查询挑战模块数量
      *
      * @param name
      * @return
+     * @author zhongml [2020/4/24]
      */
     int countByCondition(String name);
 
     /**
-     * @author zhongml [2020/4/24]
      * 查询所有模块
      *
      * @return
+     * @author zhongml [2020/4/24]
      */
     List<ChallengeBlockPO> selectAll();
 
     /**
-     * @author zhongml [2020/4/24]
      * 新增一个模块
      *
      * @param challengeBlockPO
      * @return
+     * @author zhongml [2020/4/24]
      */
     int createChallenge(ChallengeBlockPO challengeBlockPO);
 
     /**
-     * @author zhongml [2020/4/24]
      * 修改模块信息
      *
      * @param challengeBlockPO
      * @return
+     * @author zhongml [2020/4/24]
      */
     int updateChallenge(ChallengeBlockPO challengeBlockPO);
 
     /**
-     * @author zhongml [2020/4/24]
      * 删除一个模块
      *
      * @param blockId
      * @return
+     * @author zhongml [2020/4/24]
      */
     int deleteChallenge(Integer blockId);
 
     /**
-     * @author zhongml [2020/4/24]
      * 批量插入前置模块
      *
      * @param preconditonBlocks
      * @return
+     * @author zhongml [2020/4/24]
      */
     int insertConditionBlocks(Integer blockId, List<ChallengeBlockConditionVO> preconditonBlocks);
 
     /**
-     * @author zhongml [2020/4/25]
      * 根据blockId删除所有前置模块
      *
      * @param blockId
      * @return
+     * @author zhongml [2020/4/25]
      */
     int deleteConditions(Integer blockId);
 

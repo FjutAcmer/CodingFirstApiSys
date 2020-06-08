@@ -338,7 +338,6 @@ public class JudgeStatusServiceImpl implements JudgeStatusService {
         return judgeStatusMapper.selectCountByUsername(username);
     }
 
-    // add by zhongml [2020/4/27]
     @Override
     public JudgeStatus selectJudgeById(Integer id) {
         Example example = new Example(JudgeStatus.class);

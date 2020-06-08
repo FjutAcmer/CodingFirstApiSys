@@ -91,19 +91,17 @@ public interface JudgeStatusService {
     Integer selectCountByUsername(String username);
 
     /**
-     * @author zhongml [2020/4/27]
-     * 根据ID查询评测信息
-     *
      * @param id
      * @return
+     * @author zhongml [2020/4/27]
+     * 根据ID查询评测信息
      */
     JudgeStatus selectJudgeById(Integer id);
 
     /**
+     * @return
      * @author zhongml [2020/5/13]
      * 查询各语言使用次数
-     *
-     * @return
      */
     List<LanguageUsedNumVO> countLanguageUsed();
 

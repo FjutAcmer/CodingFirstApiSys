@@ -1,6 +1,5 @@
 package team.fjut.cf.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team.fjut.cf.mapper.VjUserProblemSolvedMapper;
 import team.fjut.cf.pojo.po.VjJudgeResult;
@@ -8,6 +7,7 @@ import team.fjut.cf.pojo.po.VjUserProblemSolved;
 import team.fjut.cf.service.VjUserProblemSolvedService;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.Objects;
 
@@ -16,7 +16,7 @@ import java.util.Objects;
  */
 @Service
 public class VjUserProblemSolvedServiceImpl implements VjUserProblemSolvedService {
-    @Autowired
+    @Resource
     VjUserProblemSolvedMapper vjUserProblemSolvedMapper;
 
     @Override

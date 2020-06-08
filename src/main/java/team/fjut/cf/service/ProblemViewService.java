@@ -1,6 +1,5 @@
 package team.fjut.cf.service;
 
-import team.fjut.cf.pojo.po.ProblemSample;
 import team.fjut.cf.pojo.po.ProblemView;
 
 /**
@@ -16,11 +15,11 @@ public interface ProblemViewService {
     ProblemView selectView(Integer problemId);
 
     /**
-     * @author zhongml [2020/4/17]
      * 修改题目详情
      *
      * @param problemView
      * @return
+     * @author zhongml [2020/4/17]
      */
     int updateView(ProblemView problemView);
 }

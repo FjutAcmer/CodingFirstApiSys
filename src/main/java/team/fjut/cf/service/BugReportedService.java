@@ -19,29 +19,30 @@ public interface BugReportedService {
 
     /**
      * 查看bug反馈记录
-     * @author zhongml [2020/5/12]
      *
      * @param pageNum
      * @param pageSize
      * @param sort
      * @return
+     * @author zhongml [2020/5/12]
      */
-    List<BugReportVO> pageByCondition(Integer pageNum, Integer pageSize, String sort, Integer isFixed);
+    List<BugReportVO> pageByCondition(Integer pageNum, Integer pageSize, String sort,
+                                      Integer isFixed);
 
     /**
      * 查看bug反馈记录
-     * @author zhongml [2020/5/12]
      *
      * @return
+     * @author zhongml [2020/5/12]
      */
     int countByCondition();
 
     /**
      * 设置bug为已修复
-     * @author zhongml [2020/5/14]
      *
      * @param id
      * @return
+     * @author zhongml [2020/5/14]
      */
     int setIdFixed(Integer id);
 }

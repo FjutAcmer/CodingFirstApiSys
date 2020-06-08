@@ -27,15 +27,11 @@ public class BorderHonorRankServiceImpl implements BorderHonorRankService {
     @Override
     public List<BorderHonorRankVO> pages(Integer pageNum, Integer pageSize, String sort, String realName, Integer awardLevel, Integer contestLevel) {
         List<BorderHonorRankVO> results = new ArrayList<>();
-        /*
-         *  mod by zhongml （修改为条件查询，根据条件返回升降序数据，默认降序）
-         */
         PageHelper.startPage(pageNum, pageSize);
         Example example = new Example(BorderHonorRankPO.class);
-        if(sort != null && sort.equals("ascending")) {
+        if (sort != null && sort.equals("ascending")) {
             example.orderBy("rewardDate").asc();
-        }
-        else {
+        } else {
             example.orderBy("rewardDate").desc();
         }
         Example.Criteria criteria = example.createCriteria();
@@ -70,7 +66,7 @@ public class BorderHonorRankServiceImpl implements BorderHonorRankService {
         return results;
     }
 
-    // add by zhongml [2020/4/26]
+
     @Override
     public Integer countByCondition(String realName, Integer awardLevel, Integer contestLevel) {
         Example example = new Example(BorderHonorRankPO.class);

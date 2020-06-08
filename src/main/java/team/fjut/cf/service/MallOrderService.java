@@ -24,6 +24,7 @@ public interface MallOrderService {
      * @return
      */
     List<MallOrderVO> selectByCondition(Integer pageNum, Integer pageSize, String sort, Integer id, String orderUser, Integer orderStatus, Integer orderCancel);
+
     /**
      * 条件查询商品数量
      *
@@ -44,10 +45,10 @@ public interface MallOrderService {
     int updateOrder(MallOrderPO mallGoodsPO);
 
     /**
-     * @author zhongml [2020/5/14]
-     *
      * 统计新订单与取消订单
+     *
      * @return
+     * @author zhongml [2020/5/14]
      */
     OrderNewAndCancelVO countNewAndCancel(List<String> pastDaysList);
 }

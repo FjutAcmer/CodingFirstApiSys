@@ -5,6 +5,7 @@ import tk.mybatis.mapper.common.Mapper;
 
 /**
  * 评测结果 mapper
+ *
  * @author axiang [2019/11/8]
  */
 public interface JudgeResultMapper extends Mapper<JudgeResult> {

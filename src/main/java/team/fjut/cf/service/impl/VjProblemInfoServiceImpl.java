@@ -1,18 +1,19 @@
 package team.fjut.cf.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team.fjut.cf.mapper.VjProblemInfoMapper;
 import team.fjut.cf.pojo.po.VjProblemInfo;
 import team.fjut.cf.service.VjProblemInfoService;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
+
 /**
  * @author axiang [2020/3/13]
  */
 @Service
 public class VjProblemInfoServiceImpl implements VjProblemInfoService {
-    @Autowired
+    @Resource
     VjProblemInfoMapper vjProblemInfoMapper;
 
     @Override

@@ -1,10 +1,10 @@
 package team.fjut.cf.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import org.springframework.stereotype.Service;
 import team.fjut.cf.mapper.MallGoodsMapper;
 import team.fjut.cf.pojo.po.MallGoods;
 import team.fjut.cf.service.MallGoodsService;
-import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
@@ -36,16 +36,15 @@ public class MallGoodsServiceImpl implements MallGoodsService {
         return mallGoodsMapper.selectByGoodsId(id);
     }
 
-    // add by zhongml [2020/4/21]
+
     @Override
     public List<MallGoods> selectByCondition(Integer pageNum, Integer pageSize, String sort, Integer id, String name) {
         PageHelper.startPage(pageNum, pageSize);
         Example example = new Example(MallGoods.class);
 
-        if(sort != null && sort.equals("descending")) {
+        if (sort != null && sort.equals("descending")) {
             example.orderBy("id").desc();
-        }
-        else {
+        } else {
             example.orderBy("id").asc();
         }
         Example.Criteria criteria = example.createCriteria();
@@ -61,7 +60,6 @@ public class MallGoodsServiceImpl implements MallGoodsService {
         return result;
     }
 
-    // add by zhongml [2020/4/21]
     @Override
     public int countByCondition(Integer id, String name) {
         Example example = new Example(MallGoods.class);
@@ -76,13 +74,13 @@ public class MallGoodsServiceImpl implements MallGoodsService {
         return mallGoodsMapper.selectCountByExample(example);
     }
 
-    // add by zhongml [2020/4/21]
+
     @Override
     public int createGoods(MallGoods mallGoods) {
         return mallGoodsMapper.insertSelective(mallGoods);
     }
 
-    // add by zhongml [2020/4/21]
+
     @Override
     public int updateGoods(MallGoods mallGoods) {
         Example example = new Example(MallGoods.class);
@@ -90,7 +88,7 @@ public class MallGoodsServiceImpl implements MallGoodsService {
         return mallGoodsMapper.updateByExampleSelective(mallGoods, example);
     }
 
-    // add by zhongml [2020/4/21]
+
     @Override
     public int deleteGoods(Integer id) {
         Example example = new Example(MallGoods.class);

@@ -1,6 +1,7 @@
 package team.fjut.cf.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import org.springframework.stereotype.Service;
 import team.fjut.cf.mapper.ChallengeBlockProblemMapper;
 import team.fjut.cf.mapper.UserProblemSolvedMapper;
 import team.fjut.cf.pojo.po.ChallengeBlockProblemPO;
@@ -8,11 +9,13 @@ import team.fjut.cf.pojo.po.UserProblemSolved;
 import team.fjut.cf.pojo.vo.ChallengeBlockProblemAdminVO;
 import team.fjut.cf.pojo.vo.ChallengeBlockProblemVO;
 import team.fjut.cf.service.ChallengeBlockProblemService;
-import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author axiang [2019/11/11]
@@ -53,7 +56,7 @@ public class ChallengeBlockProblemServiceImpl implements ChallengeBlockProblemSe
         return challengeBlockProblemMapper.allCount(blockId);
     }
 
-    // add by zhongml [2020/4/24]
+
     @Override
     public List<ChallengeBlockProblemVO> selectProblemByBlockId(Integer pageNum, Integer pageSize, String sort, Integer blockId) {
         PageHelper.startPage(pageNum, pageSize);
@@ -64,13 +67,13 @@ public class ChallengeBlockProblemServiceImpl implements ChallengeBlockProblemSe
         return results;
     }
 
-    // add by zhongml [2020/4/24]
+
     @Override
     public int countProblemByBlockId(Integer blockId) {
         return challengeBlockProblemMapper.allCount(blockId);
     }
 
-    // add by zhongml [2020/4/24]
+
     @Override
     public int insertProblems(Integer blockId, List<ChallengeBlockProblemAdminVO> challengeProblems) {
         return challengeBlockProblemMapper.insertProblems(blockId, challengeProblems);

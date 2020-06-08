@@ -1,12 +1,12 @@
 package team.fjut.cf.service.impl;
 
+import org.springframework.stereotype.Service;
 import team.fjut.cf.mapper.JudgeResultMapper;
 import team.fjut.cf.pojo.po.JudgeResult;
 import team.fjut.cf.service.JudgeResultService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -14,7 +14,7 @@ import java.util.List;
  */
 @Service
 public class JudgeResultServiceImpl implements JudgeResultService {
-    @Autowired
+    @Resource
     JudgeResultMapper judgeResultMapper;
 
     @Override

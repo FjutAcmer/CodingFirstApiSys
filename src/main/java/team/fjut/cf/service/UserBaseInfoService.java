@@ -3,7 +3,10 @@ package team.fjut.cf.service;
 import team.fjut.cf.pojo.po.UserAuth;
 import team.fjut.cf.pojo.po.UserBaseInfo;
 import team.fjut.cf.pojo.po.UserCustomInfo;
-import team.fjut.cf.pojo.vo.*;
+import team.fjut.cf.pojo.vo.UserAcNumBorderVO;
+import team.fjut.cf.pojo.vo.UserAcbBorderVO;
+import team.fjut.cf.pojo.vo.UserInfoAdminVO;
+import team.fjut.cf.pojo.vo.UserRatingBorderVO;
 
 import java.util.List;
 
@@ -13,6 +16,7 @@ import java.util.List;
 public interface UserBaseInfoService {
     /**
      * 注册用户
+     *
      * @param userBaseInfo
      * @param userAuth
      * @param userCustomInfo
@@ -74,39 +78,39 @@ public interface UserBaseInfoService {
     List<UserRatingBorderVO> selectRatingBorder(int pageNum, int pageSize);
 
     /**
-     * @author zhongml [2020/4/28]
      * 条件查询用户信息列表
      *
      * @param pageNum
      * @param pageSize
      * @param username
      * @return
+     * @author zhongml [2020/4/28]
      */
     List<UserInfoAdminVO> pageByCondition(Integer pageNum, Integer pageSize, String sort, String sortItem, String username);
 
     /**
-     * @author zhongml [2020/4/28]
      * 条件查询用户列表数量
      *
      * @param username
      * @return
+     * @author zhongml [2020/4/28]
      */
     int countByCondition(String username);
 
     /**
-     * @author zhongml [2020/5/8]
      * 更新ACB
      *
      * @param username
      * @param ACB
      * @return
+     * @author zhongml [2020/5/8]
      */
     int updateACB(String username, Integer ACB);
 
     /**
      * 统计新注册用户
-     * @param pastDaysList
      *
+     * @param pastDaysList
      * @return
      */
     Integer[] getNewRegister(List<String> pastDaysList);

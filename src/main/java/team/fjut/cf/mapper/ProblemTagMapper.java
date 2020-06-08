@@ -11,6 +11,7 @@ import java.util.List;
 public interface ProblemTagMapper extends Mapper<ProblemTagPO> {
     /**
      * 查找全部题目标签类型
+     *
      * @return
      */
     List<ProblemTagPO> all();

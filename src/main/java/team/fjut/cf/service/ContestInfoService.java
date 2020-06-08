@@ -27,8 +27,7 @@ public interface ContestInfoService {
                                           String searchTitle,
                                           Integer searchPermission,
                                           Integer searchStatus,
-                                          Integer pageNum,
-                                          Integer pageSize);
+                                          Integer pageNum, Integer pageSize);
 
     /**
      * 根据条件查询不同比赛类型记录数
@@ -46,6 +45,7 @@ public interface ContestInfoService {
 
     /**
      * 根据比赛ID查询比赛信息
+     *
      * @param contestId
      * @return
      */
@@ -53,44 +53,44 @@ public interface ContestInfoService {
 
     /**
      * 查询所有比赛
-     * @author zhongml [2020/5/7]
      *
      * @return
+     * @author zhongml [2020/5/7]
      */
     List<ContestInfoPO> selectAll();
 
     /**
      * 管理员新增比赛
-     * @author zhongml [2020/4/23]
      *
      * @param contestInfoVO
      * @return
+     * @author zhongml [2020/4/23]
      */
     Integer createContest(ContestInfoVO contestInfoVO);
 
     /**
      * 管理员修改比赛信息
-     * @author zhongml [2020/5/14]
      *
      * @param newContestVO
      * @return
+     * @author zhongml [2020/5/14]
      */
     Integer updateContest(ContestInfoVO newContestVO);
 
 
     /**
      * 统计正在进行的比赛
-     * @author zhongml [2020/5/12]
      *
      * @return
+     * @author zhongml [2020/5/12]
      */
     Integer countContestInProgress();
 
     /**
      * 统计比赛类型数
-     * @author zhongml [2020/5/14]
      *
      * @return
+     * @author zhongml [2020/5/14]
      */
     List<ContestTypeVO> getContestTypeCount();
 }

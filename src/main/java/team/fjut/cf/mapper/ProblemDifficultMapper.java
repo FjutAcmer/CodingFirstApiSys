@@ -1,8 +1,8 @@
 package team.fjut.cf.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import team.fjut.cf.pojo.po.ProblemDifficultPO;
 import team.fjut.cf.pojo.po.ProblemTypeCountPO;
-import org.apache.ibatis.annotations.Param;
 import team.fjut.cf.pojo.vo.response.SubmitProblemTypeVO;
 
 import java.util.List;
@@ -36,12 +36,14 @@ public interface ProblemDifficultMapper {
 
     /**
      * 查询题目类型总计
+     *
      * @return
      */
     List<ProblemTypeCountPO> selectCountType();
 
     /**
      * 提交数最多的题目类型
+     *
      * @return
      */
     List<SubmitProblemTypeVO> selectSubmitProblemType();

@@ -1,6 +1,5 @@
 package team.fjut.cf.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import team.fjut.cf.component.judge.vjudge.VirtualJudgeHttpClient;
@@ -12,18 +11,20 @@ import team.fjut.cf.pojo.po.VjUserProblemSolved;
 import team.fjut.cf.service.VjJudgeResultService;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
+
 /**
  * @author axiang [2020/3/21]
  */
 @Service
 public class VjJudgeResultServiceImpl implements VjJudgeResultService {
-    @Autowired
+    @Resource
     VjJudgeResultMapper vjJudgeResultMapper;
 
-    @Autowired
+    @Resource
     VjUserProblemSolvedMapper vjUserProblemSolvedMapper;
 
-    @Autowired
+    @Resource
     VirtualJudgeHttpClient virtualJudgeHttpClient;
 
     @Override

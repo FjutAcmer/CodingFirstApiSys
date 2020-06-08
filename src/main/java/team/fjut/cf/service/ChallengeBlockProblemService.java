@@ -20,8 +20,7 @@ public interface ChallengeBlockProblemService {
      */
     List<ChallengeBlockProblemVO> pagesByBlockId(String username,
                                                  Integer blockId,
-                                                 Integer pageNum,
-                                                 Integer pageSize);
+                                                 Integer pageNum, Integer pageSize);
 
     /**
      * 查询模块内题目的总数量
@@ -33,7 +32,6 @@ public interface ChallengeBlockProblemService {
 
 
     /**
-     * @author zhongml [2020/4/24]
      * 根据ID查询挑战模块题目列表
      *
      * @param pageNum
@@ -41,32 +39,33 @@ public interface ChallengeBlockProblemService {
      * @param sort
      * @param blockId
      * @return
+     * @author zhongml [2020/4/24]
      */
     List<ChallengeBlockProblemVO> selectProblemByBlockId(Integer pageNum, Integer pageSize, String sort, Integer blockId);
 
     /**
-     * @author zhongml [2020/4/24]
      * 查询挑战模块题目数量
      *
      * @param blockId
      * @return
+     * @author zhongml [2020/4/24]
      */
     int countProblemByBlockId(Integer blockId);
 
     /**
-     * @author zhongml [2020/4/24]
      * 插入模块题目
      *
      * @return
+     * @author zhongml [2020/4/24]
      */
     int insertProblems(Integer blockId, List<ChallengeBlockProblemAdminVO> challengeProblems);
 
     /**
-     * @author zhongml [2020/4/25]
      * 按blockId删除所有模块题目
      *
      * @param blockId
      * @return
+     * @author zhongml [2020/4/25]
      */
     int deleteProblems(Integer blockId);
 }

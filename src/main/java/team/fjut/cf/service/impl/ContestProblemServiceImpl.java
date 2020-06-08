@@ -1,15 +1,13 @@
 package team.fjut.cf.service.impl;
 
+import org.springframework.stereotype.Service;
 import team.fjut.cf.mapper.ContestProblemMapper;
 import team.fjut.cf.pojo.po.ContestProblemPO;
 import team.fjut.cf.pojo.vo.response.ContestProblemVO;
 import team.fjut.cf.service.ContestProblemService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,12 +33,12 @@ public class ContestProblemServiceImpl implements ContestProblemService {
         Integer result = 1;
         Example example = new Example(ContestProblemPO.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo("contestId",contestId);
+        criteria.andEqualTo("contestId", contestId);
         Integer result1 = contestProblemMapper.deleteByExample(example);
         Integer result2 = contestProblemMapper.insertProblems(problems, contestId);
-        if (result1 == 0 || result2 ==0) {
+        if (result1 == 0 || result2 == 0) {
             result = 0;
         }
-        return  result;
+        return result;
     }
 }

@@ -37,7 +37,6 @@ public interface ViewJudgeStatusService {
                           String nickname, Integer problemId, Integer result, Integer language);
 
     /**
-     * @author zhongml [2020/4/27]
      * 后台管理分页查询评测列表
      *
      * @param pageNum
@@ -48,12 +47,12 @@ public interface ViewJudgeStatusService {
      * @param result
      * @param language
      * @return
+     * @author zhongml [2020/4/27]
      */
     List<StatusAdminVO> selectByPage(Integer pageNum, Integer pageSize, String sort, Integer contestId,
                                      String username, Integer problemId, Integer result, Integer language);
 
     /**
-     * @author zhongml [2020/4/27]
      * 后台管理查询页数
      *
      * @param contestId
@@ -62,14 +61,15 @@ public interface ViewJudgeStatusService {
      * @param result
      * @param language
      * @return
+     * @author zhongml [2020/4/27]
      */
     int countByPage(Integer contestId, String username, Integer problemId, Integer result, Integer language);
 
     /**
-     * @author zhongml [2020/5/14]
-     *
      * 统计ac数与提交数
+     *
      * @return
+     * @author zhongml [2020/5/14]
      */
     AcAndSubmitVO selectAcAndSubmit(List<String> pastDaysList);
 }

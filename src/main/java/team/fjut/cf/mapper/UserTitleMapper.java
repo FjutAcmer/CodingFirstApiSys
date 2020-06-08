@@ -13,11 +13,11 @@ import java.util.List;
 public interface UserTitleMapper extends Mapper<UserTitle> {
 
     /**
-     * @author zhongml [2020/4/28]
      * 查询用户称号记录
      *
      * @param username
      * @return
+     * @author zhongml [2020/4/28]
      */
     List<UserTitleInfoVO> selectByCondition(@Param("username") String username);
 

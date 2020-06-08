@@ -39,7 +39,6 @@ public class ProblemServiceImpl implements ProblemService {
     public List<UserRadarVO> selectUserProblemRadarByUsername(String username) {
         List<ProblemTypeCountPO> problemTypeCounts = problemDifficultMapper.selectCountType();
         List<ProblemTypeCountPO> userProblemTypeCounts = userProblemSolvedMapper.selectCountTypeByUsername(username);
-
         List<UserRadarVO> results = new ArrayList<>();
         Map<Integer, Integer> map = new HashMap<>();
         map.put(0, 0);
@@ -75,13 +74,10 @@ public class ProblemServiceImpl implements ProblemService {
         // TODO: 可以做更多的操作
         Random random = new Random();
         Set<Integer> set = new TreeSet<>();
-        while (true) {
+        do {
             int randomInt = random.nextInt(totalUnsolved);
             set.add(randomInt);
-            if (set.size() == 3) {
-                break;
-            }
-        }
+        } while (set.size() != 3);
         for (Integer i : set) {
             results.add(problemInfos.get(i));
         }

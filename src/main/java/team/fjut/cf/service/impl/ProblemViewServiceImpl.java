@@ -1,9 +1,7 @@
 package team.fjut.cf.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team.fjut.cf.mapper.ProblemViewMapper;
-import team.fjut.cf.pojo.po.ProblemSample;
 import team.fjut.cf.pojo.po.ProblemView;
 import team.fjut.cf.service.ProblemViewService;
 import tk.mybatis.mapper.entity.Example;
@@ -25,7 +23,6 @@ public class ProblemViewServiceImpl implements ProblemViewService {
         return problemViewMapper.selectOneByExample(example);
     }
 
-    // add by zhongml [2020/4/17]
     @Override
     public int updateView(ProblemView problemView) {
         Example example = new Example(ProblemView.class);

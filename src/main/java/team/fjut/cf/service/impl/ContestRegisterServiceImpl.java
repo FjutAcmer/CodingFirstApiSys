@@ -1,17 +1,13 @@
 package team.fjut.cf.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import team.fjut.cf.mapper.ContestProblemMapper;
 import team.fjut.cf.mapper.ContestRegisterMapper;
 import team.fjut.cf.pojo.enums.ContestKind;
 import team.fjut.cf.pojo.enums.ContestReviewStatus;
-import team.fjut.cf.pojo.po.ContestProblemPO;
 import team.fjut.cf.pojo.po.ContestRegisterUserPO;
 import team.fjut.cf.pojo.vo.ContestRegisterUserVO;
 import team.fjut.cf.service.ContestInfoService;
-import team.fjut.cf.service.ContestProblemService;
 import team.fjut.cf.service.ContestRegisterService;
 import tk.mybatis.mapper.entity.Example;
 
@@ -36,10 +32,9 @@ public class ContestRegisterServiceImpl implements ContestRegisterService {
         PageHelper.startPage(pageNum, pageSize);
         Example example = new Example(ContestRegisterUserPO.class);
         List<ContestRegisterUserVO> result = new ArrayList<>();
-        if(sort != null && sort.equals("descending")) {
+        if (sort != null && sort.equals("descending")) {
             example.orderBy("contestId").desc();
-        }
-        else {
+        } else {
             example.orderBy("contestId").asc();
         }
         Example.Criteria criteria = example.createCriteria();

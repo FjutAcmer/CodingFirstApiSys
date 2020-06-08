@@ -32,8 +32,6 @@ public class UserCaptchaServiceImpl implements UserCaptchaService {
             userCaptcha.setId(oldUserCaptcha.getId());
             return userCaptchaMapper.updateByPrimaryKey(userCaptcha);
         }
-
-
     }
 
     @Override

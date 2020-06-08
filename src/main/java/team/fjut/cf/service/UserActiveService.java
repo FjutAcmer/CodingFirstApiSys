@@ -1,7 +1,5 @@
 package team.fjut.cf.service;
 
-import team.fjut.cf.pojo.vo.response.UserActiveVO;
-
 import java.util.List;
 
 /**
@@ -10,8 +8,8 @@ import java.util.List;
 public interface UserActiveService {
     /**
      * 统计用户活跃度与新用户
-     * @param pastDaysList
      *
+     * @param pastDaysList
      * @return
      */
     Integer[] getUserActive(List<String> pastDaysList);

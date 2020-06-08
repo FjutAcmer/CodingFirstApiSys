@@ -33,7 +33,6 @@ public interface MallGoodsService {
     MallGoods selectByGoodsId(Integer id);
 
     /**
-     * @author zhongml [2020/4/21]
      * 条件查询商品列表
      *
      * @param pageNum
@@ -42,43 +41,44 @@ public interface MallGoodsService {
      * @param id
      * @param name
      * @return
+     * @author zhongml [2020/4/21]
      */
     List<MallGoods> selectByCondition(Integer pageNum, Integer pageSize, String sort, Integer id, String name);
 
     /**
-     * @author zhongml [2020/4/21]
      * 条件查询商品数量
      *
      * @param id
      * @param name
      * @return
+     * @author zhongml [2020/4/21]
      */
     int countByCondition(Integer id, String name);
 
     /**
-     * @author zhongml [2020/4/21]
      * 新增一件商品
      *
      * @param mallGoods
      * @return
+     * @author zhongml [2020/4/21]
      */
     int createGoods(MallGoods mallGoods);
 
     /**
-     * @author zhongml [2020/4/21]
      * 根据ID修改商品信息
      *
      * @param mallGoods
      * @return
+     * @author zhongml [2020/4/21]
      */
     int updateGoods(MallGoods mallGoods);
 
     /**
-     * @author zhongml [2020/4/21]
      * 根据ID删除商品
      *
      * @param id
      * @return
+     * @author zhongml [2020/4/21]
      */
     int deleteGoods(Integer id);
 

@@ -1,6 +1,7 @@
 package team.fjut.cf.service.impl;
 
 import com.github.pagehelper.PageHelper;
+import org.springframework.stereotype.Service;
 import team.fjut.cf.mapper.ContestInfoMapper;
 import team.fjut.cf.pojo.enums.ContestKind;
 import team.fjut.cf.pojo.enums.ContestPermission;
@@ -9,7 +10,6 @@ import team.fjut.cf.pojo.vo.ContestInfoVO;
 import team.fjut.cf.pojo.vo.ContestListVO;
 import team.fjut.cf.pojo.vo.response.ContestTypeVO;
 import team.fjut.cf.service.ContestInfoService;
-import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
@@ -77,7 +77,7 @@ public class ContestInfoServiceImpl implements ContestInfoService {
         return  contestInfoMapper.selectByExample(example);
     }
 
-    // add by zhongml [2020/4/23]
+
     @Override
     public Integer createContest(ContestInfoVO newContestVO) {
         ContestInfoPO contestInfoPO = new ContestInfoPO();

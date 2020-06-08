@@ -13,32 +13,32 @@ import java.util.List;
 public interface UserPermissionMapper extends Mapper<UserPermission> {
 
     /**
-     * @author zhongml [2020/4/30]
      * @param username
      * @param granter
      * @param permissionTypes
      * @return
+     * @author zhongml [2020/4/30]
      */
     int insertAllPermissions(@Param("username") String username,
                              @Param("granter") String granter,
                              @Param("permissions") List<PermissionTypePO> permissionTypes);
 
     /**
-     * @author zhongml [2020/4/30]
      * @param userPermissions
      * @return
+     * @author zhongml [2020/4/30]
      */
     int deletePermissions(@Param("username") String username, @Param("userPermissions") List<UserPermission> userPermissions);
 
     /**
-     * @author zhongml [2020/4/30]
      * @param username
      * @param granter
      * @param permissionIds
      * @return
+     * @author zhongml [2020/4/30]
      */
     int insertPermissions(@Param("username") String username,
-                             @Param("granter") String granter,
-                             @Param("permissionIds") List<Integer> permissionIds);
+                          @Param("granter") String granter,
+                          @Param("permissionIds") List<Integer> permissionIds);
 
 }

@@ -1,10 +1,10 @@
 package team.fjut.cf.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import team.fjut.cf.pojo.po.ChallengeBlockProblemPO;
 import team.fjut.cf.pojo.vo.ChallengeBlockProblemAdminVO;
 import team.fjut.cf.pojo.vo.ChallengeBlockProblemVO;
 import team.fjut.cf.pojo.vo.UserChallengeBlockVO;
-import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -64,21 +64,19 @@ public interface ChallengeBlockProblemMapper extends Mapper<ChallengeBlockProble
     Integer selectTotalScoreByBlockId(@Param("blockId") Integer blockId);
 
     /**
-     * @author zhongml [2020/4/25]
-     * 后台管理查询模块所有题目列表
-     *
      * @param blockId
      * @return
+     * @author zhongml [2020/4/25]
+     * 后台管理查询模块所有题目列表
      */
     List<ChallengeBlockProblemAdminVO> selectProblemsByBlockId(@Param("blockId") Integer blockId);
 
     /**
-     * @author zhongml [2020/4/24]
-     * 批量插入模块题目
-     *
      * @param blockId
      * @param challengeProblems
      * @return
+     * @author zhongml [2020/4/24]
+     * 批量插入模块题目
      */
     Integer insertProblems(@Param("blockId") Integer blockId, @Param("list") List<ChallengeBlockProblemAdminVO> challengeProblems);
 

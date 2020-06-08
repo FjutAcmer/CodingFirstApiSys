@@ -12,6 +12,7 @@ import team.fjut.cf.pojo.enums.ChallengeBlockType;
 import team.fjut.cf.pojo.po.ChallengeBlockConditionPO;
 import team.fjut.cf.pojo.po.ChallengeBlockPO;
 import team.fjut.cf.pojo.po.ChallengeUserOpenBlockPO;
+import team.fjut.cf.pojo.po.UserMessage;
 import team.fjut.cf.pojo.vo.ChallengeBlockAdminVO;
 import team.fjut.cf.pojo.vo.ChallengeBlockProblemAdminVO;
 import team.fjut.cf.pojo.vo.ChallengeBlockVO;
@@ -48,14 +49,14 @@ public class ChallengeBlockServiceImpl implements ChallengeBlockService {
     @Override
     public Integer unlockBlock(ChallengeUserOpenBlockPO challengeUserOpenBlockPO) {
         Integer integer = challengeUserOpenBlockMapper.insert(challengeUserOpenBlockPO);
-        // FIXME: 站内消息表更改
-        //UserMessage userMessage = new UserMessage();
-        //userMessage.setUsername(challengeUserOpenBlockPO.getUsername());
-        //userMessage.setTime(challengeUserOpenBlockPO.getUnlockTime());
-        //userMessage.setTitle("恭喜您解锁了新的挑战模式模块！");
-        //userMessage.setText("恭喜您解锁了新的挑战模式模块，快进去看看吧");
-        //userMessage.setStatus(0);
-        //userMessageService.insert(userMessage);
+        UserMessage userMessage = new UserMessage();
+        userMessage.setToUsername(challengeUserOpenBlockPO.getUsername());
+        userMessage.setFromUsername("SYSTEM");
+        userMessage.setTime(challengeUserOpenBlockPO.getUnlockTime());
+        userMessage.setTitle("恭喜您解锁了新的挑战模式模块！");
+        userMessage.setText("恭喜您解锁了新的挑战模式模块，快进去看看吧");
+        userMessage.setStatus(0);
+        userMessageService.insertMessage(userMessage);
         return integer;
     }
 
@@ -164,7 +165,6 @@ public class ChallengeBlockServiceImpl implements ChallengeBlockService {
 
     }
 
-    // add by zhongml [2020/4/24]
     @Override
     public List<ChallengeBlockAdminVO> selectByCondition(Integer pageNum, Integer pageSize, String sort, String name) {
         List<ChallengeBlockAdminVO> results = new ArrayList<>();
@@ -200,7 +200,6 @@ public class ChallengeBlockServiceImpl implements ChallengeBlockService {
         return results;
     }
 
-    // add by zhongml [2020/4/24]
     @Override
     public int countByCondition(String name) {
         Example example = new Example(ChallengeBlockPO.class);
@@ -211,19 +210,19 @@ public class ChallengeBlockServiceImpl implements ChallengeBlockService {
         return challengeBlockMapper.selectCountByExample(example);
     }
 
-    // add by zhongml [2020/4/24]
+
     @Override
     public List<ChallengeBlockPO> selectAll() {
         return challengeBlockMapper.selectAll();
     }
 
-    // add by zhongml [2020/4/24]
+
     @Override
     public int createChallenge(ChallengeBlockPO challengeBlockPO) {
         return challengeBlockMapper.insertSelective(challengeBlockPO);
     }
 
-    // add by zhongml [2020/4/24]
+
     @Override
     public int updateChallenge(ChallengeBlockPO challengeBlockPO) {
         Example example = new Example(ChallengeBlockPO.class);
@@ -231,7 +230,7 @@ public class ChallengeBlockServiceImpl implements ChallengeBlockService {
         return challengeBlockMapper.updateByExampleSelective(challengeBlockPO, example);
     }
 
-    // add by zhongml [2020/4/24]
+
     @Override
     public int deleteChallenge(Integer blockId) {
         Example example = new Example(ChallengeBlockPO.class);
@@ -239,7 +238,7 @@ public class ChallengeBlockServiceImpl implements ChallengeBlockService {
         return challengeBlockMapper.deleteByExample(example);
     }
 
-    // add by zhongml [2020/4/24]
+
     @Override
     public int insertConditionBlocks(Integer blockId, List<ChallengeBlockConditionVO> preconditonBlocks) {
         return challengeBlockConditionMapper.insertConditionBlocks(blockId, preconditonBlocks);

@@ -1,7 +1,6 @@
 package team.fjut.cf.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team.fjut.cf.component.judge.vjudge.pojo.enums.LanguageType;
 import team.fjut.cf.component.judge.vjudge.pojo.enums.StatusType;
@@ -13,6 +12,7 @@ import team.fjut.cf.pojo.vo.VjJudgeResultVO;
 import team.fjut.cf.service.ViewVjJudgeResultService;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,10 +23,10 @@ import java.util.Objects;
 @Service
 public class ViewVjJudgeResultServiceImpl implements ViewVjJudgeResultService {
 
-    @Autowired
+    @Resource
     ViewVjJudgeResultMapper viewVjJudgeResultMapper;
 
-    @Autowired
+    @Resource
     UserCustomInfoMapper userCustomInfoMapper;
 
 

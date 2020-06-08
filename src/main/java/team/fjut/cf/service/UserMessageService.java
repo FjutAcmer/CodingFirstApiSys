@@ -82,7 +82,6 @@ public interface UserMessageService {
                           String fromUsername, Integer status, String title);
 
     /**
-     *
      * 新增通知
      *
      * @param userMessage

@@ -1,8 +1,8 @@
 package team.fjut.cf.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import team.fjut.cf.pojo.po.JudgeStatus;
 import team.fjut.cf.pojo.vo.StatusCountVO;
-import org.apache.ibatis.annotations.Param;
 import team.fjut.cf.pojo.vo.response.LanguageUsedNumVO;
 import tk.mybatis.mapper.common.Mapper;
 
@@ -19,7 +19,6 @@ public interface JudgeStatusMapper extends Mapper<JudgeStatus> {
      * @return
      */
     List<StatusCountVO> selectCountByDay(@Param("days") int days);
-
 
 
     /**

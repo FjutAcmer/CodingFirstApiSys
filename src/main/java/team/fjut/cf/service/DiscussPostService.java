@@ -27,57 +27,57 @@ public interface DiscussPostService {
     Integer allCount();
 
     /**
-     * @author zhongml [2020/4/27]
      * 查询全部聊天回复数量
      *
      * @return
+     * @author zhongml [2020/4/27]
      */
     Integer countReplyById(Integer id);
 
     /**
-     * @author zhongml [2020/4/27]
      * 条件查询聊天帖子
      *
      * @param pageNum
      * @param pageSize
      * @return
+     * @author zhongml [2020/4/27]
      */
     List<DiscussPostVO> selectByCondition(int pageNum, int pageSize, String sort, String title, String author);
 
     /**
-     * @author zhongml [2020/4/27]
      * 条件查询聊天数量
      *
      * @return
+     * @author zhongml [2020/4/27]
      */
     Integer countByCondition(String title, String author);
 
     /**
-     * @author zhongml [2020/4/27]
      * 根据ID删除聊天
      *
      * @param id
      * @return
+     * @author zhongml [2020/4/27]
      */
     int deletePost(Integer id);
 
     /**
-     * @author zhongml [2020/4/27]
      * 根据ID删除回复
      *
      * @param id
      * @return
+     * @author zhongml [2020/4/27]
      */
     int deleteReplyPost(Integer id);
 
     /**
-     * @author zhongml [2020/4/27]
      * 根据ID获取所有回复
      *
      * @param pageNum
      * @param pageSize
      * @param id
      * @return
+     * @author zhongml [2020/4/27]
      */
     List<DiscussReplyPostVO> selectByPage(Integer pageNum, Integer pageSize, Integer id);
 }

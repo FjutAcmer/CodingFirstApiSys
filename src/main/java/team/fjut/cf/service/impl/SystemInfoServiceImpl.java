@@ -1,18 +1,19 @@
 package team.fjut.cf.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team.fjut.cf.mapper.SystemInfoMapper;
 import team.fjut.cf.pojo.po.SystemInfo;
 import team.fjut.cf.service.SystemInfoService;
 import tk.mybatis.mapper.entity.Example;
 
+import javax.annotation.Resource;
+
 /**
  * @author axiang [2019/10/30]
  */
 @Service
 public class SystemInfoServiceImpl implements SystemInfoService {
-    @Autowired
+    @Resource
     SystemInfoMapper systemInfoMapper;
 
 

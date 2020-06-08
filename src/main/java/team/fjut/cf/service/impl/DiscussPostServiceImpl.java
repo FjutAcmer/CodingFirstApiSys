@@ -1,13 +1,11 @@
 package team.fjut.cf.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import io.swagger.models.auth.In;
 import org.springframework.stereotype.Service;
 import team.fjut.cf.mapper.DiscussPostMapper;
 import team.fjut.cf.mapper.DiscussReplyPostMapper;
 import team.fjut.cf.pojo.po.DiscussPostPO;
 import team.fjut.cf.pojo.po.DiscussReplyPostPO;
-import team.fjut.cf.pojo.po.UserCustomInfo;
 import team.fjut.cf.pojo.vo.DiscussPostVO;
 import team.fjut.cf.pojo.vo.DiscussReplyPostVO;
 import team.fjut.cf.pojo.vo.UserCustomInfoVO;
@@ -46,7 +44,6 @@ public class DiscussPostServiceImpl implements DiscussPostService {
         return discussPostMapper.allCount();
     }
 
-    // add by zhongml [2020/4/27]
     @Override
     public Integer countReplyById(Integer id) {
         Example example = new Example(DiscussReplyPostPO.class);
@@ -54,16 +51,14 @@ public class DiscussPostServiceImpl implements DiscussPostService {
         return discussReplyPostMapper.selectCountByExample(example);
     }
 
-    // add by zhongml [2020/4/27]
     @Override
     public List<DiscussPostVO> selectByCondition(int pageNum, int pageSize, String sort, String title, String author) {
         List<DiscussPostVO> results = new ArrayList<>();
         PageHelper.startPage(pageNum, pageSize);
         Example example = new Example(DiscussPostPO.class);
-        if(sort != null && sort.equals("ascending")) {
+        if (sort != null && sort.equals("ascending")) {
             example.orderBy("time").asc();
-        }
-        else {
+        } else {
             example.orderBy("time").desc();
         }
         Example.Criteria criteria = example.createCriteria();
@@ -90,7 +85,7 @@ public class DiscussPostServiceImpl implements DiscussPostService {
         return results;
     }
 
-    // add by zhongml [2020/4/27]
+
     @Override
     public Integer countByCondition(String title, String author) {
         Example example = new Example(DiscussPostPO.class);
@@ -104,7 +99,6 @@ public class DiscussPostServiceImpl implements DiscussPostService {
         return discussPostMapper.selectCountByExample(example);
     }
 
-    // add by zhongml [2020/4/27]
     @Override
     public int deletePost(Integer id) {
         Example example = new Example(DiscussPostPO.class);

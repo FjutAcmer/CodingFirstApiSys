@@ -184,7 +184,7 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
             example1.createCriteria().andEqualTo("username", userBase.getUsername());
             UserCustomInfo userCustomInfo = userCustomInfoMapper.selectOneByExample(example1);
             String nickname = Objects.isNull(userCustomInfo)
-                    ? "【无名氏】"
+                    ? String.format("【%s】", userBase.getUsername())
                     : userCustomInfo.getNickname();
             userAcbBorderVO.setNick(nickname);
             userAcbBorderVO.setAcb(userBase.getAcb());
@@ -209,7 +209,7 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
             example1.createCriteria().andEqualTo("username", username);
             UserCustomInfo userCustomInfo = userCustomInfoMapper.selectOneByExample(example1);
             String nickname = Objects.isNull(userCustomInfo)
-                    ? "【无名氏】"
+                    ? String.format("【%s】", userBase.getUsername())
                     : userCustomInfo.getNickname();
             userAcNumBorderVO.setNick(nickname);
             userAcNumBorderVOS.add(userAcNumBorderVO);
@@ -232,7 +232,7 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
             example1.createCriteria().andEqualTo("username", username);
             UserCustomInfo userCustomInfo = userCustomInfoMapper.selectOneByExample(example1);
             String nickname = Objects.isNull(userCustomInfo)
-                    ? "【无名氏】"
+                    ? String.format("【%s】", userBase.getUsername())
                     : userCustomInfo.getNickname();
             userRatingBorderVO.setNick(nickname);
             userRatingBorderVO.setRating(userBase.getRating());
@@ -241,14 +241,13 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
         return userRatingBorderVOS;
     }
 
-    // add by zhongml [2020/4/28]
     @Override
     public List<UserInfoAdminVO> pageByCondition(Integer pageNum, Integer pageSize, String sort, String sortItem, String username) {
         PageHelper.startPage(pageNum, pageSize);
         return userBaseInfoMapper.selectByCondition(username, sort, sortItem);
     }
 
-    // add by zhongml [2020/4/28]
+
     @Override
     public int countByCondition(String username) {
         return userBaseInfoMapper.selectCountByCondition(username);
@@ -259,7 +258,7 @@ public class UserBaseInfoServiceImpl implements UserBaseInfoService {
         return userBaseInfoMapper.updateACB(username, ACB);
     }
 
-    // add by zhongml [2020/5/12]
+
     @Override
     public Integer[] getNewRegister(List<String> pastDaysList) {
         Integer[] userActive = new Integer[7];

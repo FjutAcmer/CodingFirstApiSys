@@ -45,11 +45,11 @@ public interface ChallengeBlockConditionMapper extends Mapper<ChallengeBlockCond
 
     /**
      * 批量插入前置模块
-     * @author zhongml [2020/4/24]
      *
      * @param blockId
      * @param preconditonBlocks
      * @return
+     * @author zhongml [2020/4/24]
      */
     Integer insertConditionBlocks(@Param("blockId") Integer blockId, @Param("list") List<ChallengeBlockConditionVO> preconditonBlocks);
 }

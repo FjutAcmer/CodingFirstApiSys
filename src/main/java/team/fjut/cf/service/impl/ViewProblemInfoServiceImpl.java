@@ -1,7 +1,6 @@
 package team.fjut.cf.service.impl;
 
 import com.github.pagehelper.PageHelper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import team.fjut.cf.mapper.UserProblemSolvedMapper;
@@ -65,7 +64,7 @@ public class ViewProblemInfoServiceImpl implements ViewProblemInfoService {
             criteria.andLike("title", title);
         }
         if (Objects.nonNull(tagId)) {
-            //    TODO:暂不选择TagId
+            //TODO:暂不选择TagId
         }
         List<ViewProblemInfo> viewProblemInfos = viewProblemInfoMapper.selectByExample(example);
         for (ViewProblemInfo item : viewProblemInfos) {
@@ -105,12 +104,11 @@ public class ViewProblemInfoServiceImpl implements ViewProblemInfoService {
             criteria.andLike("title", title);
         }
         if (Objects.nonNull(tagId)) {
-            //    TODO:暂不选择TagId
+            //TODO:暂不选择TagId
         }
         return viewProblemInfoMapper.selectCountByExample(example);
     }
 
-    // add by zhongml [2020/4/17]
     @Override
     public List<ProblemListAdminVO> selectByCondition(int pageNum, int pageSize, String sort, String title, Integer difficultLevel) {
         List<ProblemListAdminVO> results = new ArrayList<>();
@@ -118,10 +116,9 @@ public class ViewProblemInfoServiceImpl implements ViewProblemInfoService {
         PageHelper.startPage(pageNum, pageSize);
         Example example = new Example(ViewProblemInfo.class);
 
-        if(sort != null && sort.equals("descending")) {
+        if (sort != null && sort.equals("descending")) {
             example.orderBy("problemId").desc();
-        }
-        else {
+        } else {
             example.orderBy("problemId").asc();
         }
         Example.Criteria criteria = example.createCriteria();
@@ -153,7 +150,6 @@ public class ViewProblemInfoServiceImpl implements ViewProblemInfoService {
         return results;
     }
 
-    // add by zhongml [2020/4/17]
     @Override
     public int countByCondition(String title, Integer difficultLevel) {
         Example example = new Example(ViewProblemInfo.class);

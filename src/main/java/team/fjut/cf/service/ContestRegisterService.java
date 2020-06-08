@@ -1,6 +1,5 @@
 package team.fjut.cf.service;
 
-import team.fjut.cf.pojo.po.ContestInfoPO;
 import team.fjut.cf.pojo.po.ContestRegisterUserPO;
 import team.fjut.cf.pojo.vo.ContestRegisterUserVO;
 
@@ -22,7 +21,8 @@ public interface ContestRegisterService {
      * @param username
      * @return
      */
-    List<ContestRegisterUserVO> pagesByConditions(Integer page, Integer limit, String sort, Integer contestKind, Integer reviewStatus, String username, Integer contestId);
+    List<ContestRegisterUserVO> pagesByConditions(Integer page, Integer limit, String sort,
+                                                  Integer contestKind, Integer reviewStatus, String username, Integer contestId);
 
     /**
      * 根据条件查询用户报名列表数量
@@ -32,7 +32,7 @@ public interface ContestRegisterService {
      * @param username
      * @return
      */
-    Integer selectCountByConditions( Integer contestKind, Integer reviewStatus, String username);
+    Integer selectCountByConditions(Integer contestKind, Integer reviewStatus, String username);
 
     /**
      * 修改用户报名审核状态

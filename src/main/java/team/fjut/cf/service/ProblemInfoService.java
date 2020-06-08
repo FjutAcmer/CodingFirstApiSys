@@ -42,18 +42,18 @@ public interface ProblemInfoService {
 
 
     /**
-     * @author zhongml [2020/5/14]
      * 统计submit最多的题目类型
      *
      * @return
+     * @author zhongml [2020/5/14]
      */
     List<SubmitProblemTypeVO> selectSubmitProblemType();
 
     /**
-     * @author zhongml [2020/5/14]
      * 统计题库的题目类型
      *
      * @return
+     * @author zhongml [2020/5/14]
      */
     List<ProblemTypeCountPO> countProblemType();
 
