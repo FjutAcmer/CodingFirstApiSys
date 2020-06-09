@@ -19,6 +19,6 @@ public class RootController {
 
     @GetMapping("/")
     public ResultJson getRootInfo() {
-        return new ResultJson(ResultCode.REQUIRED_SUCCESS,"一码当先 | CodingFirst");
+        return new ResultJson(ResultCode.REQUIRED_SUCCESS,"一码当先 | CodingFirst","jenkins测试");
     }
 }
