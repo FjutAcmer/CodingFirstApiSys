@@ -26,7 +26,18 @@ public class BorderController {
     @Resource
     UserBaseInfoService userBaseInfoService;
 
-    // mod by zhongml [2020/4/26] 添加后台管理条件查询参数，按条件查询数量
+    /**
+     * 添加后台管理条件查询参数，按条件查询数量
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param sort
+     * @param realName
+     * @param awardLevel
+     * @param contestLevel
+     * @return
+     * @author zhongml
+     */
     @GetMapping("/honor_rank")
     public ResultJson getHonorRankList(@RequestParam("pageNum") Integer pageNum,
                                        @RequestParam("pageSize") Integer pageSize,
@@ -42,6 +53,13 @@ public class BorderController {
         return resultJson;
     }
 
+    /**
+     * 迷你榜单，包括AC榜、富豪榜、积分榜
+     *
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
     @GetMapping("/mini")
     public ResultJson getUserBorder(@RequestParam("pageNum") Integer pageNum,
                                     @RequestParam("pageSize") Integer pageSize) {
