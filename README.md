@@ -50,5 +50,5 @@
 
 ## 鸣谢
 JetBrains 对本开源项目提供了免费激活码，在此表示感谢
-![Logo](http://qiniu.fjutcoder.com/icon-intellij-idea.png)
+![Logo](http://qiniu.fjutcoder.com/icon-intellij-idea.png =100x100)
 [点我进入JetBrains官网](https://www.jetbrains.com/?from=CodingFirstOnlineJudgeSystem)
