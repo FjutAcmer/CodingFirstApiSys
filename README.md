@@ -47,3 +47,8 @@
 4. 新建 Pull Request，提请提交到主仓库中；
 5. 主仓库审核完毕，即可并入主仓库主线；
 6. 主仓库审核失败，退回。
+
+## 鸣谢
+JetBrains 对本开源项目提供了免费激活码，在此表示感谢
+![Logo](http://qiniu.fjutcoder.com/icon-intellij-idea.png)
+[点我进入JetBrains官网](https://www.jetbrains.com/?from=CodingFirstOnlineJudgeSystem)
